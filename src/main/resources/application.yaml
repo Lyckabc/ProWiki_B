@@ -1,0 +1,21 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:postgresql://localhost:5432/prowikiq
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: 1q!1q!1q!
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+
+  jwt:
+    secret: provincewikiquestwithyou #원래는 공개하면 안됨.
+    time: 3600000
