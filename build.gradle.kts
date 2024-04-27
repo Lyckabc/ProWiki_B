@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     // Apply the Kotlin JVM plugin to support Kotlin in the JVM environment
     kotlin("jvm") version "1.5.31" apply true
+    kotlin("plugin.spring") version "1.5.31"
     // Apply the Spring Boot plugin to manage bootstrapping and runtime configurations
     id("org.springframework.boot") version "2.6.15"
     // Apply the Dependency Management plugin for managing dependencies versions more effectively
@@ -43,6 +44,12 @@ dependencies {
     // Kotlin Libraries
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    //
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
 }
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments
