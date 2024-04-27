@@ -35,15 +35,10 @@ public class UserController {
         return ResponseEntity.ok("join successfully");
     }
 
-   /* @ApiOperation(value = "로그인", notes = "jwt 토큰을 사용하여 로그인시 토큰을 부여합니다.")
+    @ApiOperation(value = "로그인", notes = "jwt 토큰을 사용하여 로그인시 토큰을 부여합니다.")
     @PostMapping("/login")
     public String login(@RequestBody UserCreateDto userCreateDto) {
         return "Bearer " + userService.login(userCreateDto);
-    }*/
-
-   /* @GetMapping("/login")
-    public String login() {
-        return "login"; // Name of the HTML file for the login page (without the .html extension)
-    }*/
+    }
 
 }

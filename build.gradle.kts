@@ -47,9 +47,12 @@ dependencies {
     // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
-    //
+    //api Doc
     implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
+    //jwt
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ("io.jsonwebtoken:jjwt:0.9.1")
 }
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments
