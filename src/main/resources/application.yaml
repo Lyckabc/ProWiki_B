@@ -19,3 +19,12 @@ spring:
   jwt:
     secret: provincewikiquestwithyou #원래는 공개하면 안됨.
     time: 3600000
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type: descriptor.sql.BasicBinder=TRACE
+
+
