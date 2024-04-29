@@ -38,8 +38,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport  {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("Swagger 3.0 Api Sample")
-            .description("This is Sample")
+            .title("ProWikiQ API")
+            .description("ProWikiQ API Doc")
             .version("1.0")
             .build();
     }
