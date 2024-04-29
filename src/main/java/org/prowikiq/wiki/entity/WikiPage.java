@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
 
 /**
@@ -31,21 +32,32 @@ import org.prowikiq.user.domain.entity.User;
 @Builder
 @Entity
 @Table(name = "\"wikipage\"")
-public class WikiPage extends BaseEntity {
+public class WikiPage extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pageId", nullable = false)
     private Long pageId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filePathId", referencedColumnName = "id")
+    private FilePath filePath;
+
+    @Column(name = "pageTitle", length = 255)
     private String pageTitle;
-    @Column(columnDefinition = "TEXT")
+
+    @Column(name = "pageContent", columnDefinition = "TEXT")
     private String pageContent;
+
+    @Column(name = "pageCategory", length = 255)
     private String pageCategory;
-    private String pagePath;
+
+    @Column(name = "pageFilePath", columnDefinition = "TEXT")
     private String pageFilePath;
 
-
+    // Getters and Setters
 }
