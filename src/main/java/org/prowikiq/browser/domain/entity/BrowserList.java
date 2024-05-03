@@ -67,5 +67,70 @@ public class BrowserList extends BaseEntity{
     @Column(name = "isFolder")
     private Boolean isFolder;
 
+
     // Getters and Setters
+
+    public Long getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(Long pageId) {
+        this.pageId = pageId;
+    }
+
+    public WikiPage getWikiPage() {
+        return wikiPage;
+    }
+
+    public void setWikiPage(WikiPage wikiPage) {
+        this.wikiPage = wikiPage;
+    }
+
+    public FilePath getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(FilePath filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
+
+    public String getPageCategory() {
+        return pageCategory;
+    }
+
+    public void setPageCategory(String pageCategory) {
+        this.pageCategory = pageCategory;
+    }
+
+    public LocalDateTime getTargetDay() {
+        return targetDay;
+    }
+
+    public void setTargetDay(LocalDateTime targetDay) {
+        this.targetDay = targetDay;
+    }
+
+    public LocalDateTime getFinishedDay() {
+        return finishedDay;
+    }
+
+    public void setFinishedDay(LocalDateTime finishedDay) {
+        this.finishedDay = finishedDay;
+    }
+
+    public Boolean getIsFolder() {
+        return isFolder;
+    }
+
+    public void setIsFolder(Boolean isFolder) {
+        this.isFolder = isFolder;
+    }
 }

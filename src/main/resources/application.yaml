@@ -22,6 +22,9 @@ spring:
 
   logging:
     level:
+      root: INFO
+    file:
+      name: logs/myapp.log
       org:
         hibernate:
           SQL: DEBUG
