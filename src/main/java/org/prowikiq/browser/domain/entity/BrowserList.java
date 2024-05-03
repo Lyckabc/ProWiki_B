@@ -67,6 +67,7 @@ public class BrowserList extends BaseEntity{
     @Column(name = "isFolder")
     private Boolean isFolder;
 
+
     // Getters and Setters
 
     public Long getPageId() {

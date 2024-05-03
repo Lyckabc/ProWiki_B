@@ -30,4 +30,6 @@ public class FilePath {
     public void setPath (String path) {
         this.path = path;
     }
+
+    public String getPath () { return path;}
 }
