@@ -30,4 +30,21 @@ public abstract class BaseEntity{
   @Column(nullable = true)
   private LocalDateTime modifiedAt;
 
+  // Getters and setters
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public LocalDateTime getModifiedAt() {
+    return modifiedAt;
+  }
+
+  public void setModifiedAt(LocalDateTime modifiedAt) {
+    this.modifiedAt = modifiedAt;
+  }
+
 }

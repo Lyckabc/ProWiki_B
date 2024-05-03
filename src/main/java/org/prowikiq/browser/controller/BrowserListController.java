@@ -1,14 +1,18 @@
 package org.prowikiq.browser.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.service.BrowserListService;
+import org.prowikiq.object.domain.entity.FilePath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 4/29/24 21:01 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
+@Api(tags = "Browser List Controller")
 @RestController
 @RequestMapping("/api/browserlists")
 public class BrowserListController {
@@ -74,14 +79,42 @@ public class BrowserListController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "가져오기", notes = "find ./Project_2023 -type d > ./directory_list.txt")
     @PostMapping("/import")
     public ResponseEntity<List<BrowserList>> importBrowserLists(@RequestParam("file") MultipartFile file) throws IOException {
         List<BrowserList> importedLists = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                BrowserList browserList = parseBrowserList(line);
-                if (browserList != null) {
+                String[] data = line.split(",");
+                if (data.length >= 9) {
+                    BrowserList browserList = new BrowserList();
+                    FilePath filePath = new FilePath();
+                    String pathOfFile = data[1].trim();
+                    String[] pathParts = pathOfFile.split("/");
+                    filePath.setPath(pathOfFile);
+                    // Assuming the first column is pageId, second is filePath and so on
+                    browserList.setPageId(Long.parseLong(data[0].trim()));
+                    // Here you would set other properties like filePath, pageTitle, etc.
+                    browserList.setFilePath(filePath);
+                    //browserList.setPageTitle(data[2].trim());
+                    String pageTitle = data[2].trim();
+                    if (pageTitle.isEmpty()) {
+                        // Extract the last part of the file path as the page title
+                        pageTitle = pathParts[pathParts.length - 1];  // Last part of the path
+                    }
+                    browserList.setPageTitle(pageTitle);
+                    browserList.setPageCategory(data[3].trim());
+                    // Handle dates and booleans appropriately
+                    // browserList.setTargetDay(LocalDateTime.parse(data[4].trim()));
+                    // browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
+                    // browserList.setIsFolder(Boolean.parseBoolean(data[6].trim()));
+                    // Determine if the path represents a folder or a file based on the presence of a period
+                    String lastSegment = pathParts[pathParts.length - 1];
+                    browserList.setIsFolder(!lastSegment.contains("."));  // True if no period (no file extension)
+                    browserList.setCreatedAt(LocalDateTime.now());
+                    browserList.setModifiedAt(LocalDateTime.now());
+
                     importedLists.add(browserListService.createBrowserList(browserList));
                 }
             }
@@ -89,20 +122,5 @@ public class BrowserListController {
         return ResponseEntity.ok(importedLists);
     }
 
-    private BrowserList parseBrowserList(String line) {
-        // Example: Assuming CSV format: getFilePath,pageTitle,pageCategory,targetDay,finishedDay,isFolder
-        String[] data = line.split(",");
-        if (data.length < 5) {
-            return null; // Not enough data to form a BrowserList
-        }
-        BrowserList browserList = new BrowserList();
-        browserList.setFilePath(data[0].trim());
-        browserList.setPageTitle(data[1].trim());
-        browserList.setPageCategory(data[2].trim());
-        browserList.setTargetDay(Timestamp.valueOf(data[3].trim()));
-        browserList.setFinishedDay(Timestamp.valueOf(data[4].trim()));
-        browserList.setIsFolder(Boolean.parseBoolean(data[5].trim()));
-        return browserList;
-    }
 
 }

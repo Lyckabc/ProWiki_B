@@ -26,4 +26,8 @@ public class FilePath {
 
     @Column(name = "path", nullable = false, columnDefinition = "TEXT")
     private String path;
+
+    public void setPath (String path) {
+        this.path = path;
+    }
 }
