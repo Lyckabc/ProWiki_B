@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.service.BrowserListService;
 import org.prowikiq.object.domain.entity.FilePath;
@@ -51,10 +52,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class BrowserListController {
 
     private final BrowserListService browserListService;
+    private final ResourceLoader resourceLoader;
 
     @Autowired
-    public BrowserListController(BrowserListService browserListService) {
+    public BrowserListController(BrowserListService browserListService, ResourceLoader resourceLoader) {
         this.browserListService = browserListService;
+        this.resourceLoader = resourceLoader;
     }
 
     @PostMapping
@@ -91,10 +94,14 @@ public class BrowserListController {
     @ApiOperation(value = "가져오기", notes = "find ./Project_2023 -type d > ./directory_list.txt :::: Import directory list from a file.")
     @PostMapping("/import")
     public ResponseEntity<List<BrowserList>> importBrowserLists() {
-        File file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "DB/directory_list - Sheet1.csv");
-        Stream<String> resourcePath = Files.lines(file.toPath());
-        List<BrowserList> importedLists = browserListService.importBrowserLists(resourcePath);
-        return ResponseEntity.ok(importedLists);
+        try {
+            Resource resource = resourceLoader.getResource("directory_list.csv");
+            String content = new String(Files.readAllBytes(resource.getFile().toPath()));
+            List<BrowserList> importedLists = browserListService.importBrowserLists(content);
+            return ResponseEntity.ok(importedLists);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

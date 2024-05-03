@@ -1,0 +1,37 @@
+2024-05-03 17:27:50 - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 64931 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-03 17:27:50 - No active profile set, falling back to 1 default profile: "default"
+2024-05-03 17:27:50 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-03 17:27:50 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-03 17:27:50 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03 17:27:50 - Finished Spring Data repository scanning in 14 ms. Found 2 JPA repository interfaces.
+2024-05-03 17:27:50 - Tomcat initialized with port(s): 8080 (http)
+2024-05-03 17:27:50 - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-03 17:27:50 - Starting service [Tomcat]
+2024-05-03 17:27:50 - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-03 17:27:50 - Initializing Spring embedded WebApplicationContext
+2024-05-03 17:27:50 - Root WebApplicationContext: initialization completed in 505 ms
+2024-05-03 17:27:50 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03 17:27:50 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-03 17:27:50 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-03 17:27:50 - HikariPool-1 - Starting...
+2024-05-03 17:27:50 - HikariPool-1 - Start completed.
+2024-05-03 17:27:50 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-03 17:27:51 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-03 17:27:51 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03 17:27:51 - LiveReload server is running on port 35729
+2024-05-03 17:27:51 - 
+
+Using generated security password: 5cd0f4b6-cf19-4667-a2e6-9f943228b2c8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-03 17:27:51 - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a428e74, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c973555, org.springframework.security.web.header.HeaderWriterFilter@6a090413, org.springframework.security.web.authentication.logout.LogoutFilter@2d562f86, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@56cd0305, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5f2a608a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ff9ed8f, org.springframework.security.web.session.SessionManagementFilter@6fb8d350, org.springframework.security.web.access.ExceptionTranslationFilter@2a17cdf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1fad7bb8]
+2024-05-03 17:27:51 - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-03 17:27:51 - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-03 17:27:51 - Started prowikiqApplication in 1.437 seconds (JVM running for 1.659)
+2024-05-03 17:28:07 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-03 17:28:07 - Initializing Servlet 'dispatcherServlet'
+2024-05-03 17:28:07 - Completed initialization in 1 ms
+2024-05-03 17:28:14 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03 17:28:14 - HikariPool-1 - Shutdown initiated...
+2024-05-03 17:28:14 - HikariPool-1 - Shutdown completed.

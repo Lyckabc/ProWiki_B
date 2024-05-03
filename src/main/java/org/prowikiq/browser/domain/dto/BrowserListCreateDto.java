@@ -28,6 +28,7 @@ import org.prowikiq.object.domain.entity.FilePath;
 @Builder
 public class BrowserListCreateDto {
 
+    private Long pageId;
     private FilePath filePath;
     private String pageTitle;
     private String pageCategory;
