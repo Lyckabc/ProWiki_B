@@ -80,6 +80,9 @@ public class BrowserListService {
                 if (browserList != null) {
                     batchList.add(browserList);
                     if (batchList.size() >= 50) { // Batch size of 50, adjust based on your environment
+                        if (browserList.getBrowserListId() == null) {
+                            logger.error("browser_list_id is null for browserList: " + browserList);
+                        }
                         browserListRepository.saveAll(batchList);
                         logger.info("Batch of 50 browser lists saved successfully");
                         importedLists.addAll(batchList);
@@ -121,9 +124,9 @@ public class BrowserListService {
             String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
             browserList.setPageTitle(pageTitle);
             browserList.setPageCategory(data[3].trim());
-            browserList.setIsFolder(!data[1].contains("."));
-            browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
-            browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
+            browserList.setIsFolder(data[1].trim().contains("."));
+            //browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
+            //browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
             browserList.setCreatedAt(LocalDateTime.now());
             browserList.setModifiedAt(LocalDateTime.now());
 

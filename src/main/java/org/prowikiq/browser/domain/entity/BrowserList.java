@@ -2,6 +2,7 @@ package org.prowikiq.browser.domain.entity;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,14 +42,10 @@ public class BrowserList extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pageId", nullable = false)
-    private Long pageId;
+    @Column(name = "browserListId", nullable = false)
+    private Long browserListId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pageId")
-    private WikiPage wikiPage;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "filePathId", referencedColumnName = "id")
     private FilePath filePath;
 
@@ -70,20 +67,10 @@ public class BrowserList extends BaseEntity{
 
     // Getters and Setters
 
-    public Long getPageId() {
-        return pageId;
-    }
+    public Long getBrowserListId() { return browserListId; }
 
-    public void setPageId(Long pageId) {
-        this.pageId = pageId;
-    }
-
-    public WikiPage getWikiPage() {
-        return wikiPage;
-    }
-
-    public void setWikiPage(WikiPage wikiPage) {
-        this.wikiPage = wikiPage;
+    public void setbrowserListId(Long pageId) {
+        this.browserListId = browserListId;
     }
 
     public FilePath getFilePath() {
