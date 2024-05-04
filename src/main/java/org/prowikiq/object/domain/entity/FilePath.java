@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Class: FilePath Project: prowikiQ Package: org.prowikiq.object.domain.entity
@@ -17,6 +21,10 @@ import javax.persistence.Table;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"filePath\"")
 public class FilePath {

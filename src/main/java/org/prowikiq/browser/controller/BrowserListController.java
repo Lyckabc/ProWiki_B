@@ -94,14 +94,13 @@ public class BrowserListController {
     @ApiOperation(value = "가져오기", notes = "find ./Project_2023 -type d > ./directory_list.txt :::: Import directory list from a file.")
     @PostMapping("/import")
     public ResponseEntity<List<BrowserList>> importBrowserLists() {
-        try {
-            Resource resource = resourceLoader.getResource("directory_list.csv");
-            String content = new String(Files.readAllBytes(resource.getFile().toPath()));
-            List<BrowserList> importedLists = browserListService.importBrowserLists(content);
+
+            /*Resource resource = resourceLoader.getResource("classpath:directory_list.csv");
+            String content = new String(Files.readAllBytes(resource.getFile().toPath()));*/
+            String resourcePath = "classpath:directory_list.csv";
+            List<BrowserList> importedLists = browserListService.importBrowserLists(resourcePath);
             return ResponseEntity.ok(importedLists);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
 
