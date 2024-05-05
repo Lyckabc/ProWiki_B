@@ -122,6 +122,16 @@ public class BrowserListService {
             browserList.setFilePath(filePath);
 
             String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
+            /*String pageTitle;
+            if (data[2].isEmpty()) {
+                if (filePath != null && filePath.getPath() != null) {
+                    pageTitle = filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1);
+                } else {
+                    pageTitle = "DefaultPageTitle"; // filePath가 null일 경우 기본 제목 제공 또는 해당 경우 처리
+                }
+            } else {
+                pageTitle = data[2].trim();
+            }*/
             browserList.setPageTitle(pageTitle);
             browserList.setPageCategory(data[3].trim());
             browserList.setIsFolder(data[1].trim().contains("."));

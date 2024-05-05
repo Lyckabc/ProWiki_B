@@ -29,6 +29,7 @@ spring:
     file:
       name: logs/myapp.log
       org:
+        springframework : DEBUG
         hibernate:
           SQL: DEBUG
           type: descriptor.sql.BasicBinder=TRACE

@@ -30,14 +30,15 @@ import lombok.NoArgsConstructor;
 public class FilePath {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "filePathId")
+    private Long filePathId;
 
-    @Column(name = "path", nullable = false, columnDefinition = "TEXT")
-    private String path;
+    @Column(name = "filePath", columnDefinition = "TEXT")
+    private String filePath;
 
-    public void setPath (String path) {
-        this.path = path;
+    public void setPath(String path) {
+        this.filePath = path;
     }
 
-    public String getPath () { return path;}
+    public String getPath () { return filePath;}
 }

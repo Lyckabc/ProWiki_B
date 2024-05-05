@@ -1,5 +1,6 @@
 package org.prowikiq.wiki.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,8 +44,8 @@ public class WikiPage extends BaseEntity{
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filePathId", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
     private FilePath filePath;
 
     @Column(name = "pageTitle", length = 255)

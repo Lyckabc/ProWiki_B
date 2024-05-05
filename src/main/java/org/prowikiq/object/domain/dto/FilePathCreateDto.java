@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class FilePathCreateDto {
-    private Long id;
+    private Long filePathId;
     private String filePath;
 
 }
