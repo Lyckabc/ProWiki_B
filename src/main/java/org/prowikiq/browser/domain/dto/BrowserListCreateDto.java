@@ -1,5 +1,7 @@
 package org.prowikiq.browser.domain.dto;
 
+import static org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build;
+
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.object.domain.entity.FilePath;
 
 /**
@@ -35,5 +38,21 @@ public class BrowserListCreateDto {
     private LocalDateTime targetDay;
     private LocalDateTime finishedDay;
     private Boolean isFolder;
+    //BaseEntity
+    private LocalDateTime createdAt; // Include createdAt
+    private LocalDateTime modifiedAt; // Include modifiedAt
+
+    public BrowserList toBrowserList() {
+        BrowserList browserList = new BrowserList();
+        browserList.setBrowserListId(this.browserListId);
+        browserList.setPageTitle(this.pageTitle);
+        browserList.setPageCategory(this.pageCategory);
+//        browserList.setTargetDay(this.targetDay);
+//        browserList.setFinishedDay(this.finishedDay);
+        browserList.setIsFolder(this.isFolder);
+//        browserList.setCreatedAt(this.createdAt);
+//        browserList.setModifiedAt(this.modifiedAt);
+        return browserList;
+    }
 
 }
