@@ -1,5 +1,8 @@
 package org.prowikiq.object.domain.repository;
 
+
+import java.util.Optional;
+
 import org.prowikiq.object.domain.entity.FilePath;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +16,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 public interface FilePathRepository extends JpaRepository<FilePath, Long> {
+
+    Optional<FilePath> findByFilePathId(Long filePathId);
+
 
 }

@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.wiki.entity.WikiPage;
@@ -33,6 +34,7 @@ import org.prowikiq.wiki.entity.WikiPage;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -47,7 +49,14 @@ public class BrowserList extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
+<<<<<<< HEAD
+    private FilePath filePathId;
+
+    @Column(name = "filePath", columnDefinition = "TEXT")
+    private String filePath;
+=======
     private FilePath filePath;
+>>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 
     @Column(name = "pageTitle", columnDefinition = "TEXT")
     private String pageTitle;
@@ -65,6 +74,8 @@ public class BrowserList extends BaseEntity{
     private Boolean isFolder;
 
 
+<<<<<<< HEAD
+=======
     // Getters and Setters
 
     public Long getBrowserListId() { return browserListId; }
@@ -120,4 +131,5 @@ public class BrowserList extends BaseEntity{
     public void setIsFolder(Boolean isFolder) {
         this.isFolder = isFolder;
     }
+>>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 }

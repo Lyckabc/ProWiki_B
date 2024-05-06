@@ -5,11 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.List;
+import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
+
+import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.dto.FilePathCreateDto;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.repository.FilePathRepository;
+
+import org.prowikiq.object.domain.entity.FilePath;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +41,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
+
+    private FilePathRepository filePathRepository;
+    Logger logger = LoggerFactory.getLogger(getClass());
+
 
     @Autowired
     public BrowserListService(BrowserListRepository browserListRepository, ResourceLoader resourceLoader) {
@@ -113,72 +128,44 @@ public class BrowserListService {
         return importedLists;
     }
 
+
     private BrowserList parseBrowserList(String line) {
         String[] data = line.split(",", -1);
-        if (data.length >= 9) {
-            BrowserList browserList = new BrowserList();
-            FilePath filePath = new FilePath();
-            filePath.setPath(data[1].trim());
-            browserList.setFilePath(filePath);
 
-            String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
-            /*String pageTitle;
-            if (data[2].isEmpty()) {
-                if (filePath != null && filePath.getPath() != null) {
-                    pageTitle = filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1);
-                } else {
-                    pageTitle = "DefaultPageTitle"; // filePath가 null일 경우 기본 제목 제공 또는 해당 경우 처리
-                }
-            } else {
-                pageTitle = data[2].trim();
-            }*/
-            browserList.setPageTitle(pageTitle);
-            browserList.setPageCategory(data[3].trim());
-            browserList.setIsFolder(data[1].trim().contains("."));
-            //browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
-            //browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
-            browserList.setCreatedAt(LocalDateTime.now());
-            browserList.setModifiedAt(LocalDateTime.now());
-
-            return browserList;
+        if (data.length < 9) {
+            logger.error("Insufficient data in line: {}", line);
+            return null;
         }
-        return null;
-    }
+        try {
+            BrowserListCreateDto dto = new BrowserListCreateDto();
+            FilePathCreateDto filePathDto = new FilePathCreateDto();
 
-    /*@Transactional
-    public List<BrowserList> importBrowserLists(String resourcePath) {
-        List<BrowserList> importedLists = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceLoader.getResource(resourcePath).getInputStream(), StandardCharsets.UTF_8))) {
-            reader.readLine(); // Skip header
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",", -1);
-                if (data.length >= 9) {
-                    BrowserList browserList = new BrowserList();
-                    FilePath filePath = new FilePath();
-                    filePath.setPath(data[1].trim());
-                    browserList.setFilePath(filePath);
+            filePathDto.setFilePath(data[1].trim()); // Assuming FilePath constructor exists
+            dto.setPageTitle(data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim());
+            dto.setPageCategory(data[3].trim());
+            dto.setIsFolder(data[1].trim().contains("."));
+            //dto.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assuming date exists and is valid
+            //dto.setFinishedDay(LocalDateTime.parse(data[5].trim())); // Assuming date exists and is valid
+//            dto.setCreatedAt(LocalDateTime.parse(data[7].trim())); // Parse CreatedAt
+//            dto.setModifiedAt(LocalDateTime.parse(data[8].trim())); // Parse ModifiedAt
 
-                    // Continue setting other properties after obtaining the pageId
-                    String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
-                    browserList.setPageTitle(pageTitle);
-                    browserList.setPageCategory(data[3].trim());
-                    browserList.setIsFolder(!data[1].contains("."));
-                    browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
-                    browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
-                    browserList.setCreatedAt(LocalDateTime.now());
-                    browserList.setModifiedAt(LocalDateTime.now());
+            FilePath filePath = ensureFilePath(filePathDto);
+            BrowserList browserList = dto.toBrowserList();
+            browserList.setFilePath(filePath); // Set the FilePath to BrowserList
 
-                    // Final save with all properties set
-                    browserList = browserListRepository.save(browserList);
-                    importedLists.add(browserList);
-                }
-            }
+            return dto.toBrowserList();
+
         } catch (Exception e) {
-            // Handle exceptions appropriately
-            throw new RuntimeException("Failed to import browser lists", e);
+            logger.error("Error parsing line: {}. Error: {}", line, e.getMessage());
+            return null;
         }
-        return importedLists;
-    }*/
+    }
+    private FilePath ensureFilePath(FilePathCreateDto dto) {
+        if (dto.getFilePathId() != null) {
+            return filePathRepository.findByFilePathId(dto.getFilePathId()).orElseGet(() -> filePathRepository.save(dto.toFilePath()));
+        } else {
+            return filePathRepository.save(dto.toFilePath());
+        }
+    }
 
 }
