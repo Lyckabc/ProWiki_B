@@ -6,11 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-<<<<<<< HEAD
+
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.object.domain.entity.FilePath;
-=======
->>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
+
 
 /**
  * Class: FilePathCreateDto Project: prowikiQ Package: org.prowikiq.object.domain.dto
@@ -30,7 +29,6 @@ public class FilePathCreateDto {
     private Long filePathId;
     private String filePath;
 
-<<<<<<< HEAD
     public FilePath toFilePath() {
         FilePath filePath = new FilePath();
         filePath.setFilePathId(this.filePathId);
@@ -38,6 +36,4 @@ public class FilePathCreateDto {
         return filePath;
     }
 
-=======
->>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 }
