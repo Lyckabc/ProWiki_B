@@ -149,6 +149,7 @@ public class BrowserListService {
 //            dto.setCreatedAt(LocalDateTime.parse(data[7].trim())); // Parse CreatedAt
 //            dto.setModifiedAt(LocalDateTime.parse(data[8].trim())); // Parse ModifiedAt
 
+
             FilePath filePath = ensureFilePath(filePathDto);
             BrowserList browserList = dto.toBrowserList();
             browserList.setFilePath(filePath); // Set the FilePath to BrowserList
@@ -161,11 +162,9 @@ public class BrowserListService {
         }
     }
     private FilePath ensureFilePath(FilePathCreateDto dto) {
-        if (dto.getFilePathId() != null) {
-            return filePathRepository.findByFilePathId(dto.getFilePathId()).orElseGet(() -> filePathRepository.save(dto.toFilePath()));
-        } else {
+
             return filePathRepository.save(dto.toFilePath());
-        }
+
     }
 
 }

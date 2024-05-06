@@ -36,7 +36,8 @@ import org.prowikiq.object.domain.entity.FilePath;
 public class BrowserListCreateDto {
 
     private Long browserListId;
-    private FilePath filePath;
+    private FilePath filePathId;
+    private String filePath;
     private String pageTitle;
     private String pageCategory;
     private LocalDateTime targetDay;
@@ -49,6 +50,7 @@ public class BrowserListCreateDto {
 
     public BrowserList toBrowserList() {
         BrowserList browserList = new BrowserList();
+        browserList.setFilePath(this.filePath);
         browserList.setPageTitle(this.pageTitle);
         browserList.setPageCategory(this.pageCategory);
 //        browserList.setTargetDay(this.targetDay);

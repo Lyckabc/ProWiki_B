@@ -49,9 +49,10 @@ public class BrowserList extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
+    private FilePath filePathId;
 
     @Column(name = "filePath", columnDefinition = "TEXT")
-    private FilePath filePath;
+    private String filePath;
 
     @Column(name = "pageTitle", columnDefinition = "TEXT")
     private String pageTitle;

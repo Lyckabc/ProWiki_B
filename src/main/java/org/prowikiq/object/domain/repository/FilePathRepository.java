@@ -18,6 +18,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FilePathRepository extends JpaRepository<FilePath, Long> {
 
     Optional<FilePath> findByFilePathId(Long filePathId);
+    Optional<FilePath> findByFilePath(String filePathId);
+
 
 
 }
