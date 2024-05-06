@@ -2,6 +2,7 @@ package org.prowikiq.browser.domain.entity;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,15 +42,11 @@ public class BrowserList extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pageId", nullable = false)
-    private Long pageId;
+    @Column(name = "browserListId", nullable = false)
+    private Long browserListId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pageId")
-    private WikiPage wikiPage;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filePathId", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
     private FilePath filePath;
 
     @Column(name = "pageTitle", columnDefinition = "TEXT")
@@ -67,5 +64,60 @@ public class BrowserList extends BaseEntity{
     @Column(name = "isFolder")
     private Boolean isFolder;
 
+
     // Getters and Setters
+
+    public Long getBrowserListId() { return browserListId; }
+
+    public void setbrowserListId(Long pageId) {
+        this.browserListId = browserListId;
+    }
+
+    public FilePath getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(FilePath filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
+
+    public String getPageCategory() {
+        return pageCategory;
+    }
+
+    public void setPageCategory(String pageCategory) {
+        this.pageCategory = pageCategory;
+    }
+
+    public LocalDateTime getTargetDay() {
+        return targetDay;
+    }
+
+    public void setTargetDay(LocalDateTime targetDay) {
+        this.targetDay = targetDay;
+    }
+
+    public LocalDateTime getFinishedDay() {
+        return finishedDay;
+    }
+
+    public void setFinishedDay(LocalDateTime finishedDay) {
+        this.finishedDay = finishedDay;
+    }
+
+    public Boolean getIsFolder() {
+        return isFolder;
+    }
+
+    public void setIsFolder(Boolean isFolder) {
+        this.isFolder = isFolder;
+    }
 }

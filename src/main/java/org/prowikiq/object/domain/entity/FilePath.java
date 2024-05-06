@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Class: FilePath Project: prowikiQ Package: org.prowikiq.object.domain.entity
@@ -17,13 +21,24 @@ import javax.persistence.Table;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"filePath\"")
 public class FilePath {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "filePathId")
+    private Long filePathId;
 
-    @Column(name = "path", nullable = false, columnDefinition = "TEXT")
-    private String path;
+    @Column(name = "filePath", columnDefinition = "TEXT")
+    private String filePath;
+
+    public void setPath(String path) {
+        this.filePath = path;
+    }
+
+    public String getPath () { return filePath;}
 }

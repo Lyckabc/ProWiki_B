@@ -1,17 +1,31 @@
 package org.prowikiq.browser.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.service.BrowserListService;
+import org.prowikiq.object.domain.entity.FilePath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +46,18 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 4/29/24 21:01 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
+@Api(tags = "Browser List Controller")
 @RestController
 @RequestMapping("/api/browserlists")
 public class BrowserListController {
 
     private final BrowserListService browserListService;
+    private final ResourceLoader resourceLoader;
 
     @Autowired
-    public BrowserListController(BrowserListService browserListService) {
+    public BrowserListController(BrowserListService browserListService, ResourceLoader resourceLoader) {
         this.browserListService = browserListService;
+        this.resourceLoader = resourceLoader;
     }
 
     @PostMapping
@@ -49,11 +66,11 @@ public class BrowserListController {
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+  /*  @GetMapping("/{id}")
     public ResponseEntity<BrowserList> getBrowserList(@PathVariable Long id) {
         BrowserList browserList = browserListService.getBrowserList(id);
         return ResponseEntity.ok(browserList);
-    }
+    }*/
 
     @GetMapping
     public ResponseEntity<List<BrowserList>> getAllBrowserLists() {
@@ -74,35 +91,17 @@ public class BrowserListController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "가져오기", notes = "find ./Project_2023 -type d > ./directory_list.txt :::: Import directory list from a file.")
     @PostMapping("/import")
-    public ResponseEntity<List<BrowserList>> importBrowserLists(@RequestParam("file") MultipartFile file) throws IOException {
-        List<BrowserList> importedLists = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                BrowserList browserList = parseBrowserList(line);
-                if (browserList != null) {
-                    importedLists.add(browserListService.createBrowserList(browserList));
-                }
-            }
-        }
-        return ResponseEntity.ok(importedLists);
+    public ResponseEntity<List<BrowserList>> importBrowserLists() {
+
+            /*Resource resource = resourceLoader.getResource("classpath:directory_list.csv");
+            String content = new String(Files.readAllBytes(resource.getFile().toPath()));*/
+            String resourcePath = "classpath:directory_list.csv";
+            List<BrowserList> importedLists = browserListService.importBrowserLists(resourcePath);
+            return ResponseEntity.ok(importedLists);
+
     }
 
-    private BrowserList parseBrowserList(String line) {
-        // Example: Assuming CSV format: getFilePath,pageTitle,pageCategory,targetDay,finishedDay,isFolder
-        String[] data = line.split(",");
-        if (data.length < 5) {
-            return null; // Not enough data to form a BrowserList
-        }
-        BrowserList browserList = new BrowserList();
-        browserList.setFilePath(data[0].trim());
-        browserList.setPageTitle(data[1].trim());
-        browserList.setPageCategory(data[2].trim());
-        browserList.setTargetDay(Timestamp.valueOf(data[3].trim()));
-        browserList.setFinishedDay(Timestamp.valueOf(data[4].trim()));
-        browserList.setIsFolder(Boolean.parseBoolean(data[5].trim()));
-        return browserList;
-    }
 
 }

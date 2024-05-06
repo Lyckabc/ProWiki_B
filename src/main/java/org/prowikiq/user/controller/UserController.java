@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 4/23/24 21:48 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
-@Api(tags = "회원 컨트롤러")
+@Api(tags = "User Controller")
 @RestController
 @RequestMapping("/account/user")
 @RequiredArgsConstructor

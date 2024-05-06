@@ -15,6 +15,9 @@ spring:
     hibernate:
       format_sql: true
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
 
   jwt:
     secret: provincewikiquestwithyou #원래는 공개하면 안됨.
@@ -22,7 +25,11 @@ spring:
 
   logging:
     level:
+      root: INFO
+    file:
+      name: logs/myapp.log
       org:
+        springframework : DEBUG
         hibernate:
           SQL: DEBUG
           type: descriptor.sql.BasicBinder=TRACE
