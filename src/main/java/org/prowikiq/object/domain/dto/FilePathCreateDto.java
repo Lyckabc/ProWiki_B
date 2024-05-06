@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.browser.domain.entity.BrowserList;
+import org.prowikiq.object.domain.entity.FilePath;
 
 /**
  * Class: FilePathCreateDto Project: prowikiQ Package: org.prowikiq.object.domain.dto
@@ -24,5 +26,12 @@ import lombok.Setter;
 public class FilePathCreateDto {
     private Long filePathId;
     private String filePath;
+
+    public FilePath toFilePath() {
+        FilePath filePath = new FilePath();
+        filePath.setFilePathId(this.filePathId);
+        filePath.setFilePath(this.filePath);
+        return filePath;
+    }
 
 }

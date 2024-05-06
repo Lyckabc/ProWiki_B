@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.wiki.entity.WikiPage;
@@ -33,6 +34,7 @@ import org.prowikiq.wiki.entity.WikiPage;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -47,7 +49,10 @@ public class BrowserList extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
-    private FilePath filePath;
+    private FilePath filePathId;
+
+    @Column(name = "filePath", columnDefinition = "TEXT")
+    private String filePath;
 
     @Column(name = "pageTitle", columnDefinition = "TEXT")
     private String pageTitle;
@@ -64,110 +69,5 @@ public class BrowserList extends BaseEntity{
     @Column(name = "isFolder")
     private Boolean isFolder;
 
-
-    // Getters and Setters
-
-    public Long getBrowserListId() { return browserListId; }
-
-    public void setbrowserListId(Long pageId) {
-        this.browserListId = browserListId;
-    }
-
-    public FilePath getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(FilePath filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getPageTitle() {
-        return pageTitle;
-    }
-
-    public void setPageTitle(String pageTitle) {
-        this.pageTitle = pageTitle;
-    }
-
-    public String getPageCategory() {
-        return pageCategory;
-    }
-
-    public void setPageCategory(String pageCategory) {
-        this.pageCategory = pageCategory;
-    }
-
-    public LocalDateTime getTargetDay() {
-        return targetDay;
-    }
-
-    public void setTargetDay(LocalDateTime targetDay) {
-        this.targetDay = targetDay;
-    }
-
-    public LocalDateTime getFinishedDay() {
-        return finishedDay;
-    }
-
-    public void setFinishedDay(LocalDateTime finishedDay) {
-        this.finishedDay = finishedDay;
-    }
-
-    public Boolean getIsFolder() {
-        return isFolder;
-    }
-
-    public void setIsFolder(Boolean isFolder) {
-        this.isFolder = isFolder;
-    }
-
-    // builder
-    public static class Builder {
-        private Long browserListId;
-        private FilePath filePath;
-        private String pageTitle;
-        private String pageCategory;
-        private Boolean isFolder;
-
-        public Builder browserListId(Long browserListId) {
-            this.browserListId = browserListId;
-            return this;
-        }
-
-        public Builder filePath(FilePath filePath) {
-            this.filePath = filePath;
-            return this;
-        }
-
-        public Builder pageTitle(String pageTitle) {
-            this.pageTitle = pageTitle;
-            return this;
-        }
-
-        public Builder pageCategory(String pageCategory) {
-            this.pageCategory = pageCategory;
-            return this;
-        }
-
-        public Builder isFolder(Boolean isFolder) {
-            this.isFolder = isFolder;
-            return this;
-        }
-
-
-        public BrowserList build() {
-            return new BrowserList(this);
-        }
-    }
-
-    // Private constructor
-    private BrowserList(Builder builder) {
-        this.browserListId = builder.browserListId;
-        this.filePath = builder.filePath;
-        this.pageTitle = builder.pageTitle;
-        this.pageCategory = builder.pageCategory;
-        this.isFolder = builder.isFolder;
-
-    }
 
 }

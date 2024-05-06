@@ -8,9 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
+import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.dto.FilePathCreateDto;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.repository.FilePathRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
+    private FilePathRepository filePathRepository;
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -69,50 +74,29 @@ public class BrowserListService {
 
     @Transactional
     public List<BrowserList> importBrowserLists(String resourcePath) {
-        Logger logger = LoggerFactory.getLogger(getClass());
         List<BrowserList> importedLists = new ArrayList<>();
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(resourceLoader.getResource(resourcePath).getInputStream(), StandardCharsets.UTF_8));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceLoader.getResource(resourcePath).getInputStream(), StandardCharsets.UTF_8))) {
             reader.readLine(); // Skip header
             List<BrowserList> batchList = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 BrowserList browserList = parseBrowserList(line);
-                logger.debug("Processing line: {}", line);
                 if (browserList != null) {
                     batchList.add(browserList);
-                    logger.error("Failed to parse a BrowserList from line: {}", line);
-                    if (batchList.size() >= 50) { // Batch size of 50, adjust based on your environment
-                        if (browserList.getBrowserListId() == null) {
-                            logger.error("browser_list_id is null for browserList: " + browserList);
-                        }
+                    if (batchList.size() >= 50) {
                         browserListRepository.saveAll(batchList);
-                        logger.info("Batch of 50 browser lists saved successfully");
                         importedLists.addAll(batchList);
-                        batchList.clear(); // Clear the batch list for next batch
+                        batchList.clear();
                     }
                 }
             }
             if (!batchList.isEmpty()) {
                 browserListRepository.saveAll(batchList);
-                logger.info("Final batch of {} browser lists saved successfully", batchList.size());
                 importedLists.addAll(batchList);
             }
-        } catch (IOException e) {
-            logger.error("Failed to read file", e);
-            throw new RuntimeException("Failed to read file", e);
-        } catch (DataAccessException e) {
-            logger.error("Failed to save browser lists", e);
-            throw new RuntimeException("Failed to save browser lists", e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    logger.error("Failed to close reader", e);
-                }
-            }
+        } catch (IOException | DataAccessException e) {
+            logger.error("Failed during import operation", e);
+            throw new RuntimeException("Failed to import browser lists", e);
         }
         return importedLists;
     }
@@ -124,28 +108,34 @@ public class BrowserListService {
             return null;
         }
         try {
-            BrowserList browserList = new BrowserList();
-            FilePath filePath = new FilePath();
-            filePath.setPath(data[1].trim());
-            browserList.setFilePath(filePath);
+            BrowserListCreateDto dto = new BrowserListCreateDto();
+            FilePathCreateDto filePathDto = new FilePathCreateDto();
 
-            String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
-            browserList.setPageTitle(pageTitle);
-            browserList.setPageCategory(data[3].trim());
-            browserList.setIsFolder(data[1].trim().contains("."));
-//            if (!data[4].trim().isEmpty()) {
-//                browserList.setTargetDay(LocalDateTime.parse(data[4].trim()));
-//            }
-//            if (!data[5].trim().isEmpty()) {
-//                browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
-//            }
-            browserList.setCreatedAt(LocalDateTime.now());
-            browserList.setModifiedAt(LocalDateTime.now());
+            filePathDto.setFilePath(data[1].trim()); // Assuming FilePath constructor exists
+            dto.setPageTitle(data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim());
+            dto.setPageCategory(data[3].trim());
+            dto.setIsFolder(data[1].trim().contains("."));
+            //dto.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assuming date exists and is valid
+            //dto.setFinishedDay(LocalDateTime.parse(data[5].trim())); // Assuming date exists and is valid
+//            dto.setCreatedAt(LocalDateTime.parse(data[7].trim())); // Parse CreatedAt
+//            dto.setModifiedAt(LocalDateTime.parse(data[8].trim())); // Parse ModifiedAt
 
-            return browserList;
+            FilePath filePath = ensureFilePath(filePathDto);
+            BrowserList browserList = dto.toBrowserList();
+            browserList.setFilePath(filePath); // Set the FilePath to BrowserList
+
+            return dto.toBrowserList();
+
         } catch (Exception e) {
             logger.error("Error parsing line: {}. Error: {}", line, e.getMessage());
             return null;
+        }
+    }
+    private FilePath ensureFilePath(FilePathCreateDto dto) {
+        if (dto.getFilePathId() != null) {
+            return filePathRepository.findByFilePathId(dto.getFilePathId()).orElseGet(() -> filePathRepository.save(dto.toFilePath()));
+        } else {
+            return filePathRepository.save(dto.toFilePath());
         }
     }
 

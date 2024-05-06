@@ -10734,3 +10734,451 @@ This generated password is for development use only. Your security configuration
 2024-05-06 10:16:18 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-05-06 10:16:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-05-06 10:16:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-05-06 12:19:41 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 91184 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:19:41 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:19:41 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:19:41 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:19:41 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:19:41 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:19:41 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 588 ms
+2024-05-06 12:19:41 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:19:41 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-06 12:19:41 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-06 12:19:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-05-06 12:19:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-05-06 12:19:41 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:19:42 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:19:42 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:19:42 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:19:42 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: cf324e21-56ae-418c-8ba9-0dda58f1c290
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:19:42 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3663e528, org.springframework.security.web.context.SecurityContextPersistenceFilter@78f57475, org.springframework.security.web.header.HeaderWriterFilter@12e6126, org.springframework.security.web.authentication.logout.LogoutFilter@20812df, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@324e6735, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66b99a1f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7be2a3d0, org.springframework.security.web.session.SessionManagementFilter@743333e5, org.springframework.security.web.access.ExceptionTranslationFilter@2a23211c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@397c77c7]
+2024-05-06 12:19:42 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:19:42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:19:42 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 1.538 seconds (JVM running for 1.754)
+2024-05-06 12:19:47 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 12:19:47 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 12:19:47 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:19:47 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:21:23 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:21:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-05-06 12:21:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-05-06 12:21:26 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 91985 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:21:26 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:21:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:21:26 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:21:26 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:21:26 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 475 ms
+2024-05-06 12:21:26 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:21:26 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-06 12:21:26 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-06 12:21:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-05-06 12:21:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-05-06 12:21:26 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:21:26 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:21:26 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:21:27 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:21:27 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: c0915137-4876-44bb-89ac-cc139eb7a4e2
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:21:27 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@356a344f, org.springframework.security.web.context.SecurityContextPersistenceFilter@7c3175a8, org.springframework.security.web.header.HeaderWriterFilter@6750c337, org.springframework.security.web.authentication.logout.LogoutFilter@7ea1609d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f63a257, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@13f79668, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ba46032, org.springframework.security.web.session.SessionManagementFilter@19da0e02, org.springframework.security.web.access.ExceptionTranslationFilter@3164f0b8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@26b17200]
+2024-05-06 12:21:27 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:21:27 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:21:27 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 1.384 seconds (JVM running for 1.606)
+2024-05-06 12:21:29 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 12:21:29 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 12:21:29 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-05-06 12:26:22 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 5 class path changes (0 additions, 0 deletions, 5 modifications)
+2024-05-06 12:26:22 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:22 [Thread-4] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 12:26:22 [Thread-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-05-06 12:26:22 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:22 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:22 [Thread-4] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:26:22 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-05-06 12:26:22 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-05-06 12:26:22 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 91985 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:26:22 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:26:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:22 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:26:22 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:26:22 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 128 ms
+2024-05-06 12:26:22 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:26:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2024-05-06 12:26:22 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2024-05-06 12:26:22 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:26:22 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:26:22 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: dc66832e-6229-4e75-a22c-ede213a56065
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@369453d9, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a961dc8, org.springframework.security.web.header.HeaderWriterFilter@7507cc3b, org.springframework.security.web.authentication.logout.LogoutFilter@6009611c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4767961c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@ccafcdf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b5026b7, org.springframework.security.web.session.SessionManagementFilter@757c6573, org.springframework.security.web.access.ExceptionTranslationFilter@548b2ee8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@733051d6]
+2024-05-06 12:26:22 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:26:22 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 0.379 seconds (JVM running for 296.734)
+2024-05-06 12:26:22 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-05-06 12:26:59 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 6 class path changes (0 additions, 0 deletions, 6 modifications)
+2024-05-06 12:26:59 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:59 [Thread-7] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 12:26:59 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:59 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:59 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:26:59 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2024-05-06 12:26:59 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2024-05-06 12:26:59 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 91985 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:26:59 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:26:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:26:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:26:59 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:26:59 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:26:59 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:26:59 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:26:59 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:26:59 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 123 ms
+2024-05-06 12:26:59 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:26:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2024-05-06 12:26:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2024-05-06 12:26:59 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:27:00 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:27:00 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:27:00 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:27:00 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ca92331f-60c8-49b4-befe-144c7f6823a8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:27:00 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71ef0eb6, org.springframework.security.web.context.SecurityContextPersistenceFilter@1ee055cf, org.springframework.security.web.header.HeaderWriterFilter@1d5fb4bf, org.springframework.security.web.authentication.logout.LogoutFilter@72fd3326, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4823ae25, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@28b901d2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@647c4ebd, org.springframework.security.web.session.SessionManagementFilter@11dae14d, org.springframework.security.web.access.ExceptionTranslationFilter@2fbf254b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@34cf3966]
+2024-05-06 12:27:00 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:27:00 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:27:00 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 0.355 seconds (JVM running for 334.354)
+2024-05-06 12:27:00 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-05-06 12:28:23 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:28:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2024-05-06 12:28:23 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2024-05-06 12:28:24 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 95155 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:28:24 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:28:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-06 12:28:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-06 12:28:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:28:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 22 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:28:25 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:28:25 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:28:25 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:28:25 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:28:25 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:28:25 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 513 ms
+2024-05-06 12:28:25 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:28:25 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-06 12:28:25 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-06 12:28:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-05-06 12:28:25 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-05-06 12:28:25 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:28:25 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:28:25 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:28:26 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:28:26 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 92b921c1-0513-434b-8460-f89168213f90
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:28:26 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@428f9689, org.springframework.security.web.context.SecurityContextPersistenceFilter@13e31efa, org.springframework.security.web.header.HeaderWriterFilter@60aa25df, org.springframework.security.web.authentication.logout.LogoutFilter@12b4864a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@271cc443, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7774b924, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@14c0d98c, org.springframework.security.web.session.SessionManagementFilter@69eedb26, org.springframework.security.web.access.ExceptionTranslationFilter@4543becc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19aa83ff]
+2024-05-06 12:28:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:28:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:28:26 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 1.419 seconds (JVM running for 1.641)
+2024-05-06 12:28:30 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 12:28:30 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 12:28:30 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:28:30 [http-nio-8080-exec-1] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,. Error: Text '' could not be parsed at index 0
+2024-05-06 12:29:08 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 5 class path changes (0 additions, 0 deletions, 5 modifications)
+2024-05-06 12:29:08 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:08 [Thread-4] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 12:29:08 [Thread-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-05-06 12:29:08 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:08 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:08 [Thread-4] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:29:08 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-05-06 12:29:08 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-05-06 12:29:08 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 95155 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:29:08 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:29:08 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:08 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:29:08 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:29:08 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 142 ms
+2024-05-06 12:29:08 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:29:08 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2024-05-06 12:29:08 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2024-05-06 12:29:08 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:29:08 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:29:08 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 396706ae-8f62-4489-b64f-901eea0c95c4
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ecab82e, org.springframework.security.web.context.SecurityContextPersistenceFilter@1f443324, org.springframework.security.web.header.HeaderWriterFilter@39ba469d, org.springframework.security.web.authentication.logout.LogoutFilter@2587099, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4d8b012c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@266e28ae, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5c802222, org.springframework.security.web.session.SessionManagementFilter@409b5a90, org.springframework.security.web.access.ExceptionTranslationFilter@cfbdcdc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@72b190f2]
+2024-05-06 12:29:08 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:29:08 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 0.406 seconds (JVM running for 44.325)
+2024-05-06 12:29:08 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-05-06 12:29:19 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 0 deletions, 4 modifications)
+2024-05-06 12:29:19 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:19 [Thread-7] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 12:29:19 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:19 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:19 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:29:19 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2024-05-06 12:29:19 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2024-05-06 12:29:19 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 95155 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 12:29:19 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 12:29:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 12:29:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 12:29:20 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 12:29:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 12:29:20 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 119 ms
+2024-05-06 12:29:20 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 12:29:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2024-05-06 12:29:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2024-05-06 12:29:20 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 12:29:20 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 12:29:20 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: a974363e-6d5d-48d1-8cbd-b2457162beab
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8a1c989, org.springframework.security.web.context.SecurityContextPersistenceFilter@47899f1b, org.springframework.security.web.header.HeaderWriterFilter@290e615, org.springframework.security.web.authentication.logout.LogoutFilter@c459745, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2118fdc3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@243d17bb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34225642, org.springframework.security.web.session.SessionManagementFilter@5b7f1bc1, org.springframework.security.web.access.ExceptionTranslationFilter@171e2d24, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1778bc0e]
+2024-05-06 12:29:20 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 12:29:20 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 0.356 seconds (JVM running for 55.641)
+2024-05-06 12:29:20 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-05-06 12:29:25 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 12:29:25 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 12:29:25 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2024-05-06 12:45:18 [HikariPool-3 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=57s884ms).
+2024-05-06 12:58:40 [HikariPool-3 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=13m22s726ms).
+2024-05-06 13:02:52 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 13:02:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2024-05-06 13:02:52 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2024-05-06 21:44:16 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 82469 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 21:44:16 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 21:44:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-06 21:44:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-06 21:44:16 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 14 ms. Found 3 JPA repository interfaces.
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 21:44:17 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 21:44:17 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 21:44:17 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 21:44:17 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 511 ms
+2024-05-06 21:44:17 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 21:44:17 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-06 21:44:17 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-06 21:44:17 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-05-06 21:44:17 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-05-06 21:44:17 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 21:44:17 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 21:44:17 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 3238a3e9-fb0b-436a-8c23-7765cbc49fdf
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@27e33c75, org.springframework.security.web.context.SecurityContextPersistenceFilter@476da43, org.springframework.security.web.header.HeaderWriterFilter@74539dc6, org.springframework.security.web.authentication.logout.LogoutFilter@11fb48a9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a385f5d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1f632f98, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@69c01440, org.springframework.security.web.session.SessionManagementFilter@11914e7c, org.springframework.security.web.access.ExceptionTranslationFilter@25b85dbd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2d140834]
+2024-05-06 21:44:17 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 21:44:17 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 21:44:18 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 1.485 seconds (JVM running for 1.74)
+2024-05-06 21:45:13 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 21:45:13 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 21:45:13 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1,,,,,,,. Error: null
+2024-05-06 21:45:13 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1,,,,,,,. Error: null
+2024-05-06 21:45:24 [http-nio-8080-exec-3] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,. Error: null
+2024-05-06 22:22:00 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 1 deletion, 3 modifications)
+2024-05-06 22:22:00 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:22:00 [Thread-4] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 22:22:00 [Thread-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-05-06 22:22:00 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:22:00 [Thread-4] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:22:00 [Thread-4] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 22:22:00 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-05-06 22:22:00 [Thread-4] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-05-06 22:22:00 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 82469 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 22:22:00 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 22:22:00 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:22:00 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 22:22:00 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 22:22:00 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 136 ms
+2024-05-06 22:22:00 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 22:22:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2024-05-06 22:22:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2024-05-06 22:22:00 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 22:22:00 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 22:22:00 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'browserListController': Resolution of declared constructors on bean Class [org.prowikiq.browser.controller.BrowserListController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5eb90a72] failed; nested exception is java.lang.NoClassDefFoundError: org/prowikiq/browser/service/BrowserListService
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 22:22:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2024-05-06 22:22:00 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2024-05-06 22:22:00 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-05-06 22:22:00 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2024-05-06 22:22:00 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'browserListController': Resolution of declared constructors on bean Class [org.prowikiq.browser.controller.BrowserListController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@5eb90a72] failed; nested exception is java.lang.NoClassDefFoundError: org/prowikiq/browser/service/BrowserListService
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1302)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:745)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:423)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1317)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.prowikiq.prowikiqApplication.main(prowikiqApplication.java:21)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.NoClassDefFoundError: org/prowikiq/browser/service/BrowserListService
+	at java.base/java.lang.Class.getDeclaredConstructors0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredConstructors(Class.java:3137)
+	at java.base/java.lang.Class.getDeclaredConstructors(Class.java:2357)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:304)
+	... 23 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.prowikiq.browser.service.BrowserListService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:398)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:145)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	... 27 common frames omitted
+2024-05-06 22:26:55 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Starting prowikiqApplication using Java 11.0.22 on Dong-Houi-MacBookPro.local with PID 1975 (/Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ/build/classes/java/main started by dong-hoshin in /Users/dong-hoshin/zerobase/homework/Pri_WikiQ/prowikiQ)
+2024-05-06 22:26:55 [restartedMain] INFO  org.prowikiq.prowikiqApplication - No active profile set, falling back to 1 default profile: "default"
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 3 JPA repository interfaces.
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2024-05-06 22:26:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:26:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-05-06 22:26:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2024-05-06 22:26:55 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-05-06 22:26:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 672 ms
+2024-05-06 22:26:55 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06 22:26:55 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-05-06 22:26:55 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-05-06 22:26:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-05-06 22:26:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-05-06 22:26:56 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-05-06 22:26:56 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06 22:26:56 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 22:26:56 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-05-06 22:26:56 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 31478918-03b9-4373-b04f-60279aeec3f7
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-05-06 22:26:56 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63da12a8, org.springframework.security.web.context.SecurityContextPersistenceFilter@3cf96b9c, org.springframework.security.web.header.HeaderWriterFilter@1a2db08e, org.springframework.security.web.authentication.logout.LogoutFilter@41668835, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@62b34ca9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4552029d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19bc20da, org.springframework.security.web.session.SessionManagementFilter@6b10dff0, org.springframework.security.web.access.ExceptionTranslationFilter@4369af84, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3f479da0]
+2024-05-06 22:26:56 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-05-06 22:26:56 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2024-05-06 22:26:56 [restartedMain] INFO  org.prowikiq.prowikiqApplication - Started prowikiqApplication in 1.749 seconds (JVM running for 2.215)
+2024-05-06 22:26:59 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-06 22:26:59 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-05-06 22:26:59 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-05-06 22:28:56 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m200ms).
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1,,,,,,,. Error: null
+2024-05-06 22:28:56 [http-nio-8080-exec-2] ERROR o.p.b.service.BrowserListService - Error parsing line: ,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,. Error: null
+2024-05-06 22:28:56 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06 22:28:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-05-06 22:28:56 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
