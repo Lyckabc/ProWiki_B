@@ -135,11 +135,11 @@ public class BrowserListService {
         try {
             BrowserListCreateDto dto = new BrowserListCreateDto();
             FilePathCreateDto filePathDto = new FilePathCreateDto();
-
-            filePathDto.setFilePath(data[1].trim()); // Assuming FilePath constructor exists
-            dto.setPageTitle(data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim());
-            dto.setPageCategory(data[3].trim());
-            dto.setIsFolder(data[1].trim().contains("."));
+            // data[0].trim() => Page가 있을 경우(PageId)를 가져와 기존 D.B값을 연결
+            filePathDto.setFilePath(data[1].trim()); // OS의 FilePath를 가져와 filePathDto에 입력
+            dto.setPageTitle(data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim()); // Page가 있을 경우 Page이름을 가져오고, 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력
+            dto.setPageCategory(data[3].trim()); // PageCategory를 가져와 BrowserListDto에 입력
+            dto.setIsFolder(!data[1].substring(data[1].lastIndexOf('/') + 1).trim().contains(".")); // Point(.)가 들어있는 경우 파일이기때문에 .이 없을(!) 경우 true contains 경우 false
             //dto.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assuming date exists and is valid
             //dto.setFinishedDay(LocalDateTime.parse(data[5].trim())); // Assuming date exists and is valid
 //            dto.setCreatedAt(LocalDateTime.parse(data[7].trim())); // Parse CreatedAt
