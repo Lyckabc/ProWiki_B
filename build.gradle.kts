@@ -53,6 +53,9 @@ dependencies {
     //jwt
     implementation ("org.springframework.boot:spring-boot-starter-security")
     implementation ("io.jsonwebtoken:jjwt:0.9.1")
+    // test for Mockito
+    testImplementation("com.h2database:h2:1.4.200") // Use runtimeOnly if needed at runtime
+    //testImplementation("org.mockito:mockito-core:4.5.1") // Use the latest version available
 }
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments

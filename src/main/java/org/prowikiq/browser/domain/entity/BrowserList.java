@@ -120,4 +120,54 @@ public class BrowserList extends BaseEntity{
     public void setIsFolder(Boolean isFolder) {
         this.isFolder = isFolder;
     }
+
+    // builder
+    public static class Builder {
+        private Long browserListId;
+        private FilePath filePath;
+        private String pageTitle;
+        private String pageCategory;
+        private Boolean isFolder;
+
+        public Builder browserListId(Long browserListId) {
+            this.browserListId = browserListId;
+            return this;
+        }
+
+        public Builder filePath(FilePath filePath) {
+            this.filePath = filePath;
+            return this;
+        }
+
+        public Builder pageTitle(String pageTitle) {
+            this.pageTitle = pageTitle;
+            return this;
+        }
+
+        public Builder pageCategory(String pageCategory) {
+            this.pageCategory = pageCategory;
+            return this;
+        }
+
+        public Builder isFolder(Boolean isFolder) {
+            this.isFolder = isFolder;
+            return this;
+        }
+
+
+        public BrowserList build() {
+            return new BrowserList(this);
+        }
+    }
+
+    // Private constructor
+    private BrowserList(Builder builder) {
+        this.browserListId = builder.browserListId;
+        this.filePath = builder.filePath;
+        this.pageTitle = builder.pageTitle;
+        this.pageCategory = builder.pageCategory;
+        this.isFolder = builder.isFolder;
+
+    }
+
 }

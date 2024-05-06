@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.prowikiq.browser.domain.entity.BrowserList;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public BrowserListService(BrowserListRepository browserListRepository, ResourceLoader resourceLoader) {
@@ -77,8 +79,10 @@ public class BrowserListService {
             String line;
             while ((line = reader.readLine()) != null) {
                 BrowserList browserList = parseBrowserList(line);
+                logger.debug("Processing line: {}", line);
                 if (browserList != null) {
                     batchList.add(browserList);
+                    logger.error("Failed to parse a BrowserList from line: {}", line);
                     if (batchList.size() >= 50) { // Batch size of 50, adjust based on your environment
                         if (browserList.getBrowserListId() == null) {
                             logger.error("browser_list_id is null for browserList: " + browserList);
@@ -115,6 +119,38 @@ public class BrowserListService {
 
     private BrowserList parseBrowserList(String line) {
         String[] data = line.split(",", -1);
+        if (data.length < 9) {
+            logger.error("Insufficient data in line: {}", line);
+            return null;
+        }
+        try {
+            BrowserList browserList = new BrowserList();
+            FilePath filePath = new FilePath();
+            filePath.setPath(data[1].trim());
+            browserList.setFilePath(filePath);
+
+            String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
+            browserList.setPageTitle(pageTitle);
+            browserList.setPageCategory(data[3].trim());
+            browserList.setIsFolder(data[1].trim().contains("."));
+//            if (!data[4].trim().isEmpty()) {
+//                browserList.setTargetDay(LocalDateTime.parse(data[4].trim()));
+//            }
+//            if (!data[5].trim().isEmpty()) {
+//                browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
+//            }
+            browserList.setCreatedAt(LocalDateTime.now());
+            browserList.setModifiedAt(LocalDateTime.now());
+
+            return browserList;
+        } catch (Exception e) {
+            logger.error("Error parsing line: {}. Error: {}", line, e.getMessage());
+            return null;
+        }
+    }
+
+    /*private BrowserList parseBrowserList(String line) {
+        String[] data = line.split(",", -1);
         if (data.length >= 9) {
             BrowserList browserList = new BrowserList();
             FilePath filePath = new FilePath();
@@ -122,7 +158,7 @@ public class BrowserListService {
             browserList.setFilePath(filePath);
 
             String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
-            /*String pageTitle;
+            *//*String pageTitle;
             if (data[2].isEmpty()) {
                 if (filePath != null && filePath.getPath() != null) {
                     pageTitle = filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1);
@@ -131,10 +167,24 @@ public class BrowserListService {
                 }
             } else {
                 pageTitle = data[2].trim();
-            }*/
+            }*//*
             browserList.setPageTitle(pageTitle);
             browserList.setPageCategory(data[3].trim());
             browserList.setIsFolder(data[1].trim().contains("."));
+            if (!data[4].trim().isEmpty()) {
+                try {
+                    browserList.setTargetDay(LocalDateTime.parse(data[4].trim()));
+                } catch (DateTimeParseException e) {
+                    // Handle or log the exception if the date is not parseable
+                }
+            }
+            if (!data[5].trim().isEmpty()) {
+                try {
+                    browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
+                } catch (DateTimeParseException e) {
+                    // Handle or log the exception if the date is not parseable
+                }
+            }
             //browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
             //browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
             browserList.setCreatedAt(LocalDateTime.now());
@@ -143,42 +193,6 @@ public class BrowserListService {
             return browserList;
         }
         return null;
-    }
-
-    /*@Transactional
-    public List<BrowserList> importBrowserLists(String resourcePath) {
-        List<BrowserList> importedLists = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceLoader.getResource(resourcePath).getInputStream(), StandardCharsets.UTF_8))) {
-            reader.readLine(); // Skip header
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",", -1);
-                if (data.length >= 9) {
-                    BrowserList browserList = new BrowserList();
-                    FilePath filePath = new FilePath();
-                    filePath.setPath(data[1].trim());
-                    browserList.setFilePath(filePath);
-
-                    // Continue setting other properties after obtaining the pageId
-                    String pageTitle = data[2].isEmpty() ? filePath.getPath().substring(filePath.getPath().lastIndexOf('/') + 1) : data[2].trim();
-                    browserList.setPageTitle(pageTitle);
-                    browserList.setPageCategory(data[3].trim());
-                    browserList.setIsFolder(!data[1].contains("."));
-                    browserList.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assume data is correct and parseable
-                    browserList.setFinishedDay(LocalDateTime.parse(data[5].trim()));
-                    browserList.setCreatedAt(LocalDateTime.now());
-                    browserList.setModifiedAt(LocalDateTime.now());
-
-                    // Final save with all properties set
-                    browserList = browserListRepository.save(browserList);
-                    importedLists.add(browserList);
-                }
-            }
-        } catch (Exception e) {
-            // Handle exceptions appropriately
-            throw new RuntimeException("Failed to import browser lists", e);
-        }
-        return importedLists;
     }*/
 
 }
