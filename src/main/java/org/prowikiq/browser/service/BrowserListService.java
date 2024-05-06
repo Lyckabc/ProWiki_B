@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
@@ -38,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 @Service
+@RequiredArgsConstructor
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
@@ -45,12 +47,6 @@ public class BrowserListService {
     private FilePathRepository filePathRepository;
     Logger logger = LoggerFactory.getLogger(getClass());
 
-
-    @Autowired
-    public BrowserListService(BrowserListRepository browserListRepository, ResourceLoader resourceLoader) {
-        this.browserListRepository = browserListRepository;
-        this.resourceLoader = resourceLoader;
-    }
 
     @Transactional
     public BrowserList createBrowserList(BrowserList browserList) {
