@@ -12,8 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
 import lombok.Setter;
 import org.prowikiq.browser.domain.entity.BrowserList;
+=======
+>>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 
 /**
  * Class: FilePath Project: prowikiQ Package: org.prowikiq.object.domain.entity
@@ -26,7 +29,10 @@ import org.prowikiq.browser.domain.entity.BrowserList;
  */
 
 @Getter
+<<<<<<< HEAD
 @Setter
+=======
+>>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,6 +43,7 @@ public class FilePath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "filePathId")
     private Long filePathId;
+<<<<<<< HEAD
 
     @Column(name = "filePath", columnDefinition = "TEXT")
     private String filePath;
@@ -48,4 +55,15 @@ public class FilePath {
         this.filePath = filePath;
     }
 
+=======
+
+    @Column(name = "filePath", columnDefinition = "TEXT")
+    private String filePath;
+
+    public void setPath(String path) {
+        this.filePath = path;
+    }
+
+    public String getPath () { return filePath;}
+>>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 }
