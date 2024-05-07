@@ -20,10 +20,11 @@ import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
 
 /**
- * Class: ToDo Project: prowikiQ Package: org.prowikiq.todo.domain.entity
- * <p>
- * Description:
- * ToDo
+ * Class: ToDo
+ * Project: prowikiQ
+ * Package: org.prowikiq.todo.domain.entity
+ *
+ * Description: Represents a ToDo item in the system.
  *
  * @author dong-hoshin
  * @date 5/7/24 17:04 Copyright (c) 2024 Lyckabc
@@ -38,43 +39,40 @@ import org.prowikiq.user.domain.entity.User;
 public class ToDo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "toDoId")
+    @Column(name = "to_do_id")
     private Long toDoId;
 
-    @Column(name = "requestTitle")
+    @Column(name = "request_title")
     private String requestTitle;
 
-    @Column(name = "requestContent")
+    @Column(name = "request_content")
     private String requestContent;
 
-    @Column(name = "requestAnswerValue") //특정 정답 값을 기록해두고 작업을 할 User는 해당 값을 맞춰야함
+    @Column(name = "request_answer_value")
     private String requestAnswerValue;
 
-    @Column(name = "targetDay")
+    @Column(name = "target_day")
     private LocalDateTime targetDay;
 
-    @Column(name = "finishedDay")
+    @Column(name = "finished_day")
     private LocalDateTime finishedDay;
 
-    //user
-    @ManyToOne(fetch = FetchType.LAZY)  // 지연 로딩을 사용하여 성능 최적화
-    @JoinColumn(name = "userId", referencedColumnName = "userId")  // 외래 키 매핑
-    private User userId;  // User 엔티티와의 연결을 정의
+    // User associated with this ToDo
+    @ManyToOne(fetch = FetchType.LAZY)  // Optimize performance by loading on-demand
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId;
 
-    @Column(name = "requestUser")
+    @Column(name = "request_user")
     private String requestUser;
 
-    @Column(name = "solvedUser")
+    @Column(name = "solved_user")
     private String solvedUser;
 
-    // page
+    // Page associated with this ToDo
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pageId", referencedColumnName = "pageId")
+    @JoinColumn(name = "page_id", referencedColumnName = "file_path_id")
     private FilePath pageId;
 
-    @Column(name = "pageTitle")
+    @Column(name = "page_title")
     private String pageTitle;
-
-
-
 }

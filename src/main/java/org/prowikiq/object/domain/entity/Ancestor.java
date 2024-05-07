@@ -35,17 +35,17 @@ import lombok.Setter;
 public class Ancestor {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ancestorId")
+    @Column(name = "ancestor_id")
     private Long ancestorId;
 
     @Column(name = "ancestor")
     private String ancestor;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentFolderId", referencedColumnName = "objectId")
+    @JoinColumn(name = "parent_folder_id", referencedColumnName = "object_id")
     private Object parentFolderId;
 
-    @Column(name = "parentFolder")
+    @Column(name = "parent_folder")
     private String parentFolder;
 
 }

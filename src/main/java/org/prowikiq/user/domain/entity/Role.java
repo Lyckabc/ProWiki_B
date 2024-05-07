@@ -36,13 +36,14 @@ import org.prowikiq.global.BaseEntity;
 public class Role  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long roleId;
 
-    @Column
+    @Column(name = "role_name")
     private String roleName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parentRole")
+    @JoinColumn(name = "parent_role")
     private Role parentRole;
 
 }

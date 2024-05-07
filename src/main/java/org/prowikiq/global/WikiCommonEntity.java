@@ -39,33 +39,32 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @SuperBuilder
 public abstract class WikiCommonEntity {
     @CreatedDate
-    @Column(nullable = false, updatable = false,  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false,  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(nullable = true)
+    @Column(name = "modified_at", nullable = true)
     private LocalDateTime modifiedAt;
 
     //filePath
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
+    @JoinColumn(name = "file_path_id", referencedColumnName = "file_path_id")
     private FilePath filePathId;
 
-    @Column(name = "filePath")
+    @Column(name = "file_path")
     private String filePath;
 
     /*
     //Ancestor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ancestorId", referencedColumnName = "ancestorId")
+    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
     private Ancestor ancestorId;
 
     @Column(name = "ancestor")
     private String ancestor;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentFolderId", referencedColumnName = "objectId")
+    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
     private Object parentFolderId;
 
     @Column(name = "parentFolder")
@@ -73,43 +72,41 @@ public abstract class WikiCommonEntity {
     */
 
     //object
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "objectId", referencedColumnName = "objectId")
+    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
     private Object objectId;
 
-    @Column(name = "isFolder")
+    @Column(name = "is_folder")
     private Boolean isFolder;
 
     //User
-    @ManyToOne(fetch = FetchType.LAZY)  // 지연 로딩을 사용하여 성능 최적화
-    @JoinColumn(name = "userId", referencedColumnName = "userId")  // 외래 키 매핑
-    private User userId;  // User 엔티티와의 연결을 정의
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId; // Reference to the User entity
 
-    @Column(name = "createdAtUser",nullable = false, updatable = false)
-    private String createdAtUser;
+    @Column(name = "created_at_user", nullable = false, updatable = false)
+    private String createdAtUser; // User who created this entity
 
-    @Column(name = "modifiedAtUser")
+    @Column(name = "modified_at_user")
     private String modifiedAtUser;
 
     //User's data but for Todo
-    @Column(name = "requestUser")
-    private String requestUser;
+    @Column(name = "request_user")
+    private String requestUser; // User who requested some action related to this entity
 
-    @Column(name = "solvedUser")
+    @Column(name = "solved_user")
     private String solvedUser;
 
 
     // Todo
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "toDoId", referencedColumnName = "toDoId")
+    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
-    @Column(name = "targetDay")
-    private LocalDateTime targetDay;
+    @Column(name = "target_day")
+    private LocalDateTime targetDay; 
 
-    @Column(name = "finishedDay")
+    @Column(name = "finished_day")
     private LocalDateTime finishedDay;
 
 }
