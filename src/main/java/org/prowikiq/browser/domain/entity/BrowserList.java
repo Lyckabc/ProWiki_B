@@ -20,7 +20,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.entity.WikiPage;
 
 
@@ -40,33 +42,23 @@ import org.prowikiq.wiki.entity.WikiPage;
 @Builder
 @Entity
 @Table(name = "\"browserlist\"")
-public class BrowserList extends BaseEntity{
+public class BrowserList extends WikiCommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "browserListId", nullable = false)
     private Long browserListId;
 
+    //Page
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
-    private FilePath filePathId;
+    @JoinColumn(name = "pageId", referencedColumnName = "pageId")
+    private FilePath pageId;
 
-    @Column(name = "filePath", columnDefinition = "TEXT")
-    private String filePath;
-
-    @Column(name = "pageTitle", columnDefinition = "TEXT")
+    @Column(name = "pageTitle")
     private String pageTitle;
 
-    @Column(name = "pageCategory", columnDefinition = "TEXT")
+    @Column(name = "pageCategory")
     private String pageCategory;
-
-    @Column(name = "targetDay")
-    private LocalDateTime targetDay;
-
-    @Column(name = "finishedDay")
-    private LocalDateTime finishedDay;
-
-    @Column(name = "isFolder")
-    private Boolean isFolder;
 
 }

@@ -26,7 +26,7 @@ import org.prowikiq.object.domain.entity.FilePath;
 @AllArgsConstructor
 @Builder
 public class FilePathCreateDto {
-//    private Long filePathId;
+    //    private Long filePathId;
     private String filePath;
 
     /*public FilePath toFilePath() {
