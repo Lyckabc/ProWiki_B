@@ -132,7 +132,6 @@ public class BrowserListService {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // String to LocalDateTime format
 
             FilePath filePathET = createFilePath(data[1].trim()); // OS의 FilePath를 가져와 filePathDto 생성 and filePathRepository 저장
-//            Long idOfFilePath = ;
             String pathOfFile = filePathET.getFilePath();
 
             String titleOfPage = data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim(); // Page가 있을 경우 Page이름을 가져오고, 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력
@@ -142,7 +141,7 @@ public class BrowserListService {
             Boolean chkFolder = !data[1].substring(data[1].lastIndexOf('/') + 1).trim().contains("."); // Point(.)가 들어있는 경우 파일이기때문에 .이 없을(!) 경우 true contains 경우 false
 
             BrowserList browserList = BrowserList.builder()
-//                                                .filePathId()
+                                                .filePathId(filePathET)
                                                 .filePath(pathOfFile)
                                                 .pageTitle(titleOfPage)
                                                 .pageCategory(categoryOfPage)
