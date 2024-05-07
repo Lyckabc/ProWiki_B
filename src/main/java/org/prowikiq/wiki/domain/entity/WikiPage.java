@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
@@ -32,26 +33,26 @@ import org.prowikiq.user.domain.entity.User;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "\"wikipage\"")
 public class WikiPage extends WikiCommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pageId", nullable = false)
+    @Column(name = "page_id", nullable = false)
     private Long pageId;
 
-    @Column(name = "pageContent")
+    @Column(name = "page_content")
     private String pageContent;
 
-    /*@Column(name = "pagePath")
+    /*@Column(name = "page_path")
     private String pagePath;*/
 
-    @Column(name = "pageTitle")
+    @Column(name = "page_title")
     private String pageTitle;
 
-    @Column(name = "pageCategory")
+    @Column(name = "page_category")
     private String pageCategory;
 
 }

@@ -33,10 +33,10 @@ public class Object extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "objectId")
+    @Column(name = "object_id")
     private Long objectId;
 
-    @Column(name = "isFolder")
+    @Column(name = "is_folder")
     private Boolean isFolder;
 
 }

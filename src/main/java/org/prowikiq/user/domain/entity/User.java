@@ -38,18 +38,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(unique = true)
+    @Column(name = "user_phone_num",unique = true)
     private String userPhoneNum; // Consider changing the data type in SQL to match Java String.
 
+    @Column(name = "user_password")
     private String userPassword;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    @Column(nullable = true)
+    @Column(name = "user_password_hash",nullable = true)
     private String userPasswordHash;
 
     @Column(nullable = true)
