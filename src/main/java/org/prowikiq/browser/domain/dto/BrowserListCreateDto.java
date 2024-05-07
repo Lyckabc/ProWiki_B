@@ -35,8 +35,7 @@ import org.prowikiq.object.domain.entity.FilePath;
 @Builder
 public class BrowserListCreateDto {
 
-    private Long browserListId;
-    private FilePath filePathId;
+//    private FilePath filePathId;
     private String filePath;
     private String pageTitle;
     private String pageCategory;
@@ -47,6 +46,8 @@ public class BrowserListCreateDto {
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
     private LocalDateTime modifiedAt; // Include modifiedAt
+
+
 
  /*   public BrowserList toBrowserList() {
         BrowserList browserList = new BrowserList();

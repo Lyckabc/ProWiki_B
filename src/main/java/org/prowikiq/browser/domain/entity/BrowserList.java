@@ -47,9 +47,9 @@ public class BrowserList extends BaseEntity{
     @Column(name = "browserListId", nullable = false)
     private Long browserListId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    /*@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
-    private FilePath filePathId;
+    private FilePath filePathId;*/
 
     @Column(name = "filePath", columnDefinition = "TEXT")
     private String filePath;
@@ -68,16 +68,5 @@ public class BrowserList extends BaseEntity{
 
     @Column(name = "isFolder")
     private Boolean isFolder;
-
-    @Builder
-    public BrowserList(FilePath filePathId,String filePath, String pageTitle,String pageCategory,LocalDateTime targetDay,LocalDateTime finishedDay, Boolean isFolder) {
-        this.filePathId = filePathId;
-        this.filePath = filePath;
-        this.pageTitle = pageTitle;
-        this.pageCategory = pageCategory;
-        this.targetDay = targetDay;
-        this.finishedDay = finishedDay;
-        this.isFolder = isFolder;
-    }
 
 }

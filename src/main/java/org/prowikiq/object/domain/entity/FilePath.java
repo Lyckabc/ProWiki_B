@@ -41,8 +41,8 @@ public class FilePath {
     @Column(name = "filePath", columnDefinition = "TEXT")
     private String filePath;
 
-    @OneToMany(mappedBy = "filePath")
-    private List<BrowserList> browserLists;
+    /*@OneToMany(mappedBy = "filePath")
+    private List<BrowserList> browserLists;*/
 
 //    public FilePath(String filePath) {
 //        this.filePath = filePath;

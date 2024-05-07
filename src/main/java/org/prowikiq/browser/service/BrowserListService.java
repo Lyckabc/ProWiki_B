@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.prowikiq.object.domain.repository.FilePathRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -36,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
-
+    @Autowired
     private FilePathRepository filePathRepository;
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -126,23 +129,29 @@ public class BrowserListService {
             return null;
         }
         try {
-            BrowserListCreateDto dto = new BrowserListCreateDto();
-            FilePath filePath = createFilePath(data[1].trim()); // OS의 FilePath를 가져와 filePathDto 생성
-            // data[0].trim() => Page가 있을 경우(PageId)를 가져와 기존 D.B값을 연결
-            dto.setPageTitle(data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim()); // Page가 있을 경우 Page이름을 가져오고, 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력
-            dto.setPageCategory(data[3].trim()); // PageCategory를 가져와 BrowserListDto에 입력
-            dto.setIsFolder(!data[1].substring(data[1].lastIndexOf('/') + 1).trim().contains(".")); // Point(.)가 들어있는 경우 파일이기때문에 .이 없을(!) 경우 true contains 경우 false
-            //dto.setTargetDay(LocalDateTime.parse(data[4].trim())); // Assuming date exists and is valid
-            //dto.setFinishedDay(LocalDateTime.parse(data[5].trim())); // Assuming date exists and is valid
-//            dto.setCreatedAt(LocalDateTime.parse(data[7].trim())); // Parse CreatedAt
-//            dto.setModifiedAt(LocalDateTime.parse(data[8].trim())); // Parse ModifiedAt
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // String to LocalDateTime format
 
+            FilePath filePathET = createFilePath(data[1].trim()); // OS의 FilePath를 가져와 filePathDto 생성 and filePathRepository 저장
+//            Long idOfFilePath = ;
+            String pathOfFile = filePathET.getFilePath();
 
+            String titleOfPage = data[2].isEmpty() ? data[1].substring(data[1].lastIndexOf('/') + 1).trim() : data[2].trim(); // Page가 있을 경우 Page이름을 가져오고, 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력
+            String categoryOfPage = data[3].trim(); // PageCategory를 가져와 BrowserListDto에 입력
+            LocalDateTime dayOfTarget = data[4].isEmpty() ? null : LocalDateTime.parse(data[4].trim(), formatter); //targetDay를 가져와 입력
+            LocalDateTime dayOfFinished = data[5].isEmpty() ? null : LocalDateTime.parse(data[5].trim(), formatter); //finishedDay를 가져와 입력
+            Boolean chkFolder = !data[1].substring(data[1].lastIndexOf('/') + 1).trim().contains("."); // Point(.)가 들어있는 경우 파일이기때문에 .이 없을(!) 경우 true contains 경우 false
 
-            BrowserList browserList = dto.toBrowserList();
-            browserList.setFilePath(filePath); // Set the FilePath to BrowserList
+            BrowserList browserList = BrowserList.builder()
+//                                                .filePathId()
+                                                .filePath(pathOfFile)
+                                                .pageTitle(titleOfPage)
+                                                .pageCategory(categoryOfPage)
+                                                .targetDay(dayOfTarget)
+                                                .finishedDay(dayOfFinished)
+                                                .isFolder(chkFolder)
+                                                .build();
 
-            return dto.toBrowserList();
+            return browserList;
 
         } catch (Exception e) {
             logger.error("Error parsing line: {}. Error: {}", line, e.getMessage());
@@ -151,11 +160,11 @@ public class BrowserListService {
     }
     @Transactional
     public FilePath createFilePath(String dto) {
-        FilePathCreateDto filePathDto = new FilePathCreateDto();
-        filePathRepository.save(filePathDto.setFilePath(dto));
-
-            return filePathRepository.save(filePathDto.setFilePath(dto));
-
+        FilePath filePath = FilePath.builder()
+                                    .filePath(dto)
+                                    .build();
+        filePathRepository.save(filePath);
+            return filePath;
     }
 
 }
