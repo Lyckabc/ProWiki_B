@@ -44,9 +44,9 @@ public class FilePath {
     @OneToMany(mappedBy = "filePath")
     private List<BrowserList> browserLists;
 
-    public FilePath(String filePath) {
-        this.filePath = filePath;
-    }
+//    public FilePath(String filePath) {
+//        this.filePath = filePath;
+//    }
 
 
 }

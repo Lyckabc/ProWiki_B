@@ -48,7 +48,7 @@ public class BrowserListCreateDto {
     private LocalDateTime createdAt; // Include createdAt
     private LocalDateTime modifiedAt; // Include modifiedAt
 
-    public BrowserList toBrowserList() {
+ /*   public BrowserList toBrowserList() {
         BrowserList browserList = new BrowserList();
         browserList.setFilePath(this.filePath);
         browserList.setPageTitle(this.pageTitle);
@@ -59,6 +59,6 @@ public class BrowserListCreateDto {
 //        browserList.setCreatedAt(this.createdAt);
 //        browserList.setModifiedAt(this.modifiedAt);
         return browserList;
-    }
+    }*/
 
 }

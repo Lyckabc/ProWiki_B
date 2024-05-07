@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,6 @@ import org.prowikiq.wiki.entity.WikiPage;
  */
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -68,5 +68,16 @@ public class BrowserList extends BaseEntity{
 
     @Column(name = "isFolder")
     private Boolean isFolder;
+
+    @Builder
+    public BrowserList(FilePath filePathId,String filePath, String pageTitle,String pageCategory,LocalDateTime targetDay,LocalDateTime finishedDay, Boolean isFolder) {
+        this.filePathId = filePathId;
+        this.filePath = filePath;
+        this.pageTitle = pageTitle;
+        this.pageCategory = pageCategory;
+        this.targetDay = targetDay;
+        this.finishedDay = finishedDay;
+        this.isFolder = isFolder;
+    }
 
 }
