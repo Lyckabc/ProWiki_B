@@ -18,6 +18,10 @@ import lombok.Setter;
 import org.prowikiq.browser.domain.entity.BrowserList;
 
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.Object;
+import org.prowikiq.todo.domain.entity.ToDo;
+import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.entity.WikiPage;
 
 /**
  * Class: BrowserListCreateDto Project: prowikiQ Package: org.prowikiq.browser.domain.dto
@@ -35,17 +39,39 @@ import org.prowikiq.object.domain.entity.FilePath;
 @Builder
 public class BrowserListCreateDto {
 
-    private FilePath filePathId;
-    private String filePath;
+    //page
+    private WikiPage pageId;
     private String pageTitle;
     private String pageCategory;
-    private LocalDateTime targetDay;
-    private LocalDateTime finishedDay;
-    private Boolean isFolder;
+
 
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
     private LocalDateTime modifiedAt; // Include modifiedAt
+
+
+    //filePath
+    private FilePath filePathId;
+    private String filePath;
+
+    //object
+    private Object objectId;
+    private Boolean isFolder;
+
+    //User
+    private User userId;
+    private String createdAtUser;
+    private String modifiedAtUser;
+
+    // Additional user-related fields for todo functionality
+    private String requestUser;
+    private String solvedUser;
+
+    // Todo
+    private ToDo toDoId;
+    private LocalDateTime targetDay;
+    private LocalDateTime finishedDay;
+
 
 
 

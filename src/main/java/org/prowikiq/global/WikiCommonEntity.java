@@ -9,11 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.Object;
+import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,11 +32,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@SuperBuilder
 public abstract class WikiCommonEntity {
     @CreatedDate
     @Column(nullable = false, updatable = false,  columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -56,7 +59,7 @@ public abstract class WikiCommonEntity {
     //Ancestor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ancestorId", referencedColumnName = "ancestorId")
-    private Object ancestorId;
+    private Ancestor ancestorId;
 
     @Column(name = "ancestor")
     private String ancestor;
@@ -73,7 +76,7 @@ public abstract class WikiCommonEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "objectId", referencedColumnName = "objectId")
-    private FilePath objectId;
+    private Object objectId;
 
     @Column(name = "isFolder")
     private Boolean isFolder;
@@ -101,7 +104,7 @@ public abstract class WikiCommonEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "toDoId", referencedColumnName = "toDoId")
-    private FilePath toDoId;
+    private ToDo toDoId;
 
     @Column(name = "targetDay")
     private LocalDateTime targetDay;

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,11 +20,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.entity.WikiPage;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 /**
@@ -39,9 +42,10 @@ import org.prowikiq.wiki.entity.WikiPage;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "\"browserlist\"")
+@EntityListeners(AuditingEntityListener.class)
 public class BrowserList extends WikiCommonEntity {
 
     @Id
@@ -53,7 +57,7 @@ public class BrowserList extends WikiCommonEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pageId", referencedColumnName = "pageId")
-    private FilePath pageId;
+    private WikiPage pageId;
 
     @Column(name = "pageTitle")
     private String pageTitle;

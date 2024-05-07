@@ -41,6 +41,7 @@ public class BrowserListService {
     private final ResourceLoader resourceLoader;
     @Autowired
     private FilePathRepository filePathRepository;
+
     Logger logger = LoggerFactory.getLogger(getClass());
 
 
@@ -129,7 +130,12 @@ public class BrowserListService {
             return null;
         }
         try {
+            //browserListId
+
+
+            //BaseEntity about time
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // String to LocalDateTime format
+            LocalDateTime now = LocalDateTime.now(); // For createdAt and modifiedAt
 
             FilePath filePathET = createFilePath(data[1].trim()); // OS의 FilePath를 가져와 filePathDto 생성 and filePathRepository 저장
             String pathOfFile = filePathET.getFilePath();
@@ -139,6 +145,8 @@ public class BrowserListService {
             LocalDateTime dayOfTarget = data[4].isEmpty() ? null : LocalDateTime.parse(data[4].trim(), formatter); //targetDay를 가져와 입력
             LocalDateTime dayOfFinished = data[5].isEmpty() ? null : LocalDateTime.parse(data[5].trim(), formatter); //finishedDay를 가져와 입력
             Boolean chkFolder = !data[1].substring(data[1].lastIndexOf('/') + 1).trim().contains("."); // Point(.)가 들어있는 경우 파일이기때문에 .이 없을(!) 경우 true contains 경우 false
+            LocalDateTime atCreated = data[7].isEmpty() ? now : LocalDateTime.parse(data[7].trim(), formatter);
+            LocalDateTime atModified = data[8].isEmpty() ? now : LocalDateTime.parse(data[8].trim(), formatter);
 
             BrowserList browserList = BrowserList.builder()
                                                 .filePathId(filePathET)
@@ -148,6 +156,8 @@ public class BrowserListService {
                                                 .targetDay(dayOfTarget)
                                                 .finishedDay(dayOfFinished)
                                                 .isFolder(chkFolder)
+                .createdAt(atCreated)
+                .modifiedAt(atModified)
                                                 .build();
 
             return browserList;
@@ -157,7 +167,6 @@ public class BrowserListService {
             return null;
         }
     }
-    @Transactional
     public FilePath createFilePath(String dto) {
         FilePath filePath = FilePath.builder()
                                     .filePath(dto)

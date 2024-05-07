@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
@@ -32,7 +33,7 @@ import org.prowikiq.user.domain.entity.User;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "\"wikipage\"")
 public class WikiPage extends WikiCommonEntity {
