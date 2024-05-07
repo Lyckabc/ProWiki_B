@@ -39,8 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
-    @Autowired
-    private FilePathRepository filePathRepository;
+    private final FilePathRepository filePathRepository;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
