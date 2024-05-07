@@ -1,135 +1,54 @@
 package org.prowikiq.browser.domain.entity;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.entity.WikiPage;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * Class: BrowserList Project: prowikiQ Package: org.prowikiq.browser.domain.entity
- * <p>
- * Description: BrowserList Entity
+ * Class: BrowserList
+ * Project: prowikiQ
+ * Package: org.prowikiq.browser.domain.entity
+ *
+ * Description: Entity representing a BrowserList, part of the prowikiQ project.
  *
  * @author dong-hoshin
  * @date 4/29/24 15:23 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
-
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-@Table(name = "\"browserlist\"")
-public class BrowserList extends BaseEntity{
+@Table(name = "\"browserList\"")
+@EntityListeners(AuditingEntityListener.class)
+public class BrowserList extends WikiCommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "browserListId", nullable = false)
+    @Column(name = "browser_list_id", nullable = false)
     private Long browserListId;
 
+    // Related page details
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
-<<<<<<< HEAD
-    private FilePath filePathId;
+    @JoinColumn(name = "page_id", referencedColumnName = "page_id")
+    private WikiPage pageId;
 
-    @Column(name = "filePath", columnDefinition = "TEXT")
-    private String filePath;
-=======
-    private FilePath filePath;
->>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
-
-    @Column(name = "pageTitle", columnDefinition = "TEXT")
+    @Column(name = "page_title")
     private String pageTitle;
 
-    @Column(name = "pageCategory", columnDefinition = "TEXT")
+    @Column(name = "page_category")
     private String pageCategory;
-
-    @Column(name = "targetDay")
-    private LocalDateTime targetDay;
-
-    @Column(name = "finishedDay")
-    private LocalDateTime finishedDay;
-
-    @Column(name = "isFolder")
-    private Boolean isFolder;
-
-
-<<<<<<< HEAD
-=======
-    // Getters and Setters
-
-    public Long getBrowserListId() { return browserListId; }
-
-    public void setbrowserListId(Long pageId) {
-        this.browserListId = browserListId;
-    }
-
-    public FilePath getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(FilePath filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getPageTitle() {
-        return pageTitle;
-    }
-
-    public void setPageTitle(String pageTitle) {
-        this.pageTitle = pageTitle;
-    }
-
-    public String getPageCategory() {
-        return pageCategory;
-    }
-
-    public void setPageCategory(String pageCategory) {
-        this.pageCategory = pageCategory;
-    }
-
-    public LocalDateTime getTargetDay() {
-        return targetDay;
-    }
-
-    public void setTargetDay(LocalDateTime targetDay) {
-        this.targetDay = targetDay;
-    }
-
-    public LocalDateTime getFinishedDay() {
-        return finishedDay;
-    }
-
-    public void setFinishedDay(LocalDateTime finishedDay) {
-        this.finishedDay = finishedDay;
-    }
-
-    public Boolean getIsFolder() {
-        return isFolder;
-    }
-
-    public void setIsFolder(Boolean isFolder) {
-        this.isFolder = isFolder;
-    }
->>>>>>> 70eb822267a566fdaf65a07b7fcb7c65d8d73a72
 }

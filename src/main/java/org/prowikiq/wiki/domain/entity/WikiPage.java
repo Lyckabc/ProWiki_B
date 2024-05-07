@@ -1,5 +1,6 @@
 package org.prowikiq.wiki.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
 
@@ -30,35 +33,26 @@ import org.prowikiq.user.domain.entity.User;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "\"wikipage\"")
-public class WikiPage extends BaseEntity{
+public class WikiPage extends WikiCommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pageId", nullable = false)
+    @Column(name = "page_id", nullable = false)
     private Long pageId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "filePathId", referencedColumnName = "filePathId")
-    private FilePath filePath;
-
-    @Column(name = "pageTitle", length = 255)
-    private String pageTitle;
-
-    @Column(name = "pageContent", columnDefinition = "TEXT")
+    @Column(name = "page_content")
     private String pageContent;
 
-    @Column(name = "pageCategory", length = 255)
+    /*@Column(name = "page_path")
+    private String pagePath;*/
+
+    @Column(name = "page_title")
+    private String pageTitle;
+
+    @Column(name = "page_category")
     private String pageCategory;
 
-    @Column(name = "pageFilePath", columnDefinition = "TEXT")
-    private String pageFilePath;
-
-    // Getters and Setters
 }

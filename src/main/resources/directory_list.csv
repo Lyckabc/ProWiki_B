@@ -1,9 +1,3 @@
-PageId,FilePath,PageTitle,PageCategory,TargetDay,FinishedDay,isFolder,CreatedAt,ModifiedAt
-,./Project_2023,,,,,,,
-,./Project_2023/MainCategory,,,,,,,
-,./Project_2023/MainCategory/SubCategory2,,,,,,,
-,./Project_2023/MainCategory/SubCategory2/SubSubCategory2,,,,,,,
-,./Project_2023/MainCategory/SubCategory3,,,,,,,
-,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,,,,,
-,./Project_2023/MainCategory/SubCategory1,,,,,,,
-,./Project_2023/MainCategory/SubCategory1/SubSubCategory1,,,,,,,
+browserListId,PageId,PageTitle,PageCategory,CreatedAt,ModifiedAt,FilePathId,FilePath,ObjectId,isFolder,UserId,CreatedAtUser,ModifiedAtUser,RequestUser,SolvedUser,ToDoId,TargetDay,FinishedDay
+,,,,,,,"""./path/to/file""",,,,,,,,,,
+,,,,,,,"""./path/to/subfile.csv""",,,,,,,,,,

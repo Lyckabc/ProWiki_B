@@ -35,18 +35,18 @@ import org.prowikiq.browser.domain.entity.BrowserList;
 public class FilePath {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "filePathId")
+    @Column(name = "file_path_id")
     private Long filePathId;
 
-    @Column(name = "filePath", columnDefinition = "TEXT")
+    @Column(name = "file_path", columnDefinition = "TEXT")
     private String filePath;
 
-    @OneToMany(mappedBy = "filePath")
-    private List<BrowserList> browserLists;
+    /*@OneToMany(mappedBy = "filePath")
+    private List<BrowserList> browserLists;*/
 
-    public FilePath(String filePath) {
-        this.filePath = filePath;
-    }
+//    public FilePath(String filePath) {
+//        this.filePath = filePath;
+//    }
 
 
 }
