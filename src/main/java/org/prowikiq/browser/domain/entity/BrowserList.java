@@ -13,7 +13,7 @@ import org.prowikiq.global.BaseEntity;
 import org.prowikiq.global.WikiCommonEntity;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.entity.WikiPage;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
