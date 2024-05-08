@@ -21,7 +21,7 @@ import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.Object;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.entity.WikiPage;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: BrowserListCreateDto Project: prowikiQ Package: org.prowikiq.browser.domain.dto
