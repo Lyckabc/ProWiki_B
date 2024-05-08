@@ -1,4 +1,4 @@
-package org.prowikiq.wiki.entity;
+package org.prowikiq.wiki.domain.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
