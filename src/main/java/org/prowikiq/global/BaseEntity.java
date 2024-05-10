@@ -39,5 +39,9 @@ public abstract class BaseEntity{
   @Column(nullable = true)
   private LocalDateTime modifiedAt;
 
+  @LastModifiedDate
+  @Column(name = "latested_at", nullable = true)
+  private LocalDateTime latestedAt;
+
 
 }

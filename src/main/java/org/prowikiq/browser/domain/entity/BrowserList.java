@@ -51,4 +51,20 @@ public class BrowserList extends WikiCommonEntity {
 
     @Column(name = "page_category")
     private String pageCategory;
+
+    //PagePath for Object ex; in Wiki's path of Linked word.
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
+    private FilePath pagePathId;
+
+    @Column(name = "page_path")
+    private String pagePath;
+
+    //ObjectPath for Object ex; in Server's path of file.
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_path_id", referencedColumnName = "file_path_id")
+    private FilePath objectPathId;
+
+    @Column(name = "object_path")
+    private String objectPath;
 }

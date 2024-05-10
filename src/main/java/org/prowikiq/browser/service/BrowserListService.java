@@ -10,17 +10,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 
-import org.prowikiq.object.domain.dto.FilePathCreateDto;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.domain.repository.FilePathRepository;
 
+import org.prowikiq.object.domain.repository.StorageObjectRepository;
+import org.prowikiq.object.service.StorageObjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -40,6 +40,8 @@ public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
     private final FilePathRepository filePathRepository;
+    private final StorageObjectService storageObjectService;
+    private final StorageObjectRepository storageObjectRepository;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -124,7 +126,7 @@ public class BrowserListService {
     private BrowserList parseBrowserList(String line) {
         String[] data = line.split(",", -1);
 
-        if (data.length < 9) {
+        if (data.length < 17) {
             logger.error("Insufficient data in line: {}", line);
             return null;
         }
@@ -134,16 +136,18 @@ public class BrowserListService {
             LocalDateTime now = LocalDateTime.now(); // For createdAt and modifiedAt
             //browserListId
             //Page
-            String titleOfPage = data[1].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[1].trim(); // Page id가 있을 경우 Page이름을 가져오고, 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력
+            String titleOfPage = data[1].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[1].trim(); // Page id가 없을 경우 FilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력, 있을 경우 Page이름을 가져옴
 
             //Time
             LocalDateTime atCreated = data[7].isEmpty() ? now : LocalDateTime.parse(data[7].trim(), formatter);
             LocalDateTime atModified = data[8].isEmpty() ? now : LocalDateTime.parse(data[8].trim(), formatter);
 
             //FilePath
-            Long filePathId = ;
-            FilePath filePathET = data[1].isEmpty() ? createFilePath(data[1].trim()): ; // OS의 FilePath를 가져와 filePathDto 생성 and filePathRepository 저장
+            FilePath filePathET = data[6].isEmpty() ? createFilePath(data[7].trim()): storageObjectService.getFilePathIdBy(Long.parseLong(data[6].trim())) ; // filePathId 가 없을 경우 import,  있으면 OS의 FilePath를 가져옴
             String pathOfFile = filePathET.getFilePath();
+
+            //Object
+            Object objectET = data[8].isEmpty() ? createChkFolder(data[7].trim()) : "";
 
 
             String categoryOfPage = data[3].trim(); // PageCategory를 가져와 BrowserListDto에 입력
@@ -171,6 +175,24 @@ public class BrowserListService {
             return null;
         }
     }
+
+    private StorageObject createChkFolder(String dto) {
+        boolean chkFolder = !dto.substring(dto.lastIndexOf('/') + 1).trim().contains(".");
+        FilePath filePathET = storageObjectService.getFilePathIdBy(Long.parseLong(dto));
+        if (filePathET.getFilePath().isEmpty()) {
+            filePathET = createFilePath(dto);
+        }
+        String pathOfFile = filePathET.getFilePath();
+
+        StorageObject object = StorageObject.builder()
+                                .isFolder(chkFolder)
+                                .objectPathId(filePathET)
+                                .objectPath(pathOfFile)
+                                .build();
+        storageObjectRepository.save(object);
+        return object;
+    }
+
     public FilePath createFilePath(String dto) {
         FilePath filePath = FilePath.builder()
                                     .filePath(dto)

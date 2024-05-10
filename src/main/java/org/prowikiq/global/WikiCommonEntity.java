@@ -9,13 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.object.domain.entity.FilePath;
-import org.prowikiq.object.domain.entity.Object;
+import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
 import org.springframework.data.annotation.CreatedDate;
@@ -46,13 +44,10 @@ public abstract class WikiCommonEntity {
     @Column(name = "modified_at", nullable = true)
     private LocalDateTime modifiedAt;
 
-    //filePath
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_path_id", referencedColumnName = "file_path_id")
-    private FilePath filePathId;
+    @LastModifiedDate
+    @Column(name = "latested_at", nullable = true)
+    private LocalDateTime latestedAt;
 
-    @Column(name = "file_path")
-    private String filePath;
 
     /*
     //Ancestor
@@ -74,7 +69,10 @@ public abstract class WikiCommonEntity {
     //object
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "object_id", referencedColumnName = "object_id")
-    private Object objectId;
+    private StorageObject storageObjectId;
+
+    @Column(name = "object_title")
+    private String objectTitle;
 
     @Column(name = "is_folder")
     private Boolean isFolder;
@@ -82,17 +80,17 @@ public abstract class WikiCommonEntity {
     //User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User userId; // Reference to the User entity
+    private User userId;
 
     @Column(name = "created_at_user", nullable = false, updatable = false)
-    private String createdAtUser; // User who created this entity
+    private String createdAtUser;
 
     @Column(name = "modified_at_user")
     private String modifiedAtUser;
 
     //User's data but for Todo
     @Column(name = "request_user")
-    private String requestUser; // User who requested some action related to this entity
+    private String requestUser;
 
     @Column(name = "solved_user")
     private String solvedUser;

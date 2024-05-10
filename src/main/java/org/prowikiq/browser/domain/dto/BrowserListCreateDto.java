@@ -1,24 +1,15 @@
 package org.prowikiq.browser.domain.dto;
 
 
-import static org.hibernate.boot.model.process.spi.MetadataBuildingProcess.build;
-
-
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import org.prowikiq.browser.domain.entity.BrowserList;
-
 import org.prowikiq.object.domain.entity.FilePath;
-import org.prowikiq.object.domain.entity.Object;
+import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.domain.entity.WikiPage;
@@ -43,20 +34,22 @@ public class BrowserListCreateDto {
     private WikiPage pageId;
     private String pageTitle;
     private String pageCategory;
-
+    private FilePath pagePathId;
+    private String pagePath;
 
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
     private LocalDateTime modifiedAt; // Include modifiedAt
+    private LocalDateTime latestedAt;
 
-
-    //filePath
-    private FilePath filePathId;
-    private String filePath;
 
     //object
-    private Object objectId;
+    private StorageObject storageObjectId;
+    private String objectTitle;
     private Boolean isFolder;
+    private FilePath objectPathId;
+    private String objectPath;
+
 
     //User
     private User userId;

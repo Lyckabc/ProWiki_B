@@ -43,16 +43,21 @@ public class WikiPage extends WikiCommonEntity {
     @Column(name = "page_id", nullable = false)
     private Long pageId;
 
-    @Column(name = "page_content")
-    private String pageContent;
-
-    /*@Column(name = "page_path")
-    private String pagePath;*/
-
     @Column(name = "page_title")
     private String pageTitle;
 
+    @Column(name = "page_content")
+    private String pageContent;
+
     @Column(name = "page_category")
     private String pageCategory;
+
+    //filePath
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
+    private FilePath pagePathId;
+
+    @Column(name = "page_path")
+    private String pagePath;
 
 }

@@ -1,6 +1,6 @@
 package org.prowikiq.object.domain.repository;
 
-import org.prowikiq.object.domain.entity.Object;
+import org.prowikiq.object.domain.entity.StorageObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 5/8/24 15:32 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
-public interface ObjectRepository extends JpaRepository<Object, Long> {
+public interface StorageObjectRepository extends JpaRepository<StorageObject, Long> {
 
 }

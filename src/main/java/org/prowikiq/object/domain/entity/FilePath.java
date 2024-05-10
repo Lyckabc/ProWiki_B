@@ -1,8 +1,10 @@
 package org.prowikiq.object.domain.entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.prowikiq.browser.domain.entity.BrowserList;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: FilePath Project: prowikiQ Package: org.prowikiq.object.domain.entity
@@ -41,12 +44,10 @@ public class FilePath {
     @Column(name = "file_path", columnDefinition = "TEXT")
     private String filePath;
 
-    /*@OneToMany(mappedBy = "filePath")
-    private List<BrowserList> browserLists;*/
+    @OneToMany(mappedBy = "page_path_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<WikiPage> wikiPages;
 
-//    public FilePath(String filePath) {
-//        this.filePath = filePath;
-//    }
-
+    @OneToMany(mappedBy = "object_path_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<StorageObject> storageObjects;
 
 }
