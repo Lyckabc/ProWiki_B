@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 
 /**
@@ -31,7 +32,7 @@ import org.prowikiq.global.BaseEntity;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "\"storage_object\"")
 public class StorageObject extends BaseEntity {
@@ -41,8 +42,8 @@ public class StorageObject extends BaseEntity {
     @Column(name = "object_id")
     private Long objectId;
 
-    @Column(name = "object_title")
-    private String objectTitle;
+    @Column(name = "object_name")
+    private String objectName;
 
     @Column(name = "is_folder")
     private Boolean isFolder;

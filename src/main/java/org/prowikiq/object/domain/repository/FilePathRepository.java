@@ -23,7 +23,7 @@ public interface FilePathRepository extends JpaRepository<FilePath, Long> {
 
 
     Optional<FilePath> findByFilePathId(Long filePathId);
-    Optional<FilePath> findByFilePath(String filePathId);
+    Optional<FilePath> findByFilePath(String filePath);
 
 
 

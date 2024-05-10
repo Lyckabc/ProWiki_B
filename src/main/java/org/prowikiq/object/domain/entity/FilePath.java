@@ -44,10 +44,10 @@ public class FilePath {
     @Column(name = "file_path", columnDefinition = "TEXT")
     private String filePath;
 
-    @OneToMany(mappedBy = "page_path_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pagePathId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<WikiPage> wikiPages;
 
-    @OneToMany(mappedBy = "object_path_id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "objectPathId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<StorageObject> storageObjects;
 
 }

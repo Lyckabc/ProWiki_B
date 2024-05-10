@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
@@ -71,8 +70,8 @@ public abstract class WikiCommonEntity {
     @JoinColumn(name = "object_id", referencedColumnName = "object_id")
     private StorageObject storageObjectId;
 
-    @Column(name = "object_title")
-    private String objectTitle;
+    @Column(name = "object_name")
+    private String objectName;
 
     @Column(name = "is_folder")
     private Boolean isFolder;
@@ -82,18 +81,18 @@ public abstract class WikiCommonEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
 
-    @Column(name = "created_at_user", nullable = false, updatable = false)
-    private String createdAtUser;
+    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    private Long createdAtUserId;
 
-    @Column(name = "modified_at_user")
-    private String modifiedAtUser;
+    @Column(name = "modified_at_user_id")
+    private Long modifiedAtUserId;
 
     //User's data but for Todo
-    @Column(name = "request_user")
-    private String requestUser;
+    @Column(name = "request_user_id")
+    private Long requestUserId;
 
-    @Column(name = "solved_user")
-    private String solvedUser;
+    @Column(name = "solved_user_id")
+    private Long solvedUserId;
 
 
     // Todo

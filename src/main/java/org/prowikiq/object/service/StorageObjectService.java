@@ -3,6 +3,7 @@ package org.prowikiq.object.service;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.domain.repository.AncestorRepository;
 import org.prowikiq.object.domain.repository.FilePathRepository;
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
@@ -32,4 +33,6 @@ public class StorageObjectService {
         Optional<FilePath> filePath = filePathRepository.findById(id);
         return filePath.orElseThrow(() -> new RuntimeException("FilePath not found for id: " + id));
     }
+
+
 }

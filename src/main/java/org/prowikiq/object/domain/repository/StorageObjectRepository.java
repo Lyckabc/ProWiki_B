@@ -1,5 +1,7 @@
 package org.prowikiq.object.domain.repository;
 
+import java.util.Optional;
+import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +15,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 public interface StorageObjectRepository extends JpaRepository<StorageObject, Long> {
+    Optional<StorageObject> findByObjectId(Long ObjectId);
+    Optional<StorageObject> findByObjectName(String ObjectTitle);
+
+    Optional<StorageObject> findByObjectPathId(FilePath ObjectPathId);
+
+    Optional<FilePath> findByObjectPathId_FilePathEx(Long ObjectPathId);
+
+    Optional<StorageObject> findByObjectPath(String ObjectPath);
 
 }

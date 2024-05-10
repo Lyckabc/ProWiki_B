@@ -45,7 +45,7 @@ public class BrowserListCreateDto {
 
     //object
     private StorageObject storageObjectId;
-    private String objectTitle;
+    private String objectName;
     private Boolean isFolder;
     private FilePath objectPathId;
     private String objectPath;
@@ -53,12 +53,12 @@ public class BrowserListCreateDto {
 
     //User
     private User userId;
-    private String createdAtUser;
-    private String modifiedAtUser;
+    private Long createdAtUserId;
+    private Long modifiedAtUserId;
 
     // Additional user-related fields for todo functionality
-    private String requestUser;
-    private String solvedUser;
+    private Long requestUserId;
+    private Long solvedUserId;
 
     // Todo
     private ToDo toDoId;

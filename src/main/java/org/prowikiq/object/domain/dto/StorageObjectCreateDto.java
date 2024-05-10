@@ -24,7 +24,7 @@ import org.prowikiq.object.domain.entity.FilePath;
 @AllArgsConstructor
 @Builder
 public class StorageObjectCreateDto {
-    private String objectTitle;
+    private String objectName;
     private Boolean isFolder;
     private FilePath objectPathId;
     private String objectPath;

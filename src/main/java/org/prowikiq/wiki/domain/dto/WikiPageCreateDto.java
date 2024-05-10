@@ -44,10 +44,10 @@ public class WikiPageCreateDto {
 
     //User
     private User userId;
-    private String createdAtUser;
-    private String modifiedAtUser;
-    private String requestUser;
-    private String solvedUser;
+    private Long createdAtUserId;
+    private Long modifiedAtUserId;
+    private Long requestUserId;
+    private Long solvedUserId;
 
     //To Do
     private ToDo toDoId;
