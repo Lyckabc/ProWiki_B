@@ -30,12 +30,12 @@ public class StorageObjectService {
 
     @Transactional
     public StorageObject getStorageObject(Long objectId) {
-        List<StorageObject> objects = storageObjectRepository.findByObjectId(objectId);
+        StorageObject objects = storageObjectRepository.findByObjectId(objectId);
         if (objects.isEmpty()) {
             throw new EntityNotFoundException("StorageObject not found for ID: " + objectId);
         }
         // 결과가 하나만 있는 경우를 기대했으나 여러 개 처리하는 방식 선택
-        return objects.get(0);
+        return objects;
     }
 
 

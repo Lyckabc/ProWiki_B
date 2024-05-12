@@ -15,9 +15,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 public interface StorageObjectRepository extends JpaRepository<StorageObject, Long> {
-    List<StorageObject> findByObjectId(Long ObjectId);
+    Optional<StorageObject> findByObjectId(Long ObjectId);
     Optional<StorageObject> findByObjectName(String ObjectTitle);
 
-    List<StorageObject> findByObjectPath(String ObjectPath);
+    Optional<StorageObject> findByObjectPath(String ObjectPath);
 
 }

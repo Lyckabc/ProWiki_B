@@ -46,7 +46,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BrowserListService {
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
-    private final FilePathRepository filePathRepository;
     private final StorageObjectService storageObjectService;
     private final StorageObjectRepository storageObjectRepository;
     private final WikiPageRepository wikiPageRepository;
