@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
@@ -31,7 +30,6 @@ public class WikiPageCreateDto {
     private String pageTitle;
     private String pageContent;
     private String pageCategory;
-    private Long pagePathId;
     private String pagePath;
 
     // WikiCommonEntity

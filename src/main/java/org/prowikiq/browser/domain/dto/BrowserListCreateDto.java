@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
@@ -29,13 +29,12 @@ import org.prowikiq.wiki.domain.entity.WikiPage;
 @AllArgsConstructor
 @Builder
 public class BrowserListCreateDto {
-
+    private Long browserListId;
     //page
-    private WikiPage pageId;
-//    private String pageTitle;
-//    private String pageCategory;
-    private FilePath pagePathId;
-//    private String pagePath;
+    private Long pageId;
+    private String pageTitle;
+    private String pageCategory;
+    private String pagePath;
 
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
@@ -45,14 +44,14 @@ public class BrowserListCreateDto {
 
     //object
     private StorageObject storageObjectId;
-//    private String objectName;
-//    private Boolean isFolder;
-    private FilePath objectPathId;
-//    private String objectPath;
+    private String objectName;
+    private Boolean isFolder;
+    private String objectPath;
 
 
     //User
-    private User userId;
+    private Long userId;
+    private String userPhoneNum;
     private Long createdAtUserId;
     private Long modifiedAtUserId;
 
@@ -61,22 +60,25 @@ public class BrowserListCreateDto {
     private Long solvedUserId;
 
     // Todo
-    private ToDo toDoId;
-//    private LocalDateTime targetDay;
-//    private LocalDateTime finishedDay;
+    private Long toDoId;
+    private String toDoTitle;
+    private LocalDateTime targetDay;
+    private LocalDateTime finishedDay;
 
+    //
+    private String status;
 
- /*   public BrowserList toBrowserList() {
-        BrowserList browserList = new BrowserList();
-        browserList.setFilePath(this.filePath);
-        browserList.setPageTitle(this.pageTitle);
-        browserList.setPageCategory(this.pageCategory);
-//        browserList.setTargetDay(this.targetDay);
-//        browserList.setFinishedDay(this.finishedDay);
-        browserList.setIsFolder(this.isFolder);
-//        browserList.setCreatedAt(this.createdAt);
-//        browserList.setModifiedAt(this.modifiedAt);
-        return browserList;
-    }*/
-
+    public static BrowserListCreateDto fromEntity(BrowserList browserList) {
+        return BrowserListCreateDto.builder()
+            .browserListId(browserList.getBrowserListId())
+            .pageId(browserList.getPageId() != null ? browserList.getPageId().getPageId() : null)
+            .pageTitle(browserList.getPageId() != null ? browserList.getPageId().getPageTitle() : null)
+            .pageCategory(browserList.getPageId() != null ? browserList.getPageId().getPageCategory() : null)
+            .userId(browserList.getUserId() != null ? browserList.getUserId().getUserId() : null)
+            .userPhoneNum(browserList.getUserId() != null ? browserList.getUserId().getUserPhoneNum() : null) // Example to include user's phone
+            .toDoId(browserList.getToDoId() != null ? browserList.getToDoId().getToDoId() : null)
+            .toDoTitle(browserList.getToDoId() != null ? browserList.getToDoId().getToDoTitle() : null)
+//            .status(browserList.getStatus())
+            .build();
+    }
 }

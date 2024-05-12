@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.prowikiq.object.domain.entity.FilePath;
 
 /**
  * Class: ObjectCreateDto Project: prowikiQ Package: org.prowikiq.wiki.domain.dto
@@ -26,7 +25,6 @@ import org.prowikiq.object.domain.entity.FilePath;
 public class StorageObjectCreateDto {
     private String objectName;
     private Boolean isFolder;
-    private FilePath objectPathId;
     private String objectPath;
     private BigInteger objectSize;
     private String objectFormat;

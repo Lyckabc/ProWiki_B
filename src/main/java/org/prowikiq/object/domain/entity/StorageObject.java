@@ -48,11 +48,6 @@ public class StorageObject extends BaseEntity {
     @Column(name = "is_folder")
     private Boolean isFolder;
 
-    //filePath for Object
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "object_path_id", referencedColumnName = "file_path_id")
-    private FilePath objectPathId;
-
     @Column(name = "object_path")
     private String objectPath;
 

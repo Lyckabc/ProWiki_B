@@ -24,17 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class StorageObjectService {
-    private final FilePathRepository filePathRepository;
     private final AncestorRepository ancestorRepository;
     private final StorageObjectRepository storageObjectRepository;
 
-    @Transactional
-    public FilePath getFilePathIdBy(Long id) {
-        //Optional<FilePath> filePath = filePathRepository.findByFilePathId(id); for Long
-        //filePath.map(FilePath::getFilePathId).orElseThrow(() -> new RuntimeException("File path not found with id: " + id)); for Long
-        Optional<FilePath> filePath = filePathRepository.findById(id);
-        return filePath.orElseThrow(() -> new RuntimeException("FilePath not found for id: " + id));
-    }
+
     @Transactional
     public StorageObject getStorageObject(Long objectId) {
         List<StorageObject> objects = storageObjectRepository.findByObjectId(objectId);

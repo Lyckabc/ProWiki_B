@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
-import org.prowikiq.global.WikiCommonEntity;
-import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -34,7 +34,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "\"browserList\"")
 @EntityListeners(AuditingEntityListener.class)
-public class BrowserList extends WikiCommonEntity {
+public class BrowserList extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,23 +46,45 @@ public class BrowserList extends WikiCommonEntity {
     @JoinColumn(name = "page_id", referencedColumnName = "page_id")
     private WikiPage pageId;
 
-    @Column(name = "page_title")
-    private String pageTitle;
 
-    @Column(name = "page_category")
-    private String pageCategory;
-
-    //PagePath for Object ex; in Wiki's path of Linked word.
+    /*
+    //Ancestor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
-    private FilePath pagePathId;
+    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
+    private Ancestor ancestorId;
 
+    @Column(name = "ancestor")
+    private String ancestor;
 
-    //ObjectPath for Object ex; in Server's path of file.
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "object_path_id", referencedColumnName = "file_path_id")
-    private FilePath objectPathId;
+    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
+    private Object parentFolderId;
 
-    @Column(name = "object_path")
-    private String objectPath;
+    @Column(name = "parentFolder")
+    private String parentFolder;
+    */
+
+    //object
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
+    private StorageObject storageObjectId;
+
+
+    //User
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId;
+
+    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    private Long createdAtUserId;
+
+    @Column(name = "modified_at_user_id")
+    private Long modifiedAtUserId;
+
+
+
+    // Todo
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
+    private ToDo toDoId;
 }

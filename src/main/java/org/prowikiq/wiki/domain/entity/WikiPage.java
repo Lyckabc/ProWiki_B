@@ -17,8 +17,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
-import org.prowikiq.global.WikiCommonEntity;
-import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
 
 /**
@@ -36,7 +36,7 @@ import org.prowikiq.user.domain.entity.User;
 @SuperBuilder
 @Entity
 @Table(name = "\"wikipage\"")
-public class WikiPage extends WikiCommonEntity {
+public class WikiPage extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,9 +52,48 @@ public class WikiPage extends WikiCommonEntity {
     @Column(name = "page_category")
     private String pageCategory;
 
-    //filePath
+    @Column(name = "page_path")
+    private String pagePath;
+
+    /*
+    //Ancestor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
-    private FilePath pagePathId;
+    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
+    private Ancestor ancestorId;
+
+    @Column(name = "ancestor")
+    private String ancestor;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
+    private Object parentFolderId;
+
+    @Column(name = "parentFolder")
+    private String parentFolder;
+    */
+
+    //object
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
+    private StorageObject storageObjectId;
+
+
+    //User
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId;
+
+    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    private Long createdAtUserId;
+
+    @Column(name = "modified_at_user_id")
+    private Long modifiedAtUserId;
+
+
+
+    // Todo
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
+    private ToDo toDoId;
 
 }
