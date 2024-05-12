@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
-import org.prowikiq.global.WikiCommonEntity;
-import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.entity.WikiPage;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -28,13 +28,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @Entity
 @Table(name = "\"browserList\"")
 @EntityListeners(AuditingEntityListener.class)
-public class BrowserList extends WikiCommonEntity {
+public class BrowserList extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +52,77 @@ public class BrowserList extends WikiCommonEntity {
 
     @Column(name = "page_category")
     private String pageCategory;
+
+    @Column(name = "page_path")
+    private String pagePath;
+
+
+    /*
+    //Ancestor
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
+    private Ancestor ancestorId;
+
+    @Column(name = "ancestor")
+    private String ancestor;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
+    private Object parentFolderId;
+
+    @Column(name = "parentFolder")
+    private String parentFolder;
+    */
+
+    //object
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
+    private StorageObject storageObjectId;
+
+    @Column(name = "object_name")
+    private String objectName;
+
+    @Column(name = "is_folder")
+    private Boolean isFolder;
+
+    @Column(name = "object_path")
+    private String objectPath;
+
+
+
+    //User
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId;
+
+    @Column(name = "user_phone_num")
+    private String userPhoneNum;
+
+    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    private Long createdAtUserId;
+
+    @Column(name = "modified_at_user_id")
+    private Long modifiedAtUserId;
+
+
+
+    // Todo
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
+    private ToDo toDoId;
+
+    @Column(name = "to_do_title")
+    private String toDoTitle;
+
+    @Column(name = "target_day")
+    private LocalDateTime targetDay;
+
+    @Column(name = "finished_day")
+    private LocalDateTime finishedDay;
+
+    @Column(name = "request_user_id")
+    private Long requestUserId;
+
+    @Column(name = "solved_user_id")
+    private Long solvedUserId;
 }

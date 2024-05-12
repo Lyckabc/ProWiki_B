@@ -1,3 +1,6 @@
 browserListId,PageId,PageTitle,PageCategory,CreatedAt,ModifiedAt,FilePathId,FilePath,ObjectId,isFolder,UserId,CreatedAtUser,ModifiedAtUser,RequestUser,SolvedUser,ToDoId,TargetDay,FinishedDay
-,,,,,,,"""./path/to/file""",,,,,,,,,,
-,,,,,,,"""./path/to/subfile.csv""",,,,,,,,,,
+,,,,,,,./path/to/file,,,1,,,,,,,
+,,,,,,,./path/to/subfile.csv,,,1,,,,,,,
+,,,,,,,./Project_2023,,,1,,,,,,,
+,,,,,,,./Project_2023/MainCategory/SubCategory2,,,1,,,,,,,
+,,,,,,,./Project_2023/MainCategory/SubCategory3/SubSubCategory3,,,1,,,,,,,

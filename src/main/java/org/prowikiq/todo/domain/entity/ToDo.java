@@ -16,8 +16,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prowikiq.global.BaseEntity;
-import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: ToDo
@@ -42,11 +42,11 @@ public class ToDo extends BaseEntity {
     @Column(name = "to_do_id")
     private Long toDoId;
 
-    @Column(name = "request_title")
-    private String requestTitle;
+    @Column(name = "to_do_title")
+    private String toDoTitle;
 
-    @Column(name = "request_content")
-    private String requestContent;
+    @Column(name = "to_do_content")
+    private String toDoContent;
 
     @Column(name = "request_answer_value")
     private String requestAnswerValue;
@@ -62,17 +62,15 @@ public class ToDo extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
 
-    @Column(name = "request_user")
-    private String requestUser;
+    @Column(name = "request_user_id")
+    private Long requestUserId;
 
-    @Column(name = "solved_user")
-    private String solvedUser;
+    @Column(name = "solved_user_id")
+    private Long solvedUserId;
 
     // Page associated with this ToDo
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "page_id", referencedColumnName = "file_path_id")
-    private FilePath pageId;
+    @JoinColumn(name = "page_id", referencedColumnName = "page_id")
+    private WikiPage pageId;
 
-    @Column(name = "page_title")
-    private String pageTitle;
 }
