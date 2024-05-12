@@ -1,13 +1,13 @@
 package org.prowikiq.object.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.domain.repository.AncestorRepository;
-import org.prowikiq.object.domain.repository.FilePathRepository;
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +29,39 @@ public class StorageObjectService {
 
 
     @Transactional
-    public StorageObject getStorageObject(Long objectId) {
-        StorageObject objects = storageObjectRepository.findByObjectId(objectId);
-        if (objects.isEmpty()) {
-            throw new EntityNotFoundException("StorageObject not found for ID: " + objectId);
-        }
+    public StorageObject getStorageObjectFromId(Long objectId) {
+        Optional<StorageObject> object = storageObjectRepository.findByObjectId(objectId);
+
         // 결과가 하나만 있는 경우를 기대했으나 여러 개 처리하는 방식 선택
-        return objects;
+        return object.orElseThrow(() -> new NoSuchElementException("해당 objectId에 대한 저장 객체가 없습니다."));
+    }
+
+    @Transactional
+    public StorageObject getStorageObjectFromPath(String filePath) {
+        Optional<StorageObject> object = storageObjectRepository.findByObjectPath(filePath);
+
+        return object.orElseThrow(() -> new NoSuchElementException("해당 objectId에 대한 저장 객체가 없습니다."));
+    }
+
+    @Transactional
+    public StorageObject createObject(String dtoPath) {
+        String name = dtoPath.substring(dtoPath.lastIndexOf('/') + 1).trim();
+        boolean chkFolder = !name.contains(".");
+
+        //time
+        LocalDateTime now = LocalDateTime.now();
+
+        StorageObject object = StorageObject.builder()
+            .objectName(name)
+            .isFolder(chkFolder)
+            .objectPath(dtoPath)
+//            .objectSize()
+//            .objectFormat()
+            .createdAt(now)
+            .modifiedAt(now)
+            .build();
+        storageObjectRepository.save(object);
+        return object;
     }
 
 

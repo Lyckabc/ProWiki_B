@@ -52,7 +52,7 @@ public class WikiPage extends BaseEntity {
     @Column(name = "page_category")
     private String pageCategory;
 
-    @Column(name = "page_path")
+    @Column(name = "page_path",columnDefinition = "Page content Link as like word, description about cause, comment")
     private String pagePath;
 
     /*

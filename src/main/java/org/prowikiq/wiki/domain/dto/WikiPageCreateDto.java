@@ -39,8 +39,8 @@ public class WikiPageCreateDto {
 
     //Object
     private Long storageObjectId;
-//    private String objectTitle;
-//    private Boolean isFolder;
+    private String objectTitle;
+    private Boolean isFolder;
 
     //User
     private Long userId;

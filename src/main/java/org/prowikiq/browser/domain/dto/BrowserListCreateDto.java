@@ -29,7 +29,7 @@ import org.prowikiq.wiki.domain.entity.WikiPage;
 @AllArgsConstructor
 @Builder
 public class BrowserListCreateDto {
-    private Long browserListId;
+//    private Long browserListId;
     //page
     private Long pageId;
     private String pageTitle;
@@ -43,7 +43,7 @@ public class BrowserListCreateDto {
 
 
     //object
-    private StorageObject storageObjectId;
+    private Long storageObjectId;
     private String objectName;
     private Boolean isFolder;
     private String objectPath;
@@ -52,12 +52,11 @@ public class BrowserListCreateDto {
     //User
     private Long userId;
     private String userPhoneNum;
+
+    //
     private Long createdAtUserId;
     private Long modifiedAtUserId;
 
-    // Additional user-related fields for todo functionality
-    private Long requestUserId;
-    private Long solvedUserId;
 
     // Todo
     private Long toDoId;
@@ -65,19 +64,35 @@ public class BrowserListCreateDto {
     private LocalDateTime targetDay;
     private LocalDateTime finishedDay;
 
+    // Additional user-related fields for todo functionality
+    private Long requestUserId;
+    private Long solvedUserId;
+
     //
-    private String status;
+    //private String status;
 
     public static BrowserListCreateDto fromEntity(BrowserList browserList) {
         return BrowserListCreateDto.builder()
-            .browserListId(browserList.getBrowserListId())
+//            .browserListId(browserList.getBrowserListId())
             .pageId(browserList.getPageId() != null ? browserList.getPageId().getPageId() : null)
             .pageTitle(browserList.getPageId() != null ? browserList.getPageId().getPageTitle() : null)
             .pageCategory(browserList.getPageId() != null ? browserList.getPageId().getPageCategory() : null)
+            .pagePath(browserList.getPageId() != null ? browserList.getPageId().getPagePath() : null)
+            .storageObjectId(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectId() : null)
+            .objectName(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectName() : null)
+            .isFolder(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getIsFolder() : null)
+            .objectPath(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectPath() : null)
             .userId(browserList.getUserId() != null ? browserList.getUserId().getUserId() : null)
-            .userPhoneNum(browserList.getUserId() != null ? browserList.getUserId().getUserPhoneNum() : null) // Example to include user's phone
+            .userPhoneNum(browserList.getUserId() != null ? browserList.getUserId().getUserPhoneNum() : null)
+            .createdAtUserId(browserList.getPageId() != null ? browserList.getPageId().getCreatedAtUserId() : null)
+            .modifiedAtUserId(browserList.getPageId() != null ? browserList.getPageId().getModifiedAtUserId() : null)
+            .requestUserId(browserList.getToDoId() != null ? browserList.getToDoId().getRequestUserId() : null)
+            .solvedUserId(browserList.getToDoId() != null ? browserList.getToDoId().getSolvedUserId() : null)
             .toDoId(browserList.getToDoId() != null ? browserList.getToDoId().getToDoId() : null)
             .toDoTitle(browserList.getToDoId() != null ? browserList.getToDoId().getToDoTitle() : null)
+            .createdAt(browserList.getCreatedAt())
+            .modifiedAt(browserList.getModifiedAt())
+            .latestedAt(browserList.getLatestedAt())
 //            .status(browserList.getStatus())
             .build();
     }

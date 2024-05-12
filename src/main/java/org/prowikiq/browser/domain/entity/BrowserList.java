@@ -28,6 +28,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -45,6 +46,15 @@ public class BrowserList extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "page_id", referencedColumnName = "page_id")
     private WikiPage pageId;
+
+    @Column(name = "page_title")
+    private String pageTitle;
+
+    @Column(name = "page_category")
+    private String pageCategory;
+
+    @Column(name = "page_path")
+    private String pagePath;
 
 
     /*
@@ -69,11 +79,24 @@ public class BrowserList extends BaseEntity {
     @JoinColumn(name = "object_id", referencedColumnName = "object_id")
     private StorageObject storageObjectId;
 
+    @Column(name = "object_name")
+    private String objectName;
+
+    @Column(name = "is_folder")
+    private Boolean isFolder;
+
+    @Column(name = "object_path")
+    private String objectPath;
+
+
 
     //User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
+
+    @Column(name = "user_phone_num")
+    private String userPhoneNum;
 
     @Column(name = "created_at_user_id", nullable = false, updatable = false)
     private Long createdAtUserId;
@@ -87,4 +110,19 @@ public class BrowserList extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
+
+    @Column(name = "to_do_title")
+    private String toDoTitle;
+
+    @Column(name = "target_day")
+    private LocalDateTime targetDay;
+
+    @Column(name = "finished_day")
+    private LocalDateTime finishedDay;
+
+    @Column(name = "request_user_id")
+    private Long requestUserId;
+
+    @Column(name = "solved_user_id")
+    private Long solvedUserId;
 }

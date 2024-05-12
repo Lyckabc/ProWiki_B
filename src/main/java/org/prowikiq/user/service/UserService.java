@@ -2,6 +2,8 @@ package org.prowikiq.user.service;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.global.exception.impl.user.AlreadyExistUserException;
@@ -10,6 +12,7 @@ import org.prowikiq.global.exception.impl.user.PasswordNotMatchException;
 import org.prowikiq.user.domain.dto.UserCreateDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.user.domain.repository.UserRepository;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,5 +73,12 @@ public class UserService {
             .compact();
 
         return token;
+    }
+
+    @Transactional
+    public User getUserFromId(Long userId) {
+        Optional<User> wikiPage = userRepository.findByUserId(userId);
+
+        return wikiPage.orElseThrow(() -> new NoSuchElementException("해당 pageId에 대한 저장 객체가 없습니다."));
     }
 }

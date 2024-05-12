@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 import org.springframework.core.io.Resource;
@@ -58,10 +59,10 @@ class BrowserListServiceTest {
     void importBrowserLists() throws Exception {
         when(browserListRepository.saveAll(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        List<BrowserList> importedLists = browserListService.importBrowserLists("classpath:directory_list.csv");
+        List<BrowserListCreateDto> importedDtos = browserListService.importBrowserLists("classpath:directory_list.csv");
 
-        assertNotNull(importedLists);
-        assertFalse(importedLists.isEmpty());
+        assertNotNull(importedDtos);
+        assertFalse(importedDtos.isEmpty());
         //assertEquals(8, importedLists.size()); // assuming your test data has 50 entries
         verify(browserListRepository, times(1)).saveAll(any()); // Check if saveAll was called twice (50 batch size and maybe a final batch)
 

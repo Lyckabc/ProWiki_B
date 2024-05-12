@@ -17,7 +17,6 @@ import java.util.stream.Stream;
 import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.service.BrowserListService;
-import org.prowikiq.object.domain.entity.FilePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,8 +97,8 @@ public class BrowserListController {
             /*Resource resource = resourceLoader.getResource("classpath:directory_list.csv");
             String content = new String(Files.readAllBytes(resource.getFile().toPath()));*/
             String resourcePath = "classpath:directory_list.csv";
-            List<BrowserList> importedLists = browserListService.importBrowserLists(resourcePath);
-            return ResponseEntity.ok(importedLists);
+            List<BrowserList> importedDtos = browserListService.importBrowserLists(resourcePath);
+            return ResponseEntity.ok(importedDtos);
 
     }
 

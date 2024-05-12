@@ -62,11 +62,11 @@ public class ToDo extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
 
-    @Column(name = "request_user")
-    private String requestUser;
+    @Column(name = "request_user_id")
+    private Long requestUserId;
 
-    @Column(name = "solved_user")
-    private String solvedUser;
+    @Column(name = "solved_user_id")
+    private Long solvedUserId;
 
     // Page associated with this ToDo
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
