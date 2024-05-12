@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ToDoCreateDto {
+public class ToDoDto {
     private String toDoTitle;
     private String todoContent;
     private String requestAnswerValue;

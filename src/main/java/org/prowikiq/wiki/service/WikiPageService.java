@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.browser.domain.dto.BrowserListDto;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.service.StorageObjectService;
 import org.prowikiq.todo.domain.entity.ToDo;
+import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.domain.dto.WikiPageCreateDto;
+import org.prowikiq.user.service.UserService;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.prowikiq.wiki.domain.repository.WikiPageRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class WikiPageService {
     private final WikiPageRepository wikiPageRepository;
     private final StorageObjectService storageObjectService;
+    private final UserService userService;
+    private final ToDoService toDoService;
 
     @Transactional
     public WikiPage getWikiPagefromId(Long wikiPageId) {
@@ -42,13 +47,31 @@ public class WikiPageService {
 
         return wikiPage.orElseThrow(() -> new NoSuchElementException("해당 pageId에 대한 저장 객체가 없습니다."));
     }
-    public WikiPageCreateDto getWikiPageDto(Long pageId) {
-        WikiPage wikiPage = wikiPageRepository.findById(pageId)
-            .orElseThrow(() -> new NoSuchElementException("WikiPage not found"));
-        return convertToDto(wikiPage);
+
+    @Transactional
+    public WikiPage createPageFromImport(BrowserListDto bDto) {
+        User user = userService.getUserFromId(bDto.getUserId());
+        StorageObject storageObject = storageObjectService.getStorageObjectFromId(bDto.getStorageObjectId());
+        ToDo toDo = toDoService.getToDoFromId(bDto.getToDoId());
+
+        // Creating page based on provided DTO
+        WikiPage page = WikiPage.builder()
+            .pageTitle(bDto.getPageTitle())
+            .pageCategory(bDto.getPageCategory())
+            .pageContent("")
+            .pagePath(bDto.getPagePath())
+            .userId(user)
+            .storageObjectId(storageObject)
+            .createdAt(bDto.getCreatedAt())
+            .modifiedAt(bDto.getModifiedAt())
+            .toDoId(toDo)
+            .build();
+
+        return wikiPageRepository.save(page);
     }
-    private WikiPageCreateDto convertToDto(WikiPage wikiPage) {
-        return WikiPageCreateDto.builder()
+
+    public WikiPageDto convertToDto(WikiPage wikiPage) {
+        return WikiPageDto.builder()
             .pageId(wikiPage.getPageId())
             .pageTitle(wikiPage.getPageTitle())
             .pageContent(wikiPage.getPageContent())
@@ -56,36 +79,36 @@ public class WikiPageService {
             .pagePath(wikiPage.getPagePath())
             .createdAt(wikiPage.getCreatedAt())
             .modifiedAt(wikiPage.getModifiedAt())
-            .storageObjectId(wikiPage.getStorageObjectId())
-            .userId(Optional.ofNullable(wikiPage.getUserId()).map(User::getUserId).orElse(null))
+            .storageObjectId(wikiPage.getStorageObjectId() != null ? wikiPage.getStorageObjectId().getObjectId() : null)
+            .userId(wikiPage.getUserId() != null ? wikiPage.getUserId().getUserId() : null)
             .createdAtUserId(wikiPage.getCreatedAtUserId())
             .modifiedAtUserId(wikiPage.getModifiedAtUserId())
-            .requestUserId(wikiPage.getRequestUserId())
-            .solvedUserId(wikiPage.getSolvedUserId())
-            .toDoId(Optional.ofNullable(wikiPage.getToDoId()).map(ToDo::getToDoId).orElse(null))
+            .toDoId(wikiPage.getToDoId() != null ? wikiPage.getToDoId().getToDoId() : null)
             .build();
     }
 
     @Transactional
-    public WikiPage createPage (String dtoPageTitle,String dtoPageCategory, User user,
-        StorageObject object, ToDo toDo) {
+    public WikiPage createPage (WikiPageDto wDto, User user) {
         //time
         LocalDateTime now = LocalDateTime.now();
+        String pageContent = "";
+        String pagePath = "";
 
-        WikiPage page = WikiPage.builder()
-            .pageTitle(dtoPageTitle)
-            .pageCategory(dtoPageCategory)
-            .pageContent()
-//            .pagePath()
+        WikiPageDto pageDto = WikiPageDto.builder()
+            .pageTitle(wDto.getPageTitle())
+            .pageCategory(wDto.getPageCategory())
+            .pageContent(wDto.getPageContent())
+            .pagePath(wDto.getPagePath())
             .createdAt(now)
             .modifiedAt(now)
             .latestedAt(now)
-            .storageObjectId(object)
-            .userId(user)
+            .storageObjectId(wDto.getStorageObjectId() != null ? wDto.getStorageObjectId() : null)
             .createdAtUserId(user.getUserId())
-            .modifiedAtUserId(user.getUserId())
-            .toDoId(toDo)
+            .modifiedAtUserId(user != null ? user.getUserId() : null)
+            .toDoId(wDto.getToDoId() != null ? toDo.getToDoId() : null)
             .build();
+
+        WikiPage page = createPageFromImport(pageDto);
         wikiPageRepository.save(page);
         return page;
     }

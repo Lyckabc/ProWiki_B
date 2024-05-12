@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StorageObjectCreateDto {
+public class StorageObjectDto {
     private String objectName;
     private Boolean isFolder;
     private String objectPath;
