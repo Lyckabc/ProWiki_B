@@ -6,9 +6,12 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.domain.repository.AncestorRepository;
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,5 +67,16 @@ public class StorageObjectService {
         return object;
     }
 
+    @Transactional
+    public StorageObjectDto objectConvertToDto(StorageObject storageObject) {
+        StorageObjectDto dto = StorageObjectDto.builder()
+            .objectName(storageObject.getObjectName())
+            .isFolder(storageObject.getIsFolder())
+            .objectPath(storageObject.getObjectPath())
+            .objectSize(storageObject.getObjectSize())
+            .objectFormat(storageObject.getObjectFormat())
+            .build();
+        return dto;
+    }
 
 }

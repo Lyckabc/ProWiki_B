@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.todo.domain.dto.ToDoDto;
+import org.prowikiq.user.domain.dto.UserDto;
 
 /**
  * Class: WikiPageCreateDto Project: prowikiQ Package: org.prowikiq.wiki.domain.dto
@@ -34,35 +38,17 @@ public class WikiPageDto {
     private LocalDateTime latestedAt;
 
     //Object
-    private Long storageObjectId;
+    private StorageObjectDto storageObjectId;
 
     //User
-//    private Long userId;
+    private UserDto userId;
     private Long createdAtUserId;
     private Long modifiedAtUserId;
 
 
     //To Do
-    private Long toDoId;
+    private ToDoDto toDoId;
 
-    /*public static WikiPageCreateDto fromEntity(WikiPage wikiPage) {
-        return WikiPageCreateDto.builder()
-            .pageId(wikiPage.getPageId())
-            .pageTitle(wikiPage.getPageTitle())
-            .pageContent(wikiPage.getPageContent())
-            .pageCategory(wikiPage.getPageCategory())
-            .pagePathId(wikiPage.getPagePathId() != null ? wikiPage.getPagePathId().getFilePathId() : null)
-            .createdAt(wikiPage.getCreatedAt())
-            .modifiedAt(wikiPage.getModifiedAt())
-            .latestedAt(wikiPage.getLatestedAt())
-            .storageObjectId(wikiPage.getStorageObjectId() != null ? wikiPage.getStorageObjectId().getObjectId() : null)
-            .userId(wikiPage.getUserId() != null ? wikiPage.getUserId().getUserId() : null)
-            .createdAtUserId(wikiPage.getCreatedAtUserId())
-            .modifiedAtUserId(wikiPage.getModifiedAtUserId())
-            .requestUserId(wikiPage.getRequestUserId())
-            .solvedUserId(wikiPage.getSolvedUserId())
-            .toDoId(wikiPage.getToDoId() != null ? wikiPage.getToDoId().getToDoId() : null)
-            .build();
-    }*/
+
 
 }

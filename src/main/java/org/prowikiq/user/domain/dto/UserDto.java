@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserCreateDto {
+public class UserDto {
     private String userPhoneNum;//유저 휴대폰 번호 겸 아이디
     private String userPassword;//유저 비밀번호
 }
