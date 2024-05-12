@@ -57,7 +57,4 @@ public class WikiPage extends WikiCommonEntity {
     @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
     private FilePath pagePathId;
 
-    @Column(name = "page_path")
-    private String pagePath;
-
 }

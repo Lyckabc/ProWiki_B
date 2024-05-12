@@ -14,6 +14,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    Optional<User> findByUserId(Long UserId);
     Optional<User> findByUserPhoneNum(String userPhoneNum);
 
     boolean existsByUserPhoneNum(String userPhoneNum);

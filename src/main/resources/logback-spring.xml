@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %class{50}.%M:%line - %msg%n</pattern>
+    </encoder>
+  </appender>
+
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>logs/myapp.log</file>
     <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50}:%line - %msg%n</pattern>
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <!-- 매일 로그 파일을 롤링하고, 로그 파일 이름에 날짜를 포함 -->
       <fileNamePattern>logs/myapp-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
       <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
         <maxFileSize>10MB</maxFileSize>
       </timeBasedFileNamingAndTriggeringPolicy>
-      <!-- 보관 로그 파일 수 -->
       <maxHistory>30</maxHistory>
     </rollingPolicy>
   </appender>
 
   <root level="INFO">
+    <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>
 </configuration>

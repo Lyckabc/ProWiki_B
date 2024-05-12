@@ -32,10 +32,10 @@ public class BrowserListCreateDto {
 
     //page
     private WikiPage pageId;
-    private String pageTitle;
-    private String pageCategory;
+//    private String pageTitle;
+//    private String pageCategory;
     private FilePath pagePathId;
-    private String pagePath;
+//    private String pagePath;
 
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
@@ -45,10 +45,10 @@ public class BrowserListCreateDto {
 
     //object
     private StorageObject storageObjectId;
-    private String objectName;
-    private Boolean isFolder;
+//    private String objectName;
+//    private Boolean isFolder;
     private FilePath objectPathId;
-    private String objectPath;
+//    private String objectPath;
 
 
     //User
@@ -62,10 +62,8 @@ public class BrowserListCreateDto {
 
     // Todo
     private ToDo toDoId;
-    private LocalDateTime targetDay;
-    private LocalDateTime finishedDay;
-
-
+//    private LocalDateTime targetDay;
+//    private LocalDateTime finishedDay;
 
 
  /*   public BrowserList toBrowserList() {

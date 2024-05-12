@@ -9,27 +9,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 
+import org.prowikiq.object.domain.dto.FilePathCreateDto;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.domain.repository.FilePathRepository;
 
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
 import org.prowikiq.object.service.StorageObjectService;
-import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.user.domain.repository.UserRepository;
+import org.prowikiq.wiki.domain.dto.WikiPageBriefDTO;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.prowikiq.wiki.domain.repository.WikiPageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
@@ -50,6 +50,7 @@ public class BrowserListService {
     private final StorageObjectService storageObjectService;
     private final StorageObjectRepository storageObjectRepository;
     private final WikiPageRepository wikiPageRepository;
+    private final UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -133,7 +134,7 @@ public class BrowserListService {
 
     private BrowserList parseBrowserList(String line) {
         String[] data = line.split(",", -1);
-
+        Long userId = Long.parseLong("1");
         if (data.length < 17) {
             logger.error("Insufficient data in line: {}", line);
             return null;
@@ -149,33 +150,44 @@ public class BrowserListService {
             if (titleOfPage.contains(".")) {
                 titleOfPage = titleOfPage.substring(0, titleOfPage.lastIndexOf('.'));
             }
-            WikiPage page =  data[1].isEmpty() ? createPage(titleOfPage, categoryOfPage) : wikiPageRepository.findByPageId(Long.parseLong(data[1].trim())).orElseThrow();
 
             // PageCategory를 가져와 BrowserListDto에 입력
 
             //Time
-            LocalDateTime atCreated = data[7].isEmpty() ? now : LocalDateTime.parse(data[7].trim(), formatter);
-            LocalDateTime atModified = data[8].isEmpty() ? now : LocalDateTime.parse(data[8].trim(), formatter);
+            LocalDateTime atCreated = data[4].isEmpty() ? now : LocalDateTime.parse(data[4].trim(), formatter);
+            LocalDateTime atModified = data[5].isEmpty() ? now : LocalDateTime.parse(data[5].trim(), formatter);
 
             //Object
-            StorageObject objectET = data[8].isEmpty() ? createObject(data[7].trim()) : storageObjectRepository.findByObjectId(Long.parseLong(data[8].trim())).orElseThrow();
+            StorageObject objectET = data[8].isEmpty() ? createObject(data[7].trim()) : storageObjectService.getStorageObject(Long.parseLong(data[8].trim()));
             Boolean chkFolder = objectET.getIsFolder();
+            String objectPath = objectET.getObjectPath();
             //File
-            String titleOfFile = data[1].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[1].trim(); // Object id가 없을 경우 ObjectFilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력, 있을 경우 file이름을 가져옴
+            String nameOfFile = data[1].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[1].trim(); // Object id가 없을 경우 ObjectFilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력, 있을 경우 file이름을 가져옴
             FilePath filePathET = data[6].isEmpty() ? createFilePath(data[7].trim()): storageObjectService.getFilePathIdBy(Long.parseLong(data[6].trim())) ; // filePathId 가 없을 경우 import,  있으면 OS의 FilePath를 가져옴
+
+            FilePathCreateDto filePathDTO = FilePathCreateDto.builder()
+                .filePathId(filePathET.getFilePathId())
+                .filePath(filePathET.getFilePath())
+                .storageObjects(List.of(new StorageObjectBriefDTO(objectET.getObjectId(), objectET.getObjectName(), chkFolder)))
+                .wikiPages(List.of(new WikiPageBriefDTO()))
+                .build();
+
             String pathOfFile = filePathET.getFilePath();
 
             //User -> 5.권한 적용시키기 할 때 HTTP(JWT) data import -> transferTokenToUser 적용
-            User idOfUser = data[10].isEmpty() ? null : null;
+            Long idOfUserLong = data[10].isEmpty() ? userId : Long.parseLong(data[10].trim());
+            User idOfUser = userRepository.getById(idOfUserLong);
             Long userOfCreatedAt = data[11].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[11].trim());
             Long userOfModifiedAt = data[12].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[12].trim());
             Long userOfRequest = data[13].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[13].trim());
-            Long userOfsolver = data[14].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[14].trim());
+//            Long userOfsolver = data[14].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[14].trim());
 
             //Todo
-            ToDo idOfToDo = data[15].isEmpty() ? null : null;
-            LocalDateTime dayOfTarget = data[16].isEmpty() ? idOfToDo.getTargetDay() : LocalDateTime.parse(data[16].trim(), formatter); //targetDay를 가져와 입력
-            LocalDateTime dayOfFinished = data[17].isEmpty() ? idOfToDo.getFinishedDay() : LocalDateTime.parse(data[17].trim(), formatter); //finishedDay를 가져와 입력
+//            ToDo idOfToDo = data[15].isEmpty() ? null : null;
+//            LocalDateTime dayOfTarget = data[16].isEmpty() ? idOfToDo.getTargetDay() : LocalDateTime.parse(data[16].trim(), formatter); //targetDay를 가져와 입력
+//            LocalDateTime dayOfFinished = data[17].isEmpty() ? idOfToDo.getFinishedDay() : LocalDateTime.parse(data[17].trim(), formatter); //finishedDay를 가져와 입력
+
+            WikiPage page =  data[1].isEmpty() ? createPage(titleOfPage, categoryOfPage, idOfUser,filePathET) : wikiPageRepository.findByPageId(Long.parseLong(data[1].trim())).orElseThrow();
 
 
             BrowserList browserList = BrowserList.builder()
@@ -192,10 +204,10 @@ public class BrowserListService {
                                                 .createdAtUserId(userOfCreatedAt)
                                                 .modifiedAtUserId(userOfModifiedAt)
                                                 .requestUserId(userOfRequest)
-                                                .solvedUserId(userOfsolver)
-                                                .toDoId(idOfToDo)
-                                                .targetDay(dayOfTarget)
-                                                .finishedDay(dayOfFinished)
+//                                                .solvedUserId(userOfsolver)
+//                                                .toDoId(idOfToDo)
+//                                                .targetDay(dayOfTarget)
+//                                                .finishedDay(dayOfFinished)
                                                 .build();
 
             return browserList;
@@ -210,15 +222,16 @@ public class BrowserListService {
         String Name = dtoPath.substring(dtoPath.lastIndexOf('/') + 1).trim();
         boolean chkFolder = !Name.contains(".");
 
-        Optional<StorageObject> filePathET = storageObjectRepository.findByObjectPath(dtoPath);
+        List<StorageObject> objects = storageObjectRepository.findByObjectPath(dtoPath);
+        if (objects.isEmpty()) {
+            throw new IllegalStateException("No object found for the path: " + dtoPath);
+        }
 
+        StorageObject objectET = objects.get(0); // 예를 들어 첫 번째 객체를 사용
 
-        FilePath filePath = filePathET
-                            .map(StorageObject::getObjectPathId)
-                            .orElseGet(() -> createFilePath(dtoPath));
+        FilePath filePath = objectET.getObjectPathId();
 
         String pathOfFile = filePath.getFilePath();
-
         //time
         LocalDateTime now = LocalDateTime.now();
 
@@ -235,9 +248,10 @@ public class BrowserListService {
         storageObjectRepository.save(object);
         return object;
     }
-    public WikiPage createPage (String dtoPageTitle,String dtoPageCategory ) {
+    public WikiPage createPage (String dtoPageTitle,String dtoPageCategory,User idOfUser,FilePath filePath) {
         //time
         LocalDateTime now = LocalDateTime.now();
+        User user = idOfUser;
 
         WikiPage page = WikiPage.builder()
                                 .pageTitle(dtoPageTitle)
@@ -245,6 +259,9 @@ public class BrowserListService {
                                 .createdAt(now)
                                 .modifiedAt(now)
                                 .latestedAt(now)
+                                .userId(user)
+                                .createdAtUserId(user.getUserId())
+                                .modifiedAtUserId(user.getUserId())
                                 .build();
         wikiPageRepository.save(page);
         return page;

@@ -1,5 +1,7 @@
 package org.prowikiq.object.domain.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,10 @@ import lombok.Setter;
 
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.object.domain.entity.FilePath;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.wiki.domain.dto.WikiPageBriefDTO;
+import org.prowikiq.wiki.domain.dto.WikiPageCreateDto;
+import org.prowikiq.wiki.domain.entity.WikiPage;
 
 
 /**
@@ -26,14 +32,11 @@ import org.prowikiq.object.domain.entity.FilePath;
 @AllArgsConstructor
 @Builder
 public class FilePathCreateDto {
-    //    private Long filePathId;
+    private Long filePathId;
     private String filePath;
+    private List<StorageObjectCreateDto> storageObjects;
+    private List<WikiPageCreateDto> wikiPages;
 
-    /*public FilePath toFilePath() {
-        FilePath filePath = new FilePath();
-//        filePath.setFilePathId(this.filePathId);
-        filePath.setFilePath(this.filePath);
-        return filePath;
-    }*/
+    }
 
 }

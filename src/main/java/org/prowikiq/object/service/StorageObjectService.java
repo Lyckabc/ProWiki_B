@@ -1,6 +1,8 @@
 package org.prowikiq.object.service;
 
+import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.object.domain.entity.FilePath;
 import org.prowikiq.object.domain.entity.StorageObject;
@@ -32,6 +34,15 @@ public class StorageObjectService {
         //filePath.map(FilePath::getFilePathId).orElseThrow(() -> new RuntimeException("File path not found with id: " + id)); for Long
         Optional<FilePath> filePath = filePathRepository.findById(id);
         return filePath.orElseThrow(() -> new RuntimeException("FilePath not found for id: " + id));
+    }
+    @Transactional
+    public StorageObject getStorageObject(Long objectId) {
+        List<StorageObject> objects = storageObjectRepository.findByObjectId(objectId);
+        if (objects.isEmpty()) {
+            throw new EntityNotFoundException("StorageObject not found for ID: " + objectId);
+        }
+        // 결과가 하나만 있는 경우를 기대했으나 여러 개 처리하는 방식 선택
+        return objects.get(0);
     }
 
 

@@ -62,5 +62,4 @@ public class StorageObject extends BaseEntity {
     @Column(name = "object_format")
     private String objectFormat;
 
-
 }

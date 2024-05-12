@@ -70,11 +70,6 @@ public abstract class WikiCommonEntity {
     @JoinColumn(name = "object_id", referencedColumnName = "object_id")
     private StorageObject storageObjectId;
 
-    @Column(name = "object_name")
-    private String objectName;
-
-    @Column(name = "is_folder")
-    private Boolean isFolder;
 
     //User
     @ManyToOne(fetch = FetchType.LAZY)
@@ -100,10 +95,5 @@ public abstract class WikiCommonEntity {
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
-    @Column(name = "target_day")
-    private LocalDateTime targetDay; 
-
-    @Column(name = "finished_day")
-    private LocalDateTime finishedDay;
 
 }

@@ -57,8 +57,6 @@ public class BrowserList extends WikiCommonEntity {
     @JoinColumn(name = "page_path_id", referencedColumnName = "file_path_id")
     private FilePath pagePathId;
 
-    @Column(name = "page_path")
-    private String pagePath;
 
     //ObjectPath for Object ex; in Server's path of file.
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
