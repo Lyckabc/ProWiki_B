@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.browser.domain.dto.BrowserListDto;
@@ -19,12 +20,15 @@ import org.prowikiq.object.domain.entity.StorageObject;
 
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
 import org.prowikiq.object.service.StorageObjectService;
+import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.domain.repository.ToDoRepository;
 import org.prowikiq.todo.service.ToDoService;
+import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.user.domain.repository.UserRepository;
 import org.prowikiq.user.service.UserService;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.prowikiq.wiki.domain.repository.WikiPageRepository;
 import org.prowikiq.wiki.service.WikiPageService;
@@ -130,7 +134,7 @@ public class BrowserListService {
         return importedLists;
     }
 
-    private BrowserList createBrowserListFromDto(BrowserListDto dto) {
+    /*private BrowserList createBrowserListFromDto(BrowserListDto dto) {
         BrowserList browserList = BrowserList.builder()
             .pageId(wikiPageService.getWikiPagefromId(dto.getPageId()))
             .pageTitle(dto.getPageTitle())
@@ -152,7 +156,26 @@ public class BrowserListService {
             .solvedUserId(dto.getSolvedUserId() != null ? dto.getSolvedUserId() : null)
             .build();
         return browserList;
+    }*/
+
+    public BrowserListDto getBrowserListDto(Long id) {
+        BrowserList browserList = browserListRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("BrowserList not found"));
+        WikiPageDto wikiPageDto = wikiPageService.wikiConvertToDto(browserList.getPageId());
+        UserDto userDto = userService.userConvertToDto(browserList.getUserId());
+        ToDoDto toDoDto = toDoService.toDoConvertToDto(browserList.getToDoId());
+
+        BrowserListDto dto = BrowserListDto.builder()
+                                            .browserListId(browserList.getBrowserListId())
+                                            .pageId(wikiPageDto)
+                                            .userId(userDto)
+                                            .toDoId(toDoDto)
+                                            .build();
+
+        return dto;
     }
+
+
 
 
     private BrowserListDto parseBrowserList(String line) {
@@ -167,6 +190,7 @@ public class BrowserListService {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // String to LocalDateTime format
             LocalDateTime now = LocalDateTime.now(); // For createdAt and modifiedAt
             //browserListId
+            Long browserListId = Long.parseLong(data[0].trim());
 
             //Time
             LocalDateTime atCreated = data[4].isEmpty() ? now : LocalDateTime.parse(data[4].trim(), formatter);
@@ -201,33 +225,23 @@ public class BrowserListService {
                 titleOfPage = titleOfPage.substring(0, titleOfPage.lastIndexOf('.'));
             }
             WikiPage page =  data[1].isEmpty() ? wikiPageService.createPage(titleOfPage, categoryOfPage, user, object,toDo) : wikiPageRepository.findByPageId(Long.parseLong(data[1].trim())).orElseThrow();
+            WikiPageDto wikiPageDto = WikiPageDto.builder()
+                .pageId(page.getPageId())
+                                    .pageTitle(titleOfPage)
 
+                                    .build();
 
             // PageCategory를 가져와 BrowserListDto에 입력
 
             BrowserListDto browserListDto = BrowserListDto.builder()
-//                .browserListId(null)
-                .pageId(page != null ? page.getPageId() : null)
-                .pageTitle(page != null ? page.getPageTitle() : null)
-                .pageCategory(page != null ? page.getPageCategory() : null)
-                .pagePath(page != null ? page.getPagePath() : null)
-                .storageObjectId(object != null ? object.getObjectId() : null)
-                .objectName(object != null ? object.getObjectName() : null)
-                .isFolder(object != null ? object.getIsFolder() : null)
-                .objectPath(object != null ? object.getObjectPath() : null)
-                .userId(user.getUserId())
-                .userPhoneNum(user != null ? user.getUserPhoneNum() : null)
-                .createdAtUserId(user.getUserId())
-                .modifiedAtUserId(user.getUserId())
-                .requestUserId(toDo != null ? toDo.getRequestUserId() : null)
-                .solvedUserId(toDo != null ? toDo.getSolvedUserId() : null)
-                .toDoId(toDo != null ? toDo.getToDoId() : null)
-                .toDoTitle(toDo != null ? toDo.getToDoTitle() : null)
-                .createdAt(atCreated)
-                .modifiedAt(atModified)
-                .latestedAt(now)
+               .browserListId(browserList.getBrowserListId())
+                                            .pageId(wikiPageDto)
+                                            .userId(userDto)
+                                            .toDoId(toDoDto)
                 .build();
-
+            if (browserListId != null) {
+                browserListDto = getBrowserListDto(browserListId);
+            }
             return browserListDto;
 
         } catch (Exception e) {
@@ -245,5 +259,14 @@ public class BrowserListService {
 
         return user;
     }
+
+    /*public WikiPageDto transDataPageDto(String[] data) {
+
+        WikiPageDto dto = WikiPageDto.builder()
+
+            .build();
+
+        return dto;
+    }*/
 
 }

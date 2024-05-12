@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.user.domain.dto.UserDto;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 
 /**
  * Class: ToDoCreateDto Project: prowikiQ Package: org.prowikiq.todo.domain.dto
@@ -27,9 +29,8 @@ public class ToDoDto {
     private String requestAnswerValue;
     private LocalDateTime targetDay;
     private LocalDateTime finishedDay;
-    private String requestUser;
-    private String solvedUser;
-    private Long userId;
-    private Long pageId;
-    private String pageTitle;
+    private UserDto userId;
+    private Long requestUserId;
+    private Long solvedUserId;
+    private WikiPageDto pageId;
 }

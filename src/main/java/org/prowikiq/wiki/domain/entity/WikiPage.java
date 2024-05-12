@@ -62,9 +62,9 @@ public class WikiPage extends BaseEntity {
 
 
     //User
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User userId;*/
+    private User userId;
 
     @Column(name = "created_at_user_id", nullable = false, updatable = false)
     private Long createdAtUserId;
@@ -77,21 +77,6 @@ public class WikiPage extends BaseEntity {
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
-    /*
-    //Ancestor
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
-    private Ancestor ancestorId;
 
-    @Column(name = "ancestor")
-    private String ancestor;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
-    private Object parentFolderId;
-
-    @Column(name = "parentFolder")
-    private String parentFolder;
-    */
 
 }

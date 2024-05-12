@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.prowikiq.browser.domain.entity.BrowserList;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.object.domain.entity.StorageObject;
+import org.prowikiq.todo.domain.dto.ToDoDto;
+import org.prowikiq.user.domain.dto.UserDto;
+import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 
 /**
  * Class: BrowserListCreateDto Project: prowikiQ Package: org.prowikiq.browser.domain.dto
@@ -25,71 +31,25 @@ import org.prowikiq.browser.domain.entity.BrowserList;
 @AllArgsConstructor
 @Builder
 public class BrowserListDto {
-//    private Long browserListId;
+    private Long browserListId;
     //page
-    private Long pageId;
-    private String pageTitle;
-    private String pageCategory;
-    private String pagePath;
+    private WikiPageDto pageId;
+
+    //object
+    private StorageObjectDto storageObjectId;
+
+    //User
+    private UserDto userId;
+
+    // Todo
+    private ToDoDto toDoId;
+
+    //
+    //private String status;
 
     //BaseEntity
     private LocalDateTime createdAt; // Include createdAt
     private LocalDateTime modifiedAt; // Include modifiedAt
     private LocalDateTime latestedAt;
 
-
-    //object
-    private Long storageObjectId;
-    private String objectName;
-    private Boolean isFolder;
-    private String objectPath;
-
-
-    //User
-    private Long userId;
-    private String userPhoneNum;
-
-    //
-    private Long createdAtUserId;
-    private Long modifiedAtUserId;
-
-
-    // Todo
-    private Long toDoId;
-    private String toDoTitle;
-    private LocalDateTime targetDay;
-    private LocalDateTime finishedDay;
-
-    // Additional user-related fields for todo functionality
-    private Long requestUserId;
-    private Long solvedUserId;
-
-    //
-    //private String status;
-
-    public static BrowserListDto fromEntity(BrowserList browserList) {
-        return BrowserListDto.builder()
-//            .browserListId(browserList.getBrowserListId())
-            .pageId(browserList.getPageId() != null ? browserList.getPageId().getPageId() : null)
-            .pageTitle(browserList.getPageId() != null ? browserList.getPageId().getPageTitle() : null)
-            .pageCategory(browserList.getPageId() != null ? browserList.getPageId().getPageCategory() : null)
-            .pagePath(browserList.getPageId() != null ? browserList.getPageId().getPagePath() : null)
-            .storageObjectId(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectId() : null)
-            .objectName(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectName() : null)
-            .isFolder(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getIsFolder() : null)
-            .objectPath(browserList.getStorageObjectId() != null ? browserList.getStorageObjectId().getObjectPath() : null)
-            .userId(browserList.getUserId() != null ? browserList.getUserId().getUserId() : null)
-            .userPhoneNum(browserList.getUserId() != null ? browserList.getUserId().getUserPhoneNum() : null)
-            .createdAtUserId(browserList.getPageId() != null ? browserList.getPageId().getCreatedAtUserId() : null)
-            .modifiedAtUserId(browserList.getPageId() != null ? browserList.getPageId().getModifiedAtUserId() : null)
-            .requestUserId(browserList.getToDoId() != null ? browserList.getToDoId().getRequestUserId() : null)
-            .solvedUserId(browserList.getToDoId() != null ? browserList.getToDoId().getSolvedUserId() : null)
-            .toDoId(browserList.getToDoId() != null ? browserList.getToDoId().getToDoId() : null)
-            .toDoTitle(browserList.getToDoId() != null ? browserList.getToDoId().getToDoTitle() : null)
-            .createdAt(browserList.getCreatedAt())
-            .modifiedAt(browserList.getModifiedAt())
-            .latestedAt(browserList.getLatestedAt())
-//            .status(browserList.getStatus())
-            .build();
-    }
 }
