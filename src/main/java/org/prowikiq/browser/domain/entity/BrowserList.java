@@ -56,24 +56,6 @@ public class BrowserList extends BaseEntity {
     @Column(name = "page_path")
     private String pagePath;
 
-
-    /*
-    //Ancestor
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ancestor_id", referencedColumnName = "ancestorId")
-    private Ancestor ancestorId;
-
-    @Column(name = "ancestor")
-    private String ancestor;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parentFolder_id", referencedColumnName = "objectId")
-    private Object parentFolderId;
-
-    @Column(name = "parentFolder")
-    private String parentFolder;
-    */
-
     //object
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "object_id", referencedColumnName = "object_id")
@@ -88,8 +70,6 @@ public class BrowserList extends BaseEntity {
     @Column(name = "object_path")
     private String objectPath;
 
-
-
     //User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -103,8 +83,6 @@ public class BrowserList extends BaseEntity {
 
     @Column(name = "modified_at_user_id")
     private Long modifiedAtUserId;
-
-
 
     // Todo
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -125,4 +103,5 @@ public class BrowserList extends BaseEntity {
 
     @Column(name = "solved_user_id")
     private Long solvedUserId;
+
 }

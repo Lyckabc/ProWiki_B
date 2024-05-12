@@ -9,11 +9,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.browser.domain.dto.BrowserListCreateDto;
+import org.prowikiq.browser.domain.dto.BrowserListDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 
@@ -33,7 +31,6 @@ import org.prowikiq.wiki.service.WikiPageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 /**
@@ -103,7 +100,7 @@ public class BrowserListService {
             List<BrowserList> batchList = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-                BrowserListCreateDto dto = parseBrowserList(line);
+                BrowserListDto dto = parseBrowserList(line);
                 if (dto != null) {
                     BrowserList browserList = createBrowserListFromDto(dto);
                     batchList.add(browserList);
@@ -133,7 +130,7 @@ public class BrowserListService {
         return importedLists;
     }
 
-    private BrowserList createBrowserListFromDto(BrowserListCreateDto dto) {
+    private BrowserList createBrowserListFromDto(BrowserListDto dto) {
         BrowserList browserList = BrowserList.builder()
             .pageId(wikiPageService.getWikiPagefromId(dto.getPageId()))
             .pageTitle(dto.getPageTitle())
@@ -158,7 +155,7 @@ public class BrowserListService {
     }
 
 
-    private BrowserListCreateDto parseBrowserList(String line) {
+    private BrowserListDto parseBrowserList(String line) {
         String[] data = line.split(",", -1);
         Long userId = Long.parseLong("1");
         if (data.length < 17) {
@@ -208,7 +205,7 @@ public class BrowserListService {
 
             // PageCategory를 가져와 BrowserListDto에 입력
 
-            BrowserListCreateDto browserList = BrowserListCreateDto.builder()
+            BrowserListDto browserListDto = BrowserListDto.builder()
 //                .browserListId(null)
                 .pageId(page != null ? page.getPageId() : null)
                 .pageTitle(page != null ? page.getPageTitle() : null)
@@ -231,7 +228,7 @@ public class BrowserListService {
                 .latestedAt(now)
                 .build();
 
-            return browserList;
+            return browserListDto;
 
         } catch (Exception e) {
             logger.error("Error parsing line: {}. Error: {}", line, e.getMessage());

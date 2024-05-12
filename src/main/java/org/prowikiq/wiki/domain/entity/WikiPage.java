@@ -55,6 +55,28 @@ public class WikiPage extends BaseEntity {
     @Column(name = "page_path",columnDefinition = "Page content Link as like word, description about cause, comment")
     private String pagePath;
 
+    //object
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
+    private StorageObject storageObjectId;
+
+
+    //User
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User userId;*/
+
+    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    private Long createdAtUserId;
+
+    @Column(name = "modified_at_user_id")
+    private Long modifiedAtUserId;
+
+    // Todo
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
+    private ToDo toDoId;
+
     /*
     //Ancestor
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -71,29 +93,5 @@ public class WikiPage extends BaseEntity {
     @Column(name = "parentFolder")
     private String parentFolder;
     */
-
-    //object
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "object_id", referencedColumnName = "object_id")
-    private StorageObject storageObjectId;
-
-
-    //User
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User userId;
-
-    @Column(name = "created_at_user_id", nullable = false, updatable = false)
-    private Long createdAtUserId;
-
-    @Column(name = "modified_at_user_id")
-    private Long modifiedAtUserId;
-
-
-
-    // Todo
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
-    private ToDo toDoId;
 
 }

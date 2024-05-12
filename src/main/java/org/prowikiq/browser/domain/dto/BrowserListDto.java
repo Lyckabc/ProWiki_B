@@ -9,10 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.prowikiq.browser.domain.entity.BrowserList;
-import org.prowikiq.object.domain.entity.StorageObject;
-import org.prowikiq.todo.domain.entity.ToDo;
-import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: BrowserListCreateDto Project: prowikiQ Package: org.prowikiq.browser.domain.dto
@@ -28,7 +24,7 @@ import org.prowikiq.wiki.domain.entity.WikiPage;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BrowserListCreateDto {
+public class BrowserListDto {
 //    private Long browserListId;
     //page
     private Long pageId;
@@ -71,8 +67,8 @@ public class BrowserListCreateDto {
     //
     //private String status;
 
-    public static BrowserListCreateDto fromEntity(BrowserList browserList) {
-        return BrowserListCreateDto.builder()
+    public static BrowserListDto fromEntity(BrowserList browserList) {
+        return BrowserListDto.builder()
 //            .browserListId(browserList.getBrowserListId())
             .pageId(browserList.getPageId() != null ? browserList.getPageId().getPageId() : null)
             .pageTitle(browserList.getPageId() != null ? browserList.getPageId().getPageTitle() : null)

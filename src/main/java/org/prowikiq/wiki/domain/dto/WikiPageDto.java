@@ -6,10 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.prowikiq.object.domain.entity.StorageObject;
-import org.prowikiq.todo.domain.entity.ToDo;
-import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: WikiPageCreateDto Project: prowikiQ Package: org.prowikiq.wiki.domain.dto
@@ -25,7 +21,7 @@ import org.prowikiq.wiki.domain.entity.WikiPage;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WikiPageCreateDto {
+public class WikiPageDto {
     private Long pageId;
     private String pageTitle;
     private String pageContent;
@@ -39,15 +35,12 @@ public class WikiPageCreateDto {
 
     //Object
     private Long storageObjectId;
-    private String objectTitle;
-    private Boolean isFolder;
 
     //User
-    private Long userId;
+//    private Long userId;
     private Long createdAtUserId;
     private Long modifiedAtUserId;
-    private Long requestUserId;
-    private Long solvedUserId;
+
 
     //To Do
     private Long toDoId;
