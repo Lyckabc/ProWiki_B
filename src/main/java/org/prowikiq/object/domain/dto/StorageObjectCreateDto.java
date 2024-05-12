@@ -1,5 +1,7 @@
 package org.prowikiq.object.domain.dto;
 
+import java.math.BigInteger;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +22,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ObjectCreateDto {
+public class StorageObjectCreateDto {
+    private String objectName;
     private Boolean isFolder;
+    private String objectPath;
+    private BigInteger objectSize;
+    private String objectFormat;
+
+    //BaseEntity Time
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+    private LocalDateTime latestedAt;
+
 }

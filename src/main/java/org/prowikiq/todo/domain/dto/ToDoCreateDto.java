@@ -22,8 +22,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ToDoCreateDto {
-    private String requestTitle;
-    private String requestContent;
+    private String toDoTitle;
+    private String todoContent;
     private String requestAnswerValue;
     private LocalDateTime targetDay;
     private LocalDateTime finishedDay;

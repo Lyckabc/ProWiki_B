@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -28,6 +29,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity{
@@ -38,6 +40,10 @@ public abstract class BaseEntity{
   @LastModifiedDate
   @Column(nullable = true)
   private LocalDateTime modifiedAt;
+
+  @LastModifiedDate
+  @Column(name = "latested_at", nullable = true)
+  private LocalDateTime latestedAt;
 
 
 }

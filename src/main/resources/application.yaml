@@ -28,10 +28,13 @@ spring:
       root: INFO
     file:
       name: logs/myapp.log
-      org:
-        springframework : DEBUG
-        hibernate:
-          SQL: DEBUG
-          type: descriptor.sql.BasicBinder=TRACE
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %class{50}.%M:%line - %msg%n"
+      file: "%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50}:%line - %msg%n"
+    org:
+      springframework : DEBUG
+      hibernate:
+        SQL: DEBUG
+        type: descriptor.sql.BasicBinder=TRACE
 
 
