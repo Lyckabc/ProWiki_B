@@ -24,6 +24,7 @@ import org.prowikiq.wiki.domain.dto.WikiPageDto;
 @AllArgsConstructor
 @Builder
 public class ToDoDto {
+    private Long toDoId;
     private String toDoTitle;
     private String todoContent;
     private String requestAnswerValue;
@@ -32,5 +33,4 @@ public class ToDoDto {
     private UserDto userId;
     private Long requestUserId;
     private Long solvedUserId;
-    private WikiPageDto pageId;
 }

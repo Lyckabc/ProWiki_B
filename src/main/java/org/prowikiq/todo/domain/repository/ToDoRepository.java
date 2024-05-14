@@ -15,5 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
     Optional<ToDo> findByToDoId(Long toDoId);
+    Optional<ToDo> findByToDoTitle(String toDoTitle);
 
 }

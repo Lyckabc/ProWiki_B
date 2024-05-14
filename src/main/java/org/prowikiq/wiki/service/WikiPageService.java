@@ -17,6 +17,8 @@ import org.prowikiq.user.service.UserService;
 import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.prowikiq.wiki.domain.repository.WikiPageRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +39,9 @@ public class WikiPageService {
     private final UserService userService;
     private final ToDoService toDoService;
 
+    Logger logger = LoggerFactory.getLogger(getClass());
+
+
     @Transactional
     public WikiPage getWikiPagefromId(Long wikiPageId) {
         Optional<WikiPage> wikiPage = wikiPageRepository.findByPageId(wikiPageId);
@@ -52,32 +57,15 @@ public class WikiPageService {
     }
 
     @Transactional
-    public WikiPage createPageFromImport(BrowserListDto bDto) {
-        WikiPageDto wikiPageDto = bDto.getPageId();
-        UserDto user = bDto.getUserId();
-        StorageObjectDto storageObject = bDto.getStorageObjectId();
-        ToDoDto toDo = bDto.getToDoId();
-
-        // Creating page based on provided DTO
-        WikiPage page = WikiPage.builder()
-            .pageTitle(wikiPageDto.getPageTitle())
-            .pageCategory(wikiPageDto.getPageCategory())
-            .pageContent("")
-            .pagePath(bDto.getPagePath())
-            .userId(user)
-            .storageObjectId(storageObject)
-            .createdAt(bDto.getCreatedAt())
-            .modifiedAt(bDto.getModifiedAt())
-            .toDoId(toDo)
-            .build();
-
-        return wikiPageRepository.save(page);
-    }
-    @Transactional
     public WikiPageDto wikiConvertToDto(WikiPage wikiPage) {
+        ToDoDto toDoDto;
+        if (wikiPage.getToDoId() != null) {
+            toDoDto = toDoService.toDoConvertToDto(wikiPage.getToDoId());
+        } else {
+            toDoDto = null;
+        }
         StorageObjectDto storageObjectDto = storageObjectService.objectConvertToDto(wikiPage.getStorageObjectId());
         UserDto userDto = userService.userConvertToDto(wikiPage.getUserId());
-        ToDoDto toDoDto = toDoService.toDoConvertToDto(wikiPage.getToDoId());
 
         WikiPageDto dto =  WikiPageDto.builder()
             .pageId(wikiPage.getPageId())
@@ -91,20 +79,18 @@ public class WikiPageService {
             .userId(userDto != null ? userDto : null)
             .createdAtUserId(wikiPage.getCreatedAtUserId())
             .modifiedAtUserId(wikiPage.getModifiedAtUserId())
-            .toDoId(toDoDto != null ? toDoDto : null)
+            .toDoId(toDoDto)
             .build();
 
         return dto;
     }
 
     @Transactional
-    public WikiPage createPage (WikiPageDto wDto, User user) {
+    public WikiPage createPage (WikiPageDto wDto,StorageObject object, User user,ToDo toDo) {
         //time
         LocalDateTime now = LocalDateTime.now();
-        String pageContent = "";
-        String pagePath = "";
 
-        WikiPageDto pageDto = WikiPageDto.builder()
+        WikiPage page = WikiPage.builder()
             .pageTitle(wDto.getPageTitle())
             .pageCategory(wDto.getPageCategory())
             .pageContent(wDto.getPageContent())
@@ -112,14 +98,72 @@ public class WikiPageService {
             .createdAt(now)
             .modifiedAt(now)
             .latestedAt(now)
-            .storageObjectId(wDto.getStorageObjectId() != null ? wDto.getStorageObjectId() : null)
+            .storageObjectId(object != null ? object : null)
             .createdAtUserId(user.getUserId())
             .modifiedAtUserId(user != null ? user.getUserId() : null)
-            .toDoId(wDto.getToDoId() != null ? wDto.getToDoId() : null)
+            .toDoId(toDo != null ? toDo : null)
             .build();
 
-        WikiPage page = createPageFromImport(pageDto);
         wikiPageRepository.save(page);
         return page;
+    }
+
+    @Transactional
+    public WikiPageDto handleWikiPage
+        (Long pageId, String pageTitle, String pageCategory, String pagePath,
+            StorageObject object, User user,ToDo toDo) {
+        WikiPage wikiPage;
+        String objectPath = object.getObjectPath();
+        if (pageTitle == null) {
+            pageTitle = objectPath.substring
+                (objectPath.lastIndexOf('/') + 1).trim();
+            if (pageTitle.contains(".")) {
+                pageTitle = pageTitle.substring(0, pageTitle.lastIndexOf('.'));
+            }
+        }
+        if (pageId != null) {
+            wikiPage = getWikiPagefromId(pageId);
+            if (pageTitle != null)  {
+                wikiPage.setPageTitle(pageTitle);
+            } else if (pageTitle == null && objectPath != null) {
+                wikiPage.setPageTitle(pageTitle);
+            }
+            if (pageCategory != null) wikiPage.setPageCategory(pageCategory);
+            if (pagePath != null) wikiPage.setPagePath(pagePath);
+        } else {
+            wikiPage = createWikiPageFromImport
+                (pageTitle, pageCategory, pagePath, object, user, toDo);
+        }
+
+        return wikiConvertToDto(wikiPage);
+    }
+
+    private WikiPage createWikiPageFromImport
+        (String pageTitle, String pageCategory, String pagePath,
+            StorageObject object, User user,ToDo toDo) {
+        if (user == null) {
+            logger.error("User information is required but not provided");
+            return null; // Or throw an exception depending on your error handling strategy
+        }
+        LocalDateTime now = LocalDateTime.now();
+
+        Long userId = user.getUserId();
+
+        WikiPage newWikiPage = WikiPage.builder()
+            .pageTitle(pageTitle)
+            .pageCategory("")
+            .pageContent("")
+            .pagePath("")
+            .createdAt(now)
+            .modifiedAt(now)
+            .latestedAt(now)
+            .storageObjectId(object)
+            .userId(user)
+            .createdAtUserId(userId)
+            .modifiedAtUserId(userId)
+            .toDoId(toDo)
+            .build();
+
+        return wikiPageRepository.save(newWikiPage);
     }
 }

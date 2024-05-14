@@ -7,6 +7,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: root
     password: 1q!1q!1q!
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
