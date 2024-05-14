@@ -3,12 +3,8 @@ package org.prowikiq.wiki.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.object.domain.entity.StorageObject;
-import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.domain.entity.ToDo;
-import org.prowikiq.user.domain.dto.UserDto;
-import org.prowikiq.user.domain.dto.UserSignDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
@@ -33,13 +29,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "wiki Controller")
 @RestController
-@RequestMapping("/wikiPages")
+@RequestMapping("/wiki-pages")
 @RequiredArgsConstructor
 public class WikiPageController {
     private final WikiPageService wikiPageService;
 
-
-    @GetMapping("/search/{id}")
+    @ApiOperation(value = "Get Wiki Page by ID", notes = "Retrieve a specific WikiPage by its ID")
+    @GetMapping("/{id}")
     public ResponseEntity<WikiPage> getWikiPage(@PathVariable Long id) {
         WikiPage wikiPage = wikiPageService.getWikiPagefromId(id);
         return ResponseEntity.ok(wikiPage);
@@ -47,15 +43,15 @@ public class WikiPageController {
 
     @ApiOperation(value = "Page write", notes = "WikiPage 작성")
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody WikiPageDto wDto,
+    public ResponseEntity<String> createWikiPage(@RequestBody WikiPageDto wDto,
         StorageObject object, User user, ToDo toDo) {
         wikiPageService.createPage(wDto, object, user, toDo);
         return ResponseEntity.ok("WikiPage create successfully");
     }
 
-    @ApiOperation(value = "Page modify", notes = "WikiPage 수정")
-    @PutMapping("/modify/{id}")
-    public WikiPageDto.Response modifyPage(@PathVariable(name = "id") Long pageId,
+    @ApiOperation(value = "Update Wiki Page", notes = "Update an existing WikiPage by its ID")
+    @PutMapping("/{id}")
+    public WikiPageDto.Response updateWikiPage(@PathVariable(name = "id") Long pageId,
                                         @RequestBody WikiPageDto.Request request) {
         return wikiPageService.modifyPage(pageId, request);
     }
