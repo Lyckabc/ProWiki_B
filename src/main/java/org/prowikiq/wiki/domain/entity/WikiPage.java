@@ -80,14 +80,32 @@ public class WikiPage extends BaseEntity {
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
-   /* public WikiPage update(WikiPageDto.Request request) {
-        this.pageTitle = request.pageTitle();
-        this.pageContent = request.pageContent();
-        this.pageCategory = request.pageCategory();
-        this.pagePath = request.pagePath();
-        this.modifiedAt = request.modifiedAt();
-        this.LatestedAt = request.LatestedAt();
+    public WikiPage update(WikiPageDto.Request request) {
+        this.pageTitle = request.getPageTitle();
+        this.pageContent = request.getPageContent();
+        this.pageCategory = request.getPageCategory();
+        this.pagePath = request.getPagePath();
+        this.setModifiedAt(LocalDateTime.now());
+        this.setLatestedAt(LocalDateTime.now());
         return this;
-    }*/
+    }
+
+    public WikiPageDto.Response toDto() {
+        return WikiPageDto.Response.builder()
+            .pageId(this.pageId)
+            .pageTitle(this.pageTitle)
+            .pageContent(this.pageContent)
+            .pageCategory(this.pageCategory)
+            .pagePath(this.pagePath)
+            .createdAt(this.getCreatedAt())
+            .modifiedAt(this.getModifiedAt())
+            .latestedAt(this.getLatestedAt())
+            .storageObjectId(this.storageObjectId != null ? this.storageObjectId.toDto() : null)
+            .userId(this.userId != null ? this.userId.toDto() : null)
+            .createdAtUserId(this.createdAtUserId)
+            .modifiedAtUserId(this.modifiedAtUserId)
+            .toDoId(this.toDoId != null ? this.toDoId.toDto() : null)
+            .build();
+    }
 
 }

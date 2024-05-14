@@ -55,17 +55,9 @@ public class WikiPageController {
 
     @ApiOperation(value = "Page modify", notes = "WikiPage 수정")
     @PutMapping("/modify/{id}")
-    public ResponseEntity<String> modify(@PathVariable(name = "id") Long pageId,
-                                        @RequestBody WikiPageDto wDto) {
-        wikiPageService.modifyPage(pageId,wDto);
-
-        return ResponseEntity.ok("WikiPage create successfully");
-    }
-    /*@ApiOperation(value = "Page modify", notes = "WikiPage 수정")
-    @PutMapping("/modify/{id}")
-    public WikiPageDto.Reponse modifyPage(@PathVariable(name = "id") Long pageId,
+    public WikiPageDto.Response modifyPage(@PathVariable(name = "id") Long pageId,
                                         @RequestBody WikiPageDto.Request request) {
         return wikiPageService.modifyPage(pageId, request);
-    }*/
+    }
 
 }

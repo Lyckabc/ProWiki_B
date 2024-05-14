@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.user.domain.dto.UserDto;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -65,4 +67,12 @@ public class User extends BaseEntity {
 
     @Column
     private String clazz;
+
+    public UserDto toDto() {
+        return UserDto.builder()
+            .userId(this.userId)
+            .userPhoneNum(this.userPhoneNum)
+            .userPassword(this.userPassword)
+            .build();
+    }
 }

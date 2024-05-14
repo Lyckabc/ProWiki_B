@@ -110,30 +110,14 @@ public class WikiPageService {
         return page;
     }
 
+
     @Transactional
-    public WikiPage modifyPage (Long pageId, WikiPageDto wDto) {
-        //time
-        LocalDateTime now = LocalDateTime.now();
-        WikiPage page = getWikiPagefromId(pageId);
-
-        if (wDto.getPageTitle() != null) { page.setPageTitle(wDto.getPageTitle()); }
-        if (wDto.getPageCategory() != null) { page.setPageCategory(wDto.getPageCategory()); }
-        if (wDto.getPageContent() != null) { page.setPageContent(wDto.getPageContent()); }
-        if (wDto.getPagePath() != null) { page.setPagePath(wDto.getPagePath()); }
-        page.setModifiedAt(now);
-        page.setLatestedAt(now);
-
-
-        wikiPageRepository.save(page);
-        return page;
-    }
-    /*@Transactional
-    public WikiPageDto.Response modifypage(Long pageId, WikiPageDto.Request request) {
+    public WikiPageDto.Response modifyPage(Long pageId, WikiPageDto.Request request) {
         WikiPage page = wikiPageRepository.findByPageId(pageId)
             .orElseThrow(() -> new RuntimeException("해당 Page없음"));
 
         return page.update(request).toDto();
-    }*/
+    }
 
     @Transactional
     public WikiPageDto handleWikiPage

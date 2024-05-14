@@ -72,7 +72,7 @@ public class ToDoService {
 
         ToDoDto dto =  ToDoDto.builder()
             .toDoTitle(toDo.getToDoTitle())
-            .todoContent(toDo.getToDoContent())
+            .toDoContent(toDo.getToDoContent())
             .requestAnswerValue(toDo.getRequestAnswerValue())
             .targetDay(toDo.getTargetDay())
             .finishedDay(toDo.getFinishedDay())

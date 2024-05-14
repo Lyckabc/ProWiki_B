@@ -26,7 +26,7 @@ import org.prowikiq.wiki.domain.dto.WikiPageDto;
 public class ToDoDto {
     private Long toDoId;
     private String toDoTitle;
-    private String todoContent;
+    private String toDoContent;
     private String requestAnswerValue;
     private LocalDateTime targetDay;
     private LocalDateTime finishedDay;
