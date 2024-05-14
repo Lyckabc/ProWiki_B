@@ -98,10 +98,10 @@ public class WikiPageService {
             .createdAt(now)
             .modifiedAt(now)
             .latestedAt(now)
-            .storageObjectId(object != null ? object : null)
+            .storageObjectId(object)
             .createdAtUserId(user.getUserId())
-            .modifiedAtUserId(user != null ? user.getUserId() : null)
-            .toDoId(toDo != null ? toDo : null)
+            .modifiedAtUserId(user.getUserId())
+            .toDoId(toDo)
             .build();
 
         wikiPageRepository.save(page);
