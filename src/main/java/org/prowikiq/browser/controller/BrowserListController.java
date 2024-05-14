@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(tags = "Browser List Controller")
 @RestController
-@RequestMapping("/api/browserlists")
+@RequestMapping("/api/browser-lists")
 public class BrowserListController {
 
     private final BrowserListService browserListService;
