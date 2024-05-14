@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * Class: WikiPageService Project: prowikiQ Package: org.prowikiq.wiki.service
@@ -107,6 +109,31 @@ public class WikiPageService {
         wikiPageRepository.save(page);
         return page;
     }
+
+    @Transactional
+    public WikiPage modifyPage (Long pageId, WikiPageDto wDto) {
+        //time
+        LocalDateTime now = LocalDateTime.now();
+        WikiPage page = getWikiPagefromId(pageId);
+
+        if (wDto.getPageTitle() != null) { page.setPageTitle(wDto.getPageTitle()); }
+        if (wDto.getPageCategory() != null) { page.setPageCategory(wDto.getPageCategory()); }
+        if (wDto.getPageContent() != null) { page.setPageContent(wDto.getPageContent()); }
+        if (wDto.getPagePath() != null) { page.setPagePath(wDto.getPagePath()); }
+        page.setModifiedAt(now);
+        page.setLatestedAt(now);
+
+
+        wikiPageRepository.save(page);
+        return page;
+    }
+    /*@Transactional
+    public WikiPageDto.Response modifypage(Long pageId, WikiPageDto.Request request) {
+        WikiPage page = wikiPageRepository.findByPageId(pageId)
+            .orElseThrow(() -> new RuntimeException("해당 Page없음"));
+
+        return page.update(request).toDto();
+    }*/
 
     @Transactional
     public WikiPageDto handleWikiPage

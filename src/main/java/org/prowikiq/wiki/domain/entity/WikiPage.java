@@ -21,6 +21,7 @@ import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 
 /**
  * Class: WikPage Project: prowikiQ Package: org.prowikiq.wiki.entity
@@ -79,6 +80,14 @@ public class WikiPage extends BaseEntity {
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
-
+   /* public WikiPage update(WikiPageDto.Request request) {
+        this.pageTitle = request.pageTitle();
+        this.pageContent = request.pageContent();
+        this.pageCategory = request.pageCategory();
+        this.pagePath = request.pagePath();
+        this.modifiedAt = request.modifiedAt();
+        this.LatestedAt = request.LatestedAt();
+        return this;
+    }*/
 
 }
