@@ -85,8 +85,6 @@ public class WikiPage extends BaseEntity {
         this.pageContent = request.getPageContent();
         this.pageCategory = request.getPageCategory();
         this.pagePath = request.getPagePath();
-        this.setModifiedAt(LocalDateTime.now());
-        this.setLatestedAt(LocalDateTime.now());
         return this;
     }
 
