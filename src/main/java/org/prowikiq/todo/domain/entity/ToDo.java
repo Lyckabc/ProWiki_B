@@ -16,6 +16,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 
@@ -67,6 +69,20 @@ public class ToDo extends BaseEntity {
 
     @Column(name = "solved_user_id")
     private Long solvedUserId;
+
+    public ToDoDto toDto() {
+        return ToDoDto.builder()
+            .toDoId(this.toDoId)
+            .toDoTitle(this.toDoTitle)
+            .toDoContent(this.toDoContent)
+            .requestAnswerValue(this.requestAnswerValue)
+            .targetDay(this.targetDay)
+            .finishedDay(this.finishedDay)
+            .userId(this.userId.toDto())
+            .requestUserId(this.requestUserId)
+            .solvedUserId(this.solvedUserId)
+            .build();
+    }
 
 
 

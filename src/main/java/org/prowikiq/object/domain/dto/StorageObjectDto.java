@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.todo.domain.dto.ToDoDto;
+import org.prowikiq.user.domain.dto.UserDto;
 
 /**
  * Class: ObjectCreateDto Project: prowikiQ Package: org.prowikiq.wiki.domain.dto
@@ -34,5 +36,24 @@ public class StorageObjectDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private LocalDateTime latestedAt;
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class Response {
+        private Long objectId;
+        private String objectName;
+        private Boolean isFolder;
+        private String objectPath;
+        private BigInteger objectSize;
+        private String objectFormat;
+
+        //BaseEntity Time
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private LocalDateTime latestedAt;
+    }
 
 }

@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
+import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 
 /**
  * Class: Object Project: prowikiQ Package: org.prowikiq.object.domain.entity
@@ -65,6 +67,20 @@ public class StorageObject extends BaseEntity {
         if (isFolder != null) setIsFolder(isFolder);
         if (objectPath != null) setObjectPath(objectPath);
         updateModifiedAt();
+    }
+
+    public StorageObjectDto toDto() {
+        return StorageObjectDto.builder()
+            .objectId(this.objectId)
+            .objectName(this.objectName)
+            .isFolder(this.isFolder)
+            .objectPath(this.objectPath)
+            .objectSize(this.objectSize)
+            .objectFormat(this.objectFormat)
+            .createdAt(this.getCreatedAt())
+            .modifiedAt(this.getModifiedAt())
+            .latestedAt(this.getLatestedAt())
+            .build();
     }
 
 }

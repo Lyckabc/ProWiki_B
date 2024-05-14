@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * Class: WikiPageService Project: prowikiQ Package: org.prowikiq.wiki.service
@@ -98,14 +100,23 @@ public class WikiPageService {
             .createdAt(now)
             .modifiedAt(now)
             .latestedAt(now)
-            .storageObjectId(object != null ? object : null)
+            .storageObjectId(object)
             .createdAtUserId(user.getUserId())
-            .modifiedAtUserId(user != null ? user.getUserId() : null)
-            .toDoId(toDo != null ? toDo : null)
+            .modifiedAtUserId(user.getUserId())
+            .toDoId(toDo)
             .build();
 
         wikiPageRepository.save(page);
         return page;
+    }
+
+
+    @Transactional
+    public WikiPageDto.Response modifyPage(Long pageId, WikiPageDto.Request request) {
+        WikiPage page = wikiPageRepository.findByPageId(pageId)
+            .orElseThrow(() -> new RuntimeException("해당 Page없음"));
+
+        return page.update(request).toDto();
     }
 
     @Transactional

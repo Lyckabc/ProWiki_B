@@ -21,6 +21,7 @@ import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 
 /**
  * Class: WikPage Project: prowikiQ Package: org.prowikiq.wiki.entity
@@ -79,6 +80,30 @@ public class WikiPage extends BaseEntity {
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
 
+    public WikiPage update(WikiPageDto.Request request) {
+        this.pageTitle = request.getPageTitle();
+        this.pageContent = request.getPageContent();
+        this.pageCategory = request.getPageCategory();
+        this.pagePath = request.getPagePath();
+        return this;
+    }
 
+    public WikiPageDto.Response toDto() {
+        return WikiPageDto.Response.builder()
+            .pageId(this.pageId)
+            .pageTitle(this.pageTitle)
+            .pageContent(this.pageContent)
+            .pageCategory(this.pageCategory)
+            .pagePath(this.pagePath)
+            .createdAt(this.getCreatedAt())
+            .modifiedAt(this.getModifiedAt())
+            .latestedAt(this.getLatestedAt())
+            .storageObjectId(this.storageObjectId != null ? this.storageObjectId.toDto() : null)
+            .userId(this.userId != null ? this.userId.toDto() : null)
+            .createdAtUserId(this.createdAtUserId)
+            .modifiedAtUserId(this.modifiedAtUserId)
+            .toDoId(this.toDoId != null ? this.toDoId.toDto() : null)
+            .build();
+    }
 
 }
