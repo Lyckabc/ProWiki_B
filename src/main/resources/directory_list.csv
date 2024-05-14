@@ -1,4 +1,4 @@
-browserListId,PageId,PageTitle,PageCategory,CreatedAt,ModifiedAt,FilePathId,FilePath,ObjectId,isFolder,UserId,CreatedAtUser,ModifiedAtUser,RequestUser,SolvedUser,ToDoId,TargetDay,FinishedDay
+browserListId,PageId,PageTitle,PageCategory,CreatedAt,ModifiedAt,FilePathId,ObjectPath,ObjectId,isFolder,UserId,CreatedAtUser,ModifiedAtUser,RequestUser,SolvedUser,ToDoId,TargetDay,FinishedDay
 ,,,,,,,./path/to/file,,,1,,,,,,,
 ,,,,,,,./path/to/subfile.csv,,,1,,,,,,,
 ,,,,,,,./Project_2023,,,1,,,,,,,

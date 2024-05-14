@@ -75,8 +75,6 @@ public class BrowserListController {
     @PostMapping("/import")
     public ResponseEntity<List<BrowserList>> importBrowserLists() {
 
-            /*Resource resource = resourceLoader.getResource("classpath:directory_list.csv");
-            String content = new String(Files.readAllBytes(resource.getFile().toPath()));*/
             String resourcePath = "classpath:directory_list.csv";
             List<BrowserList> importedDtos = browserListService.importBrowserLists(resourcePath);
             return ResponseEntity.ok(importedDtos);

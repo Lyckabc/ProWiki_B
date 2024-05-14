@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.prowikiq.browser.domain.dto.BrowserListDto;
+import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -58,7 +59,7 @@ class BrowserListServiceTest {
     void importBrowserLists() throws Exception {
         when(browserListRepository.saveAll(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        List<BrowserListDto> importedDtos = browserListService.importBrowserLists("classpath:directory_list.csv");
+        List<BrowserList> importedDtos = browserListService.importBrowserLists("classpath:directory_list.csv");
 
         assertNotNull(importedDtos);
         assertFalse(importedDtos.isEmpty());
