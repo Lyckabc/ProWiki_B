@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 public class ToDoService {
     private final ToDoRepository toDoRepository;
     private final UserService userService;
-    private final WikiPageService wikiPageService;
 
     @Transactional
     public ToDo getToDoFromId(Long toDoId) {
@@ -38,12 +37,37 @@ public class ToDoService {
         }
         Optional<ToDo> toDo = toDoRepository.findByToDoId(toDoId);
 
-        return toDo.orElseThrow(() -> new NoSuchElementException("해당 ToDoId 대한 저장 객체가 없습니다."));
+        return toDo.orElseThrow(() -> new NoSuchElementException("해당 toDoId 대한 저장 객체가 없습니다."));
     }
+    @Transactional
+    public ToDo getToDoFromTitle(String toDoTitle) {
+        if (toDoTitle == null) {
+            return null;
+        }
+        Optional<ToDo> toDo = toDoRepository.findByToDoTitle(toDoTitle);
+
+        return toDo.orElseThrow(() -> new NoSuchElementException("해당 toDoTitle 대한 저장 객체가 없습니다."));
+    }
+
+    @Transactional
+    public ToDoDto handleToDo(Long toDoId, String toDoTitle) {
+        ToDo toDo = null;
+
+        if (toDoId != null) {
+            toDo = getToDoFromId(toDoId);
+        }
+
+        if (toDo == null && toDoTitle != null) {
+            toDo = getToDoFromTitle(toDoTitle);
+        }
+
+        ToDoDto dtoToDo = toDoConvertToDto(toDo);
+        return dtoToDo;
+    }
+
     @Transactional
     public ToDoDto toDoConvertToDto(ToDo toDo) {
         UserDto userDto = userService.userConvertToDto(toDo.getUserId());
-        WikiPageDto wikiPageDto = wikiPageService.wikiConvertToDto(toDo.getPageId());
 
 
         ToDoDto dto =  ToDoDto.builder()
@@ -55,7 +79,6 @@ public class ToDoService {
             .userId(userDto)
             .requestUserId(toDo.getRequestUserId())
             .solvedUserId(toDo.getSolvedUserId())
-            .pageId(wikiPageDto)
             .build();
 
         return dto;

@@ -42,8 +42,12 @@ public abstract class BaseEntity{
   private LocalDateTime modifiedAt;
 
   @LastModifiedDate
-  @Column(name = "latested_at", nullable = true, columnDefinition = "Not Modified but Open latestedAt File ")
+  @Column(name = "latested_at", nullable = true)
   private LocalDateTime latestedAt;
+
+  public void updateModifiedAt() {
+    this.modifiedAt = LocalDateTime.now();
+  }
 
 
 }

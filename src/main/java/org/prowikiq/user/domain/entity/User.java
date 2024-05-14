@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder

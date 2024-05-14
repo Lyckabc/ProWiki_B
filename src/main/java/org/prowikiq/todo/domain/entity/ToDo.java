@@ -68,9 +68,6 @@ public class ToDo extends BaseEntity {
     @Column(name = "solved_user_id")
     private Long solvedUserId;
 
-    // Page associated with this ToDo
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "page_id", referencedColumnName = "page_id")
-    private WikiPage pageId;
+
 
 }

@@ -8,7 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.prowikiq.browser.domain.dto.BrowserListDto;
 import org.prowikiq.browser.domain.entity.BrowserList;
 import org.prowikiq.browser.domain.repository.BrowserListRepository;
 
+import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.object.domain.entity.StorageObject;
 
 import org.prowikiq.object.domain.repository.StorageObjectRepository;
@@ -49,6 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class BrowserListService {
+
     private final BrowserListRepository browserListRepository;
     private final ResourceLoader resourceLoader;
     private final StorageObjectService storageObjectService;
@@ -73,7 +77,8 @@ public class BrowserListService {
 
     @Transactional(readOnly = true)
     public BrowserList getBrowserList(Long pageId) {
-        return browserListRepository.findById(pageId).orElseThrow(() -> new RuntimeException("BrowserList not found"));
+        return browserListRepository.findById(pageId)
+            .orElseThrow(() -> new RuntimeException("BrowserList not found"));
     }
 
     @Transactional(readOnly = true)
@@ -95,16 +100,19 @@ public class BrowserListService {
     public List<BrowserList> importBrowserLists(String resourcePath) {
         Logger logger = LoggerFactory.getLogger(getClass());
         List<BrowserList> importedLists = new ArrayList<>();
+        Map<String, Integer> columnIndexMap = null;
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(
+             reader = new BufferedReader(
                 new InputStreamReader(resourceLoader.getResource(resourcePath).getInputStream(),
                     StandardCharsets.UTF_8));
-            reader.readLine();
+            String headerLine = reader.readLine();
+            columnIndexMap = createColumnIndexMap(headerLine);
             List<BrowserList> batchList = new ArrayList<>();
+
             String line;
             while ((line = reader.readLine()) != null) {
-                BrowserListDto dto = parseBrowserList(line);
+                BrowserListDto dto = parseBrowserList(line, columnIndexMap);
                 if (dto != null) {
                     BrowserList browserList = createBrowserListFromDto(dto);
                     batchList.add(browserList);
@@ -134,29 +142,39 @@ public class BrowserListService {
         return importedLists;
     }
 
-    /*private BrowserList createBrowserListFromDto(BrowserListDto dto) {
+    private BrowserList createBrowserListFromDto(BrowserListDto dto) {
+        WikiPage wikiPage = wikiPageService.getWikiPagefromId(dto.getPageId().getPageId());
+        StorageObject storageObject = storageObjectService.getStorageObjectFromId
+            (dto.getStorageObjectId().getObjectId());
+        User user = userService.getUserFromId(dto.getUserId().getUserId());
+        ToDo toDo;
+        if (wikiPage.getToDoId() != null) {
+            toDo = toDoService.getToDoFromId(dto.getToDoId().getToDoId());
+        } else {
+            toDo = null;
+        }
         BrowserList browserList = BrowserList.builder()
-            .pageId(wikiPageService.getWikiPagefromId(dto.getPageId()))
-            .pageTitle(dto.getPageTitle())
-            .pageCategory(dto.getPageCategory())
-            .pagePath(dto.getPagePath())
-            .storageObjectId(storageObjectService.getStorageObjectFromId(dto.getStorageObjectId()))
-            .objectName(dto.getObjectName())
-            .isFolder(dto.getIsFolder())
-            .objectPath(dto.getObjectPath())
-            .userId(userService.getUserFromId(dto.getUserId()))
-            .userPhoneNum(dto.getUserPhoneNum())
-            .createdAtUserId(dto.getCreatedAtUserId())
-            .modifiedAtUserId(dto.getModifiedAtUserId())
-            .toDoId(toDoService.getToDoFromId(dto.getToDoId()) != null ? toDoService.getToDoFromId(dto.getToDoId()) : null)
-            .toDoTitle(dto.getToDoTitle() != null ? dto.getToDoTitle() : null)
-            .targetDay(dto.getTargetDay())
-            .finishedDay(dto.getFinishedDay())
-            .requestUserId(dto.getRequestUserId() != null ? dto.getRequestUserId() : null)
-            .solvedUserId(dto.getSolvedUserId() != null ? dto.getSolvedUserId() : null)
+            .pageId(wikiPage)
+//            .pageTitle(dto.getPageId().getPageTitle())
+//            .pageCategory(dto.getPageCategory())
+//            .pagePath(dto.getPagePath())
+            .storageObjectId(storageObject)
+//            .objectName(dto.getObjectName())
+//            .isFolder(dto.getIsFolder())
+//            .objectPath(dto.getObjectPath())
+            .userId(user)
+//            .userPhoneNum(dto.getUserPhoneNum())
+//            .createdAtUserId(dto.getCreatedAtUserId())
+//            .modifiedAtUserId(dto.getModifiedAtUserId())
+            .toDoId(toDo)
+//            .toDoTitle(dto.getToDoTitle() != null ? dto.getToDoTitle() : null)
+//            .targetDay(dto.getTargetDay())
+//            .finishedDay(dto.getFinishedDay())
+//            .requestUserId(dto.getRequestUserId() != null ? dto.getRequestUserId() : null)
+//            .solvedUserId(dto.getSolvedUserId() != null ? dto.getSolvedUserId() : null)
             .build();
         return browserList;
-    }*/
+    }
 
     public BrowserListDto getBrowserListDto(Long id) {
         BrowserList browserList = browserListRepository.findById(id)
@@ -166,78 +184,86 @@ public class BrowserListService {
         ToDoDto toDoDto = toDoService.toDoConvertToDto(browserList.getToDoId());
 
         BrowserListDto dto = BrowserListDto.builder()
-                                            .browserListId(browserList.getBrowserListId())
-                                            .pageId(wikiPageDto)
-                                            .userId(userDto)
-                                            .toDoId(toDoDto)
-                                            .build();
+            .browserListId(browserList.getBrowserListId())
+            .pageId(wikiPageDto)
+            .userId(userDto)
+            .toDoId(toDoDto)
+            .build();
 
         return dto;
     }
 
-
-
-
-    private BrowserListDto parseBrowserList(String line) {
+    private BrowserListDto parseBrowserList(String line,Map<String, Integer> columnIndexMap) {
         String[] data = line.split(",", -1);
-        Long userId = Long.parseLong("1");
+        Long userId = Long.parseLong("3");
         if (data.length < 17) {
             logger.error("Insufficient data in line: {}", line);
             return null;
         }
         try {
+            //1.Variable Designation
+            Long browserListId = getLongFromData(data, columnIndexMap, "browserListId");
+            //// Page
+            Long pageId = getLongFromData(data, columnIndexMap, "PageId");
+            String pageTitle = getStringFromData(data, columnIndexMap, "PageTitle");
+            String pageCategory = getStringFromData(data, columnIndexMap, "PageCategory");
+            String pagePath = getStringFromData(data, columnIndexMap, "PagePath");
+            //// Base
+            LocalDateTime createdAt = getDateTimeFromData(data, columnIndexMap, "CreatedAt");
+            LocalDateTime modifiedAt = getDateTimeFromData(data, columnIndexMap, "ModifiedAt");
+            LocalDateTime latestedAt = getDateTimeFromData(data, columnIndexMap, "LatestedAt");
+            //// Object
+            Long objectId = getLongFromData(data, columnIndexMap, "ObjectId");
+            String objectName = getStringFromData(data, columnIndexMap, "ObjectName");
+            Boolean isFolder = getBooleanFromData(data, columnIndexMap, "IsFolder");
+            String objectPath = getStringFromData(data, columnIndexMap, "ObjectPath");
+            //// User
+//            Long userId = getLongFromData(data, columnIndexMap, "UserId");
+            String userPhoneNum = getStringFromData(data, columnIndexMap, "UserPhoneNum");
+            //// ToDo
+            Long toDoId = getLongFromData(data, columnIndexMap, "ToDoId");
+            String toDoTitle = getStringFromData(data, columnIndexMap, "ToDoTitle");
+
             //BaseEntity about time
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME; // String to LocalDateTime format
-            LocalDateTime now = LocalDateTime.now(); // For createdAt and modifiedAt
-            //browserListId
-            Long browserListId = Long.parseLong(data[0].trim());
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            LocalDateTime now = LocalDateTime.now();
 
-            //Time
-            LocalDateTime atCreated = data[4].isEmpty() ? now : LocalDateTime.parse(data[4].trim(), formatter);
-            LocalDateTime atModified = data[5].isEmpty() ? now : LocalDateTime.parse(data[5].trim(), formatter);
+            //2.Insert Variable
+            ////Time
+            LocalDateTime atCreated = (createdAt != null) ? createdAt : now;
+            LocalDateTime atModified = (modifiedAt != null) ? modifiedAt : now;
+            LocalDateTime atLatested = (latestedAt != null) ? latestedAt : now;
 
-            //Object
-            StorageObject object = data[8].isEmpty() ? storageObjectService.createObject(data[7].trim()) : storageObjectService.getStorageObjectFromId(Long.parseLong(data[8].trim()));
-            Boolean chkFolder = object.getIsFolder();
-            String objectPath = object.getObjectPath();
-            String nameOfFile = data[1].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[1].trim(); // Object id가 없을 경우 ObjectFilePath를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력, 있을 경우 file이름을 가져옴
-            String filePath = data[6].isEmpty() ? null : data[6].trim() ; // filePathId 가 없을 경우 import,  있으면 OS의 FilePath를 가져옴
+            ////Object
+            StorageObject object =
+                storageObjectService.handleStorageObject(objectId, objectName, isFolder,
+                    objectPath);
+            StorageObjectDto dtoObject = storageObjectService.objectConvertToDto(object);
 
+            ////User -> 5.권한 적용시키기 할 때 HTTP(JWT) data import -> transferTokenToUser 적용
+            User user = userService.getUserFromId(userId);
+            UserDto dtoUser = userService.userConvertToDto(user);
 
-            //User -> 5.권한 적용시키기 할 때 HTTP(JWT) data import -> transferTokenToUser 적용
-            Long idOfUserLong = data[10].isEmpty() ? userId : Long.parseLong(data[10].trim());
-            User user = userRepository.getById(idOfUserLong);
-            Long userOfCreatedAt = data[11].isEmpty() ? user.getUserId() : Long.parseLong(data[11].trim());
-            Long userOfModifiedAt = data[12].isEmpty() ? user.getUserId() : Long.parseLong(data[12].trim());
-            Long userOfRequest = data[13].isEmpty() ? user.getUserId() : Long.parseLong(data[13].trim());
-//            Long userOfsolver = data[14].isEmpty() ? idOfUser.getUserId() : Long.parseLong(data[14].trim());
-
-            //Todo
-            ToDo toDo = data[15].isEmpty() ? null : toDoService.getToDoFromId(Long.parseLong(data[15].trim()));
-//            LocalDateTime dayOfTarget = data[16].isEmpty() ? idOfToDo.getTargetDay() : LocalDateTime.parse(data[16].trim(), formatter); //targetDay를 가져와 입력
-//            LocalDateTime dayOfFinished = data[17].isEmpty() ? idOfToDo.getFinishedDay() : LocalDateTime.parse(data[17].trim(), formatter); //finishedDay를 가져와 입력
-
-            //Page
-            String categoryOfPage = data[3].isEmpty() ? null : data[3].trim();
-            String titleOfPage = data[2].isEmpty() ? data[7].substring(data[7].lastIndexOf('/') + 1).trim() : data[2].trim(); // Page id가 없을 경우 Page를 통해서 끝 데이터 즉, 파일 혹은 폴더명 입력, 있을 경우 Page이름을 가져옴
-            //Page id, title, Catgory, pagePathId(not made path link), pagePath(not made path link)
-            if (titleOfPage.contains(".")) {
-                titleOfPage = titleOfPage.substring(0, titleOfPage.lastIndexOf('.'));
+            ////Todo
+            ToDoDto dtoToDo = null;
+            ToDo toDo = null;
+            if (!(toDoId == null && toDoTitle == null)) {
+                dtoToDo = toDoService.handleToDo(toDoId, toDoTitle);
+                toDo = dtoToDo != null ? toDoService.getToDoFromId(toDoId) : null;
             }
-            WikiPage page =  data[1].isEmpty() ? wikiPageService.createPage(titleOfPage, categoryOfPage, user, object,toDo) : wikiPageRepository.findByPageId(Long.parseLong(data[1].trim())).orElseThrow();
-            WikiPageDto wikiPageDto = WikiPageDto.builder()
-                .pageId(page.getPageId())
-                                    .pageTitle(titleOfPage)
 
-                                    .build();
+            ////Page
+            WikiPageDto wikiPage = wikiPageService.handleWikiPage
+                (pageId, pageTitle, pageCategory, pagePath, object, user, toDo);
 
             // PageCategory를 가져와 BrowserListDto에 입력
 
             BrowserListDto browserListDto = BrowserListDto.builder()
-               .browserListId(browserList.getBrowserListId())
-                                            .pageId(wikiPageDto)
-                                            .userId(userDto)
-                                            .toDoId(toDoDto)
+                .browserListId(browserListId)
+                .storageObjectId(dtoObject)
+                .userId(dtoUser)
+                .toDoId(dtoToDo)
+                .pageId(wikiPage)
                 .build();
             if (browserListId != null) {
                 browserListDto = getBrowserListDto(browserListId);
@@ -250,9 +276,46 @@ public class BrowserListService {
         }
     }
 
+    public Map<String, Integer> createColumnIndexMap(String headerLine) {
+        String[] headers = headerLine.split(",", -1);
+        Map<String, Integer> columnIndexMap = new HashMap<>();
+        for (int i = 0; i < headers.length; i++) {
+            columnIndexMap.put(headers[i].trim(), i);
+        }
+        return columnIndexMap;
+    }
+
+    private String getStringFromData(String[] data, Map<String, Integer> map, String columnName) {
+        return map.containsKey(columnName) && !data[map.get(columnName)].isEmpty() ?
+            data[map.get(columnName)].trim() : null;
+    }
+
+    private Long getLongFromData(String[] data, Map<String, Integer> map, String columnName) {
+        return map.containsKey(columnName) && !data[map.get(columnName)].isEmpty() ?
+            Long.parseLong(data[map.get(columnName)].trim()) : null;
+    }
+
+    private boolean getBooleanFromData(String[] data, Map<String, Integer> map, String columnName) {
+        if (!map.containsKey(columnName) || data[map.get(columnName)].isEmpty()) {
+            return false;
+        }
+        String path = data[map.get(columnName)].trim();
+        String name = path.substring(path.lastIndexOf('/') + 1).trim();
+        return !name.contains(".");
+    }
+
+    private LocalDateTime getDateTimeFromData(String[] data, Map<String, Integer> map,
+        String columnName) {
+        if (map.containsKey(columnName) && !data[map.get(columnName)].isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            return LocalDateTime.parse(data[map.get(columnName)].trim(), formatter);
+        }
+        return null;
+    }
 
 
-    public User transferTokenToUser(HttpServletRequest request) {
+
+    public User transferTokenToUser (HttpServletRequest request) {
         User user = null;
 //        String token = jwtTokenProvider.resolveToken(request);
 //        String userId = jwtTokenProvider.getUserId(token);
@@ -260,13 +323,5 @@ public class BrowserListService {
         return user;
     }
 
-    /*public WikiPageDto transDataPageDto(String[] data) {
-
-        WikiPageDto dto = WikiPageDto.builder()
-
-            .build();
-
-        return dto;
-    }*/
 
 }

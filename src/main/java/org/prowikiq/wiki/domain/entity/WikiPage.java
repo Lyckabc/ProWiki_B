@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.entity.StorageObject;
@@ -31,6 +32,7 @@ import org.prowikiq.user.domain.entity.User;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -66,7 +68,7 @@ public class WikiPage extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
 
-    @Column(name = "created_at_user_id", nullable = false, updatable = false)
+    @Column(name = "created_at_user_id")
     private Long createdAtUserId;
 
     @Column(name = "modified_at_user_id")

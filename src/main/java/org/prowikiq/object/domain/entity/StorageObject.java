@@ -57,4 +57,14 @@ public class StorageObject extends BaseEntity {
     @Column(name = "object_format")
     private String objectFormat;
 
+
+
+    // Custom logic can be placed in methods like these
+    public void updateStorageObject(String objectName, Boolean isFolder, String objectPath) {
+        if (objectName != null) setObjectName(objectName);
+        if (isFolder != null) setIsFolder(isFolder);
+        if (objectPath != null) setObjectPath(objectPath);
+        updateModifiedAt();
+    }
+
 }
