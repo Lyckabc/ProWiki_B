@@ -6,12 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.domain.dto.WikiPageDto;
-import org.prowikiq.wiki.domain.entity.WikiPage;
 
 /**
  * Class: ToDoCreateDto Project: prowikiQ Package: org.prowikiq.todo.domain.dto
@@ -37,13 +35,17 @@ public class ToDoDto {
     private UserDto userId;
     private Long requestUserId;
     private Long solvedUserId;
+    private String answerValue;
+    private Boolean requestAnswerCheck;
+    private Boolean completeCheck;
+    private ToDoStatus toDoStatus;
 
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Request {
+    public static class RequestWrite {
         private String toDoTitle;
         private String toDoContent;
         private String requestAnswerValue;
@@ -78,5 +80,8 @@ public class ToDoDto {
         private UserDto userId;
         private Long requestUserId;
         private Long solvedUserId;
+        private String answerValue;
+        private Boolean requestAnswerCheck;
+        private Boolean completeCheck;
     }
 }
