@@ -4,7 +4,9 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
+import org.prowikiq.todo.domain.dto.ToDoDto.AdminUpdate;
 import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.domain.repository.ToDoRepository;
@@ -90,21 +92,51 @@ public class ToDoService {
     }
 
     @Transactional
-    public void createToDo(Long pageId, RequestWrite request, User user) {
-        Optional<WikiPage> page = Optional.empty();
+    public void createToDo(Long pageId, ToDoDto.RequestWrite request, User user) {
+        WikiPage page = null;
+
 
         if (pageId != null) {
-            page = wikiPageRepository.findByPageId(pageId);
-            if (!page.isPresent()) {
-                throw new RuntimeException("해당 Page 없음");
-            }
+            page = wikiPageRepository.findByPageId(pageId)
+                .orElseThrow(() -> new RuntimeException("해당 Page 없음"));
         }
 
         ToDo todo = request.toEntity(user);
         toDoRepository.save(todo);
-        page.ifPresent(p -> p.setToDoId(todo));
+        if (page != null) {
+            page.setToDoId(todo);
+        }
 //        logger.info(String.valueOf(todo));
 //        logger.info(String.valueOf(page.orElse(null)));
     }
 
+    @Transactional
+    public ToDoDto modifyToDo(Long toDoId, Long pageId, ToDoDto.AdminUpdate requestUpdate, ToDoStatus status,Boolean isAdmin) {
+        ToDo todo = toDoRepository.findByToDoId(toDoId)
+            .orElseThrow(() -> new RuntimeException("해당 ToDo없음"));
+
+        if (pageId != null) {
+            WikiPage page = wikiPageRepository.findByPageId(pageId)
+                .orElseThrow(() -> new RuntimeException("해당 Page 없음"));
+            page.setToDoId(todo);
+        }
+
+        if (isAdmin) {
+            requestUpdate.setToDoStatus(status);
+            todo.adminUpdate(requestUpdate);
+        } else {
+            ToDoDto.RequestWrite requestWrite = RequestWrite.builder()
+                .toDoTitle(requestUpdate.getToDoTitle())
+                .toDoContent(requestUpdate.getToDoContent())
+                .requestAnswerValue(requestUpdate.getRequestAnswerValue())
+                .targetDay(requestUpdate.getTargetDay())
+                .finishedDay(requestUpdate.getFinishedDay())
+                .toDoStatus(requestUpdate.getToDoStatus())
+                .build();
+
+            todo.update(requestWrite);
+        }
+
+        return todo.toDto();
+    }
 }

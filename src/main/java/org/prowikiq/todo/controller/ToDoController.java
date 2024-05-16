@@ -3,12 +3,17 @@ package org.prowikiq.todo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.user.domain.repository.UserRepository;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,12 +38,34 @@ public class ToDoController {
     @ApiOperation(value = "create todo with optional pageId", notes = "pageId isn't essential but for detail")
     @PostMapping("/")
     public ResponseEntity<Void> createToDo(@RequestParam(required = false) Long pageId,
-                                        @RequestBody RequestWrite requestWrite) {
-        // 임시 User get 코드 차후에 HttpServletRequest안에 token값으로 가져올 예정
-        User user = userRepository.findByUserId(Long.valueOf(1)).orElseThrow();
-
+                                        @RequestBody ToDoDto.RequestWrite requestWrite) {
+        User user = getCurrentUser();
         toDoService.createToDo(pageId, requestWrite, user);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "Update Wiki Page", notes = "Update an existing WikiPage by its ID")
+    @PutMapping("/{id}")
+    public ToDoDto updateToDo(@PathVariable(name = "id") Long toDoId,
+        @RequestParam(required = false) Long pageId,
+        @RequestBody ToDoDto.AdminUpdate requestUpdate,
+        @RequestParam("status") ToDoStatus status
+        ) {
+        User user = getCurrentUser();
+        boolean isAdmin = checkIfAdmin(user);
+
+        return toDoService.modifyToDo(toDoId, pageId, requestUpdate, status, isAdmin);
+    }
+
+    private User getCurrentUser() {
+        //todo 임시 User get 코드 차후에 HttpServletRequest안에 token값으로 가져올 예정
+        User user = userRepository.findByUserId(Long.valueOf(1)).orElseThrow();
+        return user;
+    }
+    private boolean checkIfAdmin(User user) {
+        //todo User, Role을 계층식 관계데이터로 만들어서 관리할 예정.
+//        user.getRoles().contains(Role.ADMIN);
+        return true;
     }
 
 }

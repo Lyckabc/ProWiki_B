@@ -22,7 +22,10 @@ import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 /**
  * Class: ToDo
@@ -87,6 +90,7 @@ public class ToDo extends BaseEntity {
     private Long solvedUserId;
 
 
+
     public ToDoDto toDto() {
         return ToDoDto.builder()
             .toDoId(this.toDoId)
@@ -95,7 +99,7 @@ public class ToDo extends BaseEntity {
             .requestAnswerValue(this.requestAnswerValue)
             .targetDay(this.targetDay)
             .finishedDay(this.finishedDay)
-            .userId(this.userId.toDto())
+            .userId(this.userId != null ? this.userId.toDto() : null)
             .requestUserId(this.requestUserId)
             .solvedUserId(this.solvedUserId)
             .answerValue(this.answerValue)
@@ -103,6 +107,31 @@ public class ToDo extends BaseEntity {
             .completeCheck(this.completeCheck)
             .toDoStatus(this.toDoStatus)
             .build();
+    }
+
+    public ToDo update(ToDoDto.RequestWrite requestWrite) {
+        this.toDoTitle = requestWrite.getToDoTitle();
+        this.toDoContent = requestWrite.getToDoContent();
+        this.requestAnswerValue = requestWrite.getRequestAnswerValue();
+        this.targetDay = requestWrite.getTargetDay();
+        this.finishedDay = requestWrite.getFinishedDay();
+        this.toDoStatus = requestWrite.getToDoStatus();
+        return this;
+    }
+
+    public ToDo adminUpdate(ToDoDto.AdminUpdate requestUpdate) {
+        this.toDoTitle = requestUpdate.getToDoTitle();
+        this.toDoContent = requestUpdate.getToDoContent();
+        this.requestAnswerValue = requestUpdate.getRequestAnswerValue();
+        this.targetDay = requestUpdate.getTargetDay();
+        this.finishedDay = requestUpdate.getFinishedDay();
+        this.requestUserId = requestUpdate.getRequestUserId();
+        this.solvedUserId = requestUpdate.getSolvedUserId();
+        this.answerValue = requestUpdate.getAnswerValue();
+        this.requestAnswerCheck = requestUpdate.getRequestAnswerCheck();
+        this.completeCheck = requestUpdate.getCompleteCheck();
+        this.toDoStatus = requestUpdate.getToDoStatus();
+        return this;
     }
 
 }
