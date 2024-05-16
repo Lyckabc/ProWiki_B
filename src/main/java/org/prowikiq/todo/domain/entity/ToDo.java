@@ -70,6 +70,7 @@ public class ToDo extends BaseEntity {
     @Column(name = "solved_user_id")
     private Long solvedUserId;
 
+
     public ToDoDto toDto() {
         return ToDoDto.builder()
             .toDoId(this.toDoId)
@@ -83,7 +84,5 @@ public class ToDo extends BaseEntity {
             .solvedUserId(this.solvedUserId)
             .build();
     }
-
-
 
 }

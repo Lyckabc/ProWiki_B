@@ -75,10 +75,15 @@ public class WikiPage extends BaseEntity {
     @Column(name = "modified_at_user_id")
     private Long modifiedAtUserId;
 
-    // Todo
+    // ToDoid 연결
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "to_do_id", referencedColumnName = "to_do_id")
     private ToDo toDoId;
+
+    /* Todo 차후 ToDo를 여러개 저장할 수 있도록 변경
+    @OneToMany(mappedBy = "wikiPage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ToDo> toDos;
+    */
 
     public WikiPage update(WikiPageDto.Request request) {
         this.pageTitle = request.getPageTitle();
