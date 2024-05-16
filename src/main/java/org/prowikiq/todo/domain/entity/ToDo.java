@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prowikiq.global.BaseEntity;
 import org.prowikiq.object.domain.dto.StorageObjectDto;
+import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.wiki.domain.entity.WikiPage;
@@ -53,6 +56,19 @@ public class ToDo extends BaseEntity {
     @Column(name = "request_answer_value")
     private String requestAnswerValue;
 
+    @Column(name = "answer_value")
+    private String answerValue;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "todo_status")
+    private ToDoStatus toDoStatus;
+
+    @Column(name = "complete_check")
+    private Boolean completeCheck;
+
+    @Column(name = "request_answer_check")
+    private Boolean requestAnswerCheck;
+
     @Column(name = "target_day")
     private LocalDateTime targetDay;
 
@@ -70,6 +86,7 @@ public class ToDo extends BaseEntity {
     @Column(name = "solved_user_id")
     private Long solvedUserId;
 
+
     public ToDoDto toDto() {
         return ToDoDto.builder()
             .toDoId(this.toDoId)
@@ -81,9 +98,11 @@ public class ToDo extends BaseEntity {
             .userId(this.userId.toDto())
             .requestUserId(this.requestUserId)
             .solvedUserId(this.solvedUserId)
+            .answerValue(this.answerValue)
+            .requestAnswerCheck(this.requestAnswerCheck)
+            .completeCheck(this.completeCheck)
+            .toDoStatus(this.toDoStatus)
             .build();
     }
-
-
 
 }

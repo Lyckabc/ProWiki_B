@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.dto.UserDto;
-import org.prowikiq.wiki.domain.dto.WikiPageDto;
+import org.prowikiq.user.domain.entity.User;
 
 /**
  * Class: ToDoCreateDto Project: prowikiQ Package: org.prowikiq.todo.domain.dto
@@ -33,4 +35,53 @@ public class ToDoDto {
     private UserDto userId;
     private Long requestUserId;
     private Long solvedUserId;
+    private String answerValue;
+    private Boolean requestAnswerCheck;
+    private Boolean completeCheck;
+    private ToDoStatus toDoStatus;
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RequestWrite {
+        private String toDoTitle;
+        private String toDoContent;
+        private String requestAnswerValue;
+        private LocalDateTime targetDay;
+        private LocalDateTime finishedDay;
+
+        public ToDo toEntity(User user) {
+            return ToDo.builder()
+                .toDoTitle(toDoTitle)
+                .toDoContent(toDoContent)
+                .requestAnswerValue(requestAnswerValue)
+                .targetDay(targetDay)
+                .finishedDay(finishedDay)
+                .userId(user)
+                .requestUserId(user.getUserId())
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class Response {
+        private Long toDoId;
+        private String toDoTitle;
+        private String toDoContent;
+        private String requestAnswerValue;
+        private LocalDateTime targetDay;
+        private LocalDateTime finishedDay;
+        private UserDto userId;
+        private Long requestUserId;
+        private Long solvedUserId;
+        private String answerValue;
+        private Boolean requestAnswerCheck;
+        private Boolean completeCheck;
+    }
 }

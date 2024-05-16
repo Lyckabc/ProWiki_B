@@ -42,7 +42,7 @@ public class WikiPageController {
     }
 
     @ApiOperation(value = "Page write", notes = "WikiPage 작성")
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<String> createWikiPage(@RequestBody WikiPageDto wDto,
         StorageObject object, User user, ToDo toDo) {
         wikiPageService.createPage(wDto, object, user, toDo);

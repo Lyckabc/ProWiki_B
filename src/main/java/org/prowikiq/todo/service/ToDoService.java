@@ -4,15 +4,17 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.todo.domain.dto.ToDoDto;
+import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.domain.repository.ToDoRepository;
 import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.user.service.UserService;
-import org.prowikiq.wiki.domain.dto.WikiPageDto;
-import org.prowikiq.wiki.service.WikiPageService;
+import org.prowikiq.wiki.domain.entity.WikiPage;
+import org.prowikiq.wiki.domain.repository.WikiPageRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,6 +31,9 @@ import org.springframework.stereotype.Service;
 public class ToDoService {
     private final ToDoRepository toDoRepository;
     private final UserService userService;
+    private final WikiPageRepository wikiPageRepository;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Transactional
     public ToDo getToDoFromId(Long toDoId) {
@@ -82,6 +87,24 @@ public class ToDoService {
             .build();
 
         return dto;
+    }
+
+    @Transactional
+    public void createToDo(Long pageId, RequestWrite request, User user) {
+        Optional<WikiPage> page = Optional.empty();
+
+        if (pageId != null) {
+            page = wikiPageRepository.findByPageId(pageId);
+            if (!page.isPresent()) {
+                throw new RuntimeException("해당 Page 없음");
+            }
+        }
+
+        ToDo todo = request.toEntity(user);
+        toDoRepository.save(todo);
+        page.ifPresent(p -> p.setToDoId(todo));
+//        logger.info(String.valueOf(todo));
+//        logger.info(String.valueOf(page.orElse(null)));
     }
 
 }
