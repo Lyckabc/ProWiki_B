@@ -2,16 +2,20 @@ package org.prowikiq.user.service;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.global.config.JwtTokenProvider;
 import org.prowikiq.global.exception.impl.user.AlreadyExistUserException;
 import org.prowikiq.global.exception.impl.user.NotExistUserException;
 import org.prowikiq.global.exception.impl.user.PasswordNotMatchException;
 import org.prowikiq.user.domain.dto.UserSignDto;
 import org.prowikiq.user.domain.dto.UserDto;
+import org.prowikiq.user.domain.entity.Role;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.user.domain.repository.RoleRepository;
 import org.prowikiq.user.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,29 +37,32 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    @Value("${spring.jwt.secret}")
+    private String secretKey;
 
     @Transactional
-    public void join(UserSignDto userSignDto) {
+    public void join(UserSignDto userSignDto, String roleName) {
         String userPhoneNum = userSignDto.getUserPhoneNum();
         LocalDateTime now = LocalDateTime.now();
         // is there exist ID
         if (userRepository.existsByUserPhoneNum(userPhoneNum)) {
             throw new AlreadyExistUserException();
         }
+        Role role = roleRepository.findByRoleName(roleName)
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
 
         User user = User.builder()
             .userPhoneNum(userPhoneNum)
             .userPassword(passwordEncoder.encode(userSignDto.getUserPassword()))
-            .createdAt(now)
-            .modifiedAt(now)
-            .latestedAt(now)
+            .role(role)
             .build();
 
         userRepository.save(user);
     }
 
-    @Value("${spring.jwt.secret}")
-    private String secretKey;
+
     public String login(UserSignDto userSignDto) {
         User user = userRepository.findByUserPhoneNum(userSignDto.getUserPhoneNum())
             .orElseThrow(NotExistUserException::new);
@@ -63,19 +70,7 @@ public class UserService {
             throw new PasswordNotMatchException();
         }
 
-        long nowMillis = System.currentTimeMillis();
-        long expMillis = nowMillis + 3600000;
-        Date exp = new Date(expMillis);
-
-
-        String token = Jwts.builder()
-            .setSubject(user.getUserPhoneNum())
-            .setIssuedAt(new Date(nowMillis))
-            .setExpiration(exp)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
-            .compact();
-
-        return token;
+        return jwtTokenProvider.createToken(user.getUserPhoneNum(), user.getRole());
     }
 
     public void deleteUser(UserSignDto userSignDto) {
@@ -102,7 +97,6 @@ public class UserService {
     }
 
 
-
     @Transactional
     public UserDto userConvertToDto(User user) {
 
@@ -113,5 +107,17 @@ public class UserService {
             .build();
 
         return dto;
+    }
+    @Transactional
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+    @Transactional
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+    @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }
