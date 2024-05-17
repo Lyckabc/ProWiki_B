@@ -5,11 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
-import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.entity.User;
 import org.prowikiq.user.domain.repository.UserRepository;
-import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +42,7 @@ public class ToDoController {
         return ResponseEntity.ok().build();
     }
 
-    @ApiOperation(value = "Update Wiki Page", notes = "Update an existing WikiPage by its ID")
+    @ApiOperation(value = "Update ToDo", notes = "Update an existing ToDo by its ID")
     @PutMapping("/{id}")
     public ToDoDto updateToDo(@PathVariable(name = "id") Long toDoId,
         @RequestParam(required = false) Long pageId,
@@ -66,6 +64,13 @@ public class ToDoController {
         //todo User, Role을 계층식 관계데이터로 만들어서 관리할 예정.
 //        user.getRoles().contains(Role.ADMIN);
         return true;
+    }
+
+    @ApiOperation(value = "status ", notes = "decide to complete ToDo ot Not by ToDoId")
+    @PutMapping("/{id}/check")
+    public ResponseEntity<ToDoDto> completeChk(@PathVariable(name = "id") Long toDoId, @RequestParam("completeChk") Boolean completeChk) {
+        ToDoDto toDoDto = toDoService.completeChkToDo(toDoId, completeChk);
+        return ResponseEntity.ok(toDoDto);
     }
 
 }

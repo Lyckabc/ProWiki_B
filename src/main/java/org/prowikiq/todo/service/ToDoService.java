@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.todo.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
-import org.prowikiq.todo.domain.dto.ToDoDto.AdminUpdate;
 import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.domain.repository.ToDoRepository;
@@ -138,5 +137,16 @@ public class ToDoService {
         }
 
         return todo.toDto();
+    }
+
+    @Transactional
+    public ToDoDto completeChkToDo(Long toDoId,Boolean completeChk) {
+        ToDo toDo = toDoRepository.findByToDoId(toDoId)
+                    .orElseThrow(() -> new RuntimeException("There is no toDoId"));
+
+        toDo.setCompleteCheck(completeChk);
+        toDoRepository.save(toDo);
+
+        return toDo.toDto();
     }
 }

@@ -88,7 +88,9 @@ public class ToDo extends BaseEntity {
 
     @Column(name = "solved_user_id")
     private Long solvedUserId;
-
+    public void setCompleteCheck(Boolean completeCheck) {
+        this.completeCheck = completeCheck;
+    }
 
 
     public ToDoDto toDto() {
