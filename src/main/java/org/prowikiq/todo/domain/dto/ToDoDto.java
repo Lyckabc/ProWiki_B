@@ -51,6 +51,7 @@ public class ToDoDto {
         private String requestAnswerValue;
         private LocalDateTime targetDay;
         private LocalDateTime finishedDay;
+        private ToDoStatus toDoStatus;
 
         public ToDo toEntity(User user) {
             return ToDo.builder()
@@ -59,29 +60,30 @@ public class ToDoDto {
                 .requestAnswerValue(requestAnswerValue)
                 .targetDay(targetDay)
                 .finishedDay(finishedDay)
+                .toDoStatus(toDoStatus)
                 .userId(user)
                 .requestUserId(user.getUserId())
                 .build();
         }
     }
 
+
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class Response {
-        private Long toDoId;
+    public static class AdminUpdate {
         private String toDoTitle;
         private String toDoContent;
         private String requestAnswerValue;
         private LocalDateTime targetDay;
         private LocalDateTime finishedDay;
-        private UserDto userId;
         private Long requestUserId;
         private Long solvedUserId;
         private String answerValue;
         private Boolean requestAnswerCheck;
         private Boolean completeCheck;
+        private ToDoStatus toDoStatus;
     }
 }
