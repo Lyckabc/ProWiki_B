@@ -23,7 +23,12 @@ import lombok.Setter;
 @Builder
 public class UserDto {
     private Long userId;
-    private String userPhoneNum;//유저 휴대폰 번호 겸 아이디
-    private String userPassword;//유저 비밀번호
+    private String userPhoneNum;
+    private String userPassword;
+    private Long roleId;
+    private String userPasswordHash;
+    private String useremail;
+    private String status;
+    private String clazz;
 
 }

@@ -1,5 +1,6 @@
 package org.prowikiq.user.domain.repository;
 
+import java.util.Optional;
 import org.prowikiq.user.domain.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
 public interface RoleRepository extends JpaRepository<Role, Long> {
+    Optional<Role> findByRoleName(String role);
 
 }
