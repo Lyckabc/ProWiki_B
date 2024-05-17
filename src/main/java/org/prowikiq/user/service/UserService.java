@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.prowikiq.global.config.JwtTokenProvider;
 import org.prowikiq.global.exception.impl.user.AlreadyExistUserException;
 import org.prowikiq.global.exception.impl.user.NotExistUserException;
 import org.prowikiq.global.exception.impl.user.PasswordNotMatchException;
@@ -37,6 +38,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final JwtTokenProvider jwtTokenProvider;
     @Value("${spring.jwt.secret}")
     private String secretKey;
 
@@ -68,19 +70,7 @@ public class UserService {
             throw new PasswordNotMatchException();
         }
 
-        long nowMillis = System.currentTimeMillis();
-        long expMillis = nowMillis + 3600000;
-        Date exp = new Date(expMillis);
-
-
-        String token = Jwts.builder()
-            .setSubject(user.getUserPhoneNum())
-            .setIssuedAt(new Date(nowMillis))
-            .setExpiration(exp)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
-            .compact();
-
-        return token;
+        return jwtTokenProvider.createToken(user.getUserPhoneNum(), user.getRole());
     }
 
     public void deleteUser(UserSignDto userSignDto) {
