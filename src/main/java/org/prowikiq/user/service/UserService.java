@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.global.config.JwtTokenProvider;
 import org.prowikiq.global.exception.impl.user.AlreadyExistUserException;
+import org.prowikiq.global.exception.impl.user.NotExistRoleException;
 import org.prowikiq.global.exception.impl.user.NotExistUserException;
 import org.prowikiq.global.exception.impl.user.PasswordNotMatchException;
 import org.prowikiq.user.domain.dto.UserSignDto;
@@ -68,6 +69,11 @@ public class UserService {
             .orElseThrow(NotExistUserException::new);
         if (!passwordEncoder.matches(userSignDto.getUserPassword(), user.getUserPassword())) {
             throw new PasswordNotMatchException();
+        }
+        if (user.getUserPhoneNum() == null) {
+            throw new NotExistUserException();
+        } else if (user.getRole() == null) {
+            throw new NotExistRoleException();
         }
 
         return jwtTokenProvider.createToken(user.getUserPhoneNum(), user.getRole());
