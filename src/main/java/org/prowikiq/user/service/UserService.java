@@ -120,4 +120,12 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+
+    @Transactional
+    public User getFromUserPhoneNum(String userPhoneNum) {
+        User user = userRepository.findByUserPhoneNum(userPhoneNum)
+            .orElseThrow(() -> new RuntimeException("There is no userPhoneNum"));
+
+        return user;
+    }
 }
