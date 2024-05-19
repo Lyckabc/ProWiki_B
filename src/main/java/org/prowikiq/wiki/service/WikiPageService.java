@@ -93,7 +93,7 @@ public class WikiPageService {
     }
 
     @Transactional
-    public WikiPage createPage (WikiPageDto wDto,StorageObject object,ToDo toDo,
+    public WikiPage createPage (WikiPageDto.Request wDto,StorageObject object,ToDo toDo,
         HttpServletRequest request) {
         //token
         String token = jwtTokenProvider.resolveToken(request);
@@ -103,15 +103,14 @@ public class WikiPageService {
         //time
         LocalDateTime now = LocalDateTime.now();
 
+
         WikiPage page = WikiPage.builder()
             .pageTitle(wDto.getPageTitle())
             .pageCategory(wDto.getPageCategory())
             .pageContent(wDto.getPageContent())
             .pagePath(wDto.getPagePath())
-            .createdAt(now)
-            .modifiedAt(now)
-            .latestedAt(now)
             .storageObjectId(object)
+            .userId(user)
             .createdAtUserId(user.getUserId())
             .modifiedAtUserId(user.getUserId())
             .toDoId(toDo)

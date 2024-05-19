@@ -41,16 +41,6 @@ public class WikiPageDto {
     private Long createdAtUserId;
     private Long modifiedAtUserId;
     private ToDoDto toDoId;
-
-    public WikiPage toEntity() {
-        return WikiPage.builder()
-            .pageTitle(pageTitle)
-            .pageContent(pageContent)
-            .pageCategory(pageCategory)
-            .pagePath(pagePath)
-            .createdAtUserId(createdAtUserId)
-            .build();
-    }
     @Getter
     @Setter
     @NoArgsConstructor
@@ -60,6 +50,16 @@ public class WikiPageDto {
         private String pageTitle;
         private String pageContent;
         private String pageCategory;
+        private String pagePath;
+
+        public WikiPage toEntity() {
+            return WikiPage.builder()
+                .pageTitle(pageTitle)
+                .pageContent(pageContent)
+                .pageCategory(pageCategory)
+                .pagePath(pagePath)
+                .build();
+        }
 
     }
 

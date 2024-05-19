@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -44,8 +45,10 @@ public class WikiPageController {
 
     @ApiOperation(value = "Page write", notes = "WikiPage 작성")
     @PostMapping("/")
-    public ResponseEntity<String> createWikiPage(@RequestBody WikiPageDto wDto,
-        StorageObject object,ToDo toDo, HttpServletRequest request) {
+    public ResponseEntity<String> createWikiPage(@RequestBody WikiPageDto.Request wDto,
+                                            @RequestParam(required = false) StorageObject object,
+                                            @RequestParam(required = false) ToDo toDo,
+                                            HttpServletRequest request) {
         wikiPageService.createPage(wDto, object, toDo, request);
         return ResponseEntity.ok("WikiPage create successfully");
     }
