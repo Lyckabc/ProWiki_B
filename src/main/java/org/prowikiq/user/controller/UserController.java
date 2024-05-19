@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,8 +32,8 @@ public class UserController {
 
     @ApiOperation(value = "회원 가입", notes = "아이디(휴대폰 번호), 비밀번호를 통해 회원가입 요청을 보냅니다.")
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody UserSignDto userSignDto) {
-        userService.join(userSignDto);
+    public ResponseEntity<String> join(@RequestBody UserSignDto userSignDto,@RequestParam String roleName) {
+        userService.join(userSignDto,roleName);
         return ResponseEntity.ok("join successfully");
     }
 

@@ -3,8 +3,10 @@ package org.prowikiq.wiki.service;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.browser.domain.dto.BrowserListDto;
+import org.prowikiq.global.config.JwtTokenProvider;
 import org.prowikiq.object.domain.dto.StorageObjectDto;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.object.service.StorageObjectService;
@@ -13,6 +15,7 @@ import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.user.domain.repository.UserRepository;
 import org.prowikiq.user.service.UserService;
 import org.prowikiq.wiki.domain.dto.WikiPageDto;
 import org.prowikiq.wiki.domain.entity.WikiPage;
@@ -36,10 +39,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 @RequiredArgsConstructor
 public class WikiPageService {
+    private final JwtTokenProvider jwtTokenProvider;
     private final WikiPageRepository wikiPageRepository;
     private final StorageObjectService storageObjectService;
     private final UserService userService;
     private final ToDoService toDoService;
+    private final UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -67,7 +72,7 @@ public class WikiPageService {
             toDoDto = null;
         }
         StorageObjectDto storageObjectDto = storageObjectService.objectConvertToDto(wikiPage.getStorageObjectId());
-        UserDto userDto = userService.userConvertToDto(wikiPage.getUserId());
+        UserDto userDto = wikiPage.getUserId().toDto();
 
         WikiPageDto dto =  WikiPageDto.builder()
             .pageId(wikiPage.getPageId())
@@ -88,7 +93,13 @@ public class WikiPageService {
     }
 
     @Transactional
-    public WikiPage createPage (WikiPageDto wDto,StorageObject object, User user,ToDo toDo) {
+    public WikiPage createPage (WikiPageDto wDto,StorageObject object,ToDo toDo,
+        HttpServletRequest request) {
+        //token
+        String token = jwtTokenProvider.resolveToken(request);
+        String userPhoneNum = jwtTokenProvider.getUserPhoneNum(token);
+        User user = userRepository.findByUserPhoneNum(userPhoneNum)
+            .orElseThrow(() -> new RuntimeException("There is no userPhoneNum"));
         //time
         LocalDateTime now = LocalDateTime.now();
 

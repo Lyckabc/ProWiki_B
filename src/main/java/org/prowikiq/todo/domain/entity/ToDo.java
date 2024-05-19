@@ -1,7 +1,6 @@
 package org.prowikiq.todo.domain.entity;
 
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,14 +17,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.prowikiq.global.BaseEntity;
-import org.prowikiq.object.domain.dto.StorageObjectDto;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.user.domain.entity.User;
-import org.prowikiq.wiki.domain.dto.WikiPageDto;
-import org.prowikiq.wiki.domain.entity.WikiPage;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 /**
  * Class: ToDo

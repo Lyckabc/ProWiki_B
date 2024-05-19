@@ -2,8 +2,9 @@ package org.prowikiq.todo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.entity.User;
@@ -36,9 +37,9 @@ public class ToDoController {
     @ApiOperation(value = "create todo with optional pageId", notes = "pageId isn't essential but for detail")
     @PostMapping("/")
     public ResponseEntity<Void> createToDo(@RequestParam(required = false) Long pageId,
-                                        @RequestBody ToDoDto.RequestWrite requestWrite) {
-        User user = getCurrentUser();
-        toDoService.createToDo(pageId, requestWrite, user);
+                                        @RequestBody ToDoDto.RequestWrite requestWrite,
+                                        HttpServletRequest request) {
+        toDoService.createToDo(pageId, requestWrite, request);
         return ResponseEntity.ok().build();
     }
 
