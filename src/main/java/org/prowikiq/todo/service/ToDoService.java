@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.domain.entity.ToDo;

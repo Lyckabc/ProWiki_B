@@ -3,7 +3,7 @@ package org.prowikiq.todo.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.service.ToDoService;
 import org.prowikiq.user.domain.entity.User;

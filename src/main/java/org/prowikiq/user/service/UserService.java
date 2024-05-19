@@ -70,11 +70,7 @@ public class UserService {
         if (!passwordEncoder.matches(userSignDto.getUserPassword(), user.getUserPassword())) {
             throw new PasswordNotMatchException();
         }
-        if (user.getUserPhoneNum() == null) {
-            throw new NotExistUserException();
-        } else if (user.getRole() == null) {
-            throw new NotExistRoleException();
-        }
+
 
         return jwtTokenProvider.createToken(user.getUserPhoneNum(), user.getRole());
     }
