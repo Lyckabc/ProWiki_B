@@ -11,9 +11,14 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.prowikiq.global.exception.impl.user.NotExistRoleException;
+import org.prowikiq.global.exception.impl.user.NotExistUserException;
+import org.prowikiq.global.service.CustomUserDetailService;
+import org.prowikiq.user.domain.entity.CustomUserDetails;
 import org.prowikiq.user.domain.entity.Role;
 import org.prowikiq.user.domain.entity.User;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,11 +56,20 @@ public class JwtTokenProvider {
     public String createToken(String userPk, Role role) {
         Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
         claims.put("role", role.getRoleName()); // 정보는 key / value 쌍으로 저장된다.
+
         Date now = new Date();
+        Date validity = new Date(now.getTime() + tokenValidTime);
+
+        if (userPk == null) {
+            throw new NotExistUserException();
+        } else if (role == null) {
+            throw new NotExistRoleException();
+        }
+
         return Jwts.builder()
             .setClaims(claims) // 정보 저장
             .setIssuedAt(now) // 토큰 발행 시간 정보
-            .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
+            .setExpiration(validity) // set Expire Time
             .signWith(SignatureAlgorithm.HS512, secretKey)  // 사용할 암호화 알고리즘과
             // signature 에 들어갈 secret값 세팅
             .compact();

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;

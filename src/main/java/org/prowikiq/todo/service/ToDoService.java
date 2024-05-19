@@ -2,15 +2,18 @@ package org.prowikiq.todo.service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.prowikiq.todo.ToDoStatus;
+import org.prowikiq.global.config.JwtTokenProvider;
+import org.prowikiq.todo.domain.ToDoStatus;
 import org.prowikiq.todo.domain.dto.ToDoDto;
 import org.prowikiq.todo.domain.dto.ToDoDto.RequestWrite;
 import org.prowikiq.todo.domain.entity.ToDo;
 import org.prowikiq.todo.domain.repository.ToDoRepository;
 import org.prowikiq.user.domain.dto.UserDto;
 import org.prowikiq.user.domain.entity.User;
+import org.prowikiq.user.domain.repository.UserRepository;
 import org.prowikiq.user.service.UserService;
 import org.prowikiq.wiki.domain.entity.WikiPage;
 import org.prowikiq.wiki.domain.repository.WikiPageRepository;
@@ -33,6 +36,8 @@ public class ToDoService {
     private final ToDoRepository toDoRepository;
     private final UserService userService;
     private final WikiPageRepository wikiPageRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -73,7 +78,7 @@ public class ToDoService {
 
     @Transactional
     public ToDoDto toDoConvertToDto(ToDo toDo) {
-        UserDto userDto = userService.userConvertToDto(toDo.getUserId());
+        UserDto userDto = toDo.getUserId().toDto();
 
 
         ToDoDto dto =  ToDoDto.builder()
@@ -91,9 +96,12 @@ public class ToDoService {
     }
 
     @Transactional
-    public void createToDo(Long pageId, ToDoDto.RequestWrite request, User user) {
+    public void createToDo(Long pageId, ToDoDto.RequestWrite request,HttpServletRequest requestHttp) {
         WikiPage page = null;
-
+        String token = jwtTokenProvider.resolveToken(requestHttp);
+        String userPhoneNum = jwtTokenProvider.getUserPhoneNum(token);
+        User user = userRepository.findByUserPhoneNum(userPhoneNum)
+            .orElseThrow(() -> new RuntimeException("There is no userPhoneNum"));
 
         if (pageId != null) {
             page = wikiPageRepository.findByPageId(pageId)

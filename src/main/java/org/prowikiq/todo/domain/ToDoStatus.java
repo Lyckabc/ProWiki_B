@@ -1,4 +1,4 @@
-package org.prowikiq.todo;
+package org.prowikiq.todo.domain;
 
 /**
  * Class: ToDoStatus Project: prowikiQ Package: org.prowikiq.todo

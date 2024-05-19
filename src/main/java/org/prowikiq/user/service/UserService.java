@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.global.config.JwtTokenProvider;
 import org.prowikiq.global.exception.impl.user.AlreadyExistUserException;
+import org.prowikiq.global.exception.impl.user.NotExistRoleException;
 import org.prowikiq.global.exception.impl.user.NotExistUserException;
 import org.prowikiq.global.exception.impl.user.PasswordNotMatchException;
 import org.prowikiq.user.domain.dto.UserSignDto;
@@ -39,8 +40,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    @Value("${spring.jwt.secret}")
-    private String secretKey;
 
     @Transactional
     public void join(UserSignDto userSignDto, String roleName) {
@@ -97,27 +96,5 @@ public class UserService {
     }
 
 
-    @Transactional
-    public UserDto userConvertToDto(User user) {
 
-        UserDto dto =  UserDto.builder()
-            .userId(user.getUserId())
-            .userPhoneNum(user.getUserPhoneNum())
-            .userPassword(user.getUserPassword())
-            .build();
-
-        return dto;
-    }
-    @Transactional
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-    @Transactional
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
-    @Transactional
-    public User save(User user) {
-        return userRepository.save(user);
-    }
 }

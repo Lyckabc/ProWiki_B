@@ -1,6 +1,8 @@
 package org.prowikiq.user.domain.entity;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.prowikiq.global.BaseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * Class: Role Project: prowikiQ Package: org.prowikiq.user.domain.entity
@@ -36,7 +40,7 @@ import org.prowikiq.global.BaseEntity;
 @Builder
 @Entity
 @Table(name = "\"role\"")
-public class Role  {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
@@ -51,5 +55,16 @@ public class Role  {
 
     @OneToMany(mappedBy = "parentRole", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Role> subRoles;
+
+    @Override
+    public String getAuthority() {
+        return this.roleName;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return subRoles.stream()
+            .map(subRole -> new SimpleGrantedAuthority(subRole.getRoleName()))
+            .collect(Collectors.toList());
+    }
 
 }

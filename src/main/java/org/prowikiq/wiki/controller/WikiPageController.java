@@ -2,6 +2,7 @@ package org.prowikiq.wiki.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.prowikiq.object.domain.entity.StorageObject;
 import org.prowikiq.todo.domain.entity.ToDo;
@@ -44,8 +45,8 @@ public class WikiPageController {
     @ApiOperation(value = "Page write", notes = "WikiPage 작성")
     @PostMapping("/")
     public ResponseEntity<String> createWikiPage(@RequestBody WikiPageDto wDto,
-        StorageObject object, User user, ToDo toDo) {
-        wikiPageService.createPage(wDto, object, user, toDo);
+        StorageObject object,ToDo toDo, HttpServletRequest request) {
+        wikiPageService.createPage(wDto, object, toDo, request);
         return ResponseEntity.ok("WikiPage create successfully");
     }
 

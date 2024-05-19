@@ -180,7 +180,7 @@ public class BrowserListService {
         BrowserList browserList = browserListRepository.findById(id)
             .orElseThrow(() -> new NoSuchElementException("BrowserList not found"));
         WikiPageDto wikiPageDto = wikiPageService.wikiConvertToDto(browserList.getPageId());
-        UserDto userDto = userService.userConvertToDto(browserList.getUserId());
+        UserDto userDto = browserList.getUserId().toDto();
         ToDoDto toDoDto = toDoService.toDoConvertToDto(browserList.getToDoId());
 
         BrowserListDto dto = BrowserListDto.builder()
@@ -242,7 +242,7 @@ public class BrowserListService {
 
             ////User -> 5.권한 적용시키기 할 때 HTTP(JWT) data import -> transferTokenToUser 적용
             User user = userService.getUserFromId(userId);
-            UserDto dtoUser = userService.userConvertToDto(user);
+            UserDto dtoUser = user.toDto();
 
             ////Todo
             ToDoDto dtoToDo = null;
