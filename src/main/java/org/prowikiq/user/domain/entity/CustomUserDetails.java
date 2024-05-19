@@ -2,6 +2,8 @@ package org.prowikiq.user.domain.entity;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @date 5/18/24 11:05 Copyright (c) 2024 Lyckabc
  * @see <a href="https://github.com/lyckabc">GitHub Repository</a>
  */
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private final User user;
@@ -61,4 +64,17 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomUserDetails that = (CustomUserDetails) o;
+        return Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user);
+    }*/
 }

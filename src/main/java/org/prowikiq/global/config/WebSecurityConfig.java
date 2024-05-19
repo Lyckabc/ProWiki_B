@@ -28,7 +28,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 @EnableWebSecurity
-@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
     private static final Logger logger = LogManager.getLogger(WebSecurityConfig.class);
@@ -53,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()  // Authorize requests
             .antMatchers("/account/user/**").permitAll() // todo seperate Authority by user,admin,root
-            .antMatchers("/h2-console/**").permitAll() // Allow all access to H2 console
+//            .antMatchers("/h2-console/**").permitAll() // Allow all access to H2 console
             .anyRequest().permitAll()  // Allow all other requests
             .and()
             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

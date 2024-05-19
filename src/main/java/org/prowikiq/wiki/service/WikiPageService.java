@@ -72,7 +72,7 @@ public class WikiPageService {
             toDoDto = null;
         }
         StorageObjectDto storageObjectDto = storageObjectService.objectConvertToDto(wikiPage.getStorageObjectId());
-        UserDto userDto = userService.userConvertToDto(wikiPage.getUserId());
+        UserDto userDto = wikiPage.getUserId().toDto();
 
         WikiPageDto dto =  WikiPageDto.builder()
             .pageId(wikiPage.getPageId())
@@ -98,7 +98,8 @@ public class WikiPageService {
         //token
         String token = jwtTokenProvider.resolveToken(request);
         String userPhoneNum = jwtTokenProvider.getUserPhoneNum(token);
-        User user = userService.getFromUserPhoneNum(userPhoneNum);
+        User user = userRepository.findByUserPhoneNum(userPhoneNum)
+            .orElseThrow(() -> new RuntimeException("There is no userPhoneNum"));
         //time
         LocalDateTime now = LocalDateTime.now();
 
