@@ -59,10 +59,10 @@ dependencies {
     testImplementation("com.h2database:h2:1.4.200") // Use runtimeOnly if needed at runtime
     //testImplementation("org.mockito:mockito-core:4.5.1") // Use the latest version available
 }
-tasks.withType<JavaCompile> {
+/*tasks.withType<JavaCompile> {
     options.compilerArgs.add("-Xlint:unchecked")
     options.encoding = "UTF-8"
-}
+}*/
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments
 tasks.withType<KotlinCompile> {
