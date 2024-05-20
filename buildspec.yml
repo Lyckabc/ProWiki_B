@@ -11,7 +11,7 @@ phases:
     runtime-versions:
       java: corretto11
     commands:
-      - echo Installing Gradle...
+      - echo "Downloading and installing Gradle 7.4..."
       - wget https://services.gradle.org/distributions/gradle-7.4-bin.zip
       - unzip gradle-7.4-bin.zip
       - export PATH=$PATH:$PWD/gradle-7.4/bin
