@@ -1,5 +1,11 @@
 version: 0.2
 
+env:
+  variables:
+    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  build:
+    image: aws/codebuild/standard:5.0
+
 phases:
   install:
     runtime-versions:
