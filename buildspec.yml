@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo Installing Gradle...
+      - wget https://services.gradle.org/distributions/gradle-7.4-bin.zip
+      - unzip gradle-7.4-bin.zip
+      - export PATH=$PATH:$PWD/gradle-7.4/bin
+      - gradle -v
+  pre_build:
+    commands:
+      - echo Pre-build phase...
+      - echo Clean project...
+      - gradle clean
+  build:
+    commands:
+      - echo Build phase...
+      - echo Building the project...
+      - gradle build
+      - echo Building WAR file...
+      - gradle bootWar
+  post_build:
+    commands:
+      - echo Post-build phase...
+      - echo Build completed successfully.
+
+artifacts:
+  files:
+    - build/libs/*.war
+  discard-paths: yes
+
+cache:
+  paths:
+    - /root/.gradle/caches/
+    - /root/.gradle/wrapper/
