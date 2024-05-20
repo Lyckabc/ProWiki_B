@@ -10,6 +10,8 @@ plugins {
     id("org.springframework.boot") version "2.6.15"
     // Apply the Dependency Management plugin for managing dependencies versions more effectively
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    // for war
+    id("war")
 }
 
 // Set the group ID and version for the project artifacts
@@ -35,8 +37,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
     // Database
     implementation("org.postgresql:postgresql")
     // JSON Handling
@@ -45,8 +45,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     // lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok:1.18.24") // 최신 버전으로 업데이트
+    annotationProcessor("org.projectlombok:lombok:1.18.24") // 최신 버전으로 업데이트
     //api Doc
     implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
@@ -54,8 +54,14 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-security")
     implementation ("io.jsonwebtoken:jjwt:0.9.1")
     // test for Mockito
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
     testImplementation("com.h2database:h2:1.4.200") // Use runtimeOnly if needed at runtime
     //testImplementation("org.mockito:mockito-core:4.5.1") // Use the latest version available
+}
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Xlint:unchecked")
+    options.encoding = "UTF-8"
 }
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments
@@ -77,4 +83,14 @@ tasks.withType<Test> {
 springBoot {
     // Generate build information for diagnostics and reporting
     buildInfo()
+}
+
+// for war
+//// Configure the build to produce a WAR file instead of a JAR file
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootWar>("bootWar") {
+    enabled = true
 }

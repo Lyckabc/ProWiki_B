@@ -2,6 +2,8 @@ package org.prowikiq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
@@ -16,8 +18,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class prowikiqApplication {
+public class ProwikiqApplication extends SpringBootServletInitializer {
+
     public static void main(String[] args) {
-        SpringApplication.run(prowikiqApplication.class, args);
+        SpringApplication.run(ProwikiqApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(ProwikiqApplication.class);
     }
 }
