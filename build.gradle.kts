@@ -65,14 +65,14 @@ dependencies {
 }*/
 
 // Configure Kotlin compilation to specify target JVM and additional compiler arguments
-tasks.withType<KotlinCompile> {
+/*tasks.withType<KotlinCompile> {
     kotlinOptions {
         // Target JVM version for compilation to ensure compatibility
         jvmTarget = "11"
         // Compiler arguments for enhanced interoperability and safety
         freeCompilerArgs = listOf("-Xjsr305=strict")
     }
-}
+}*/
 
 // Configure testing tasks to use JUnit Platform for modern testing features
 tasks.withType<Test> {
