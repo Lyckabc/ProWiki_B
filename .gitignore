@@ -1,0 +1,124 @@
+# Mac OS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.iws
+.idea-compl
+*.ipr
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# Java
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Build and package files
+dist/
+build/
+*.egg-info/
+
+# Spring Boot
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+build.gradle.kts
+buildspec.yml
+settings.gradle.kts
+
+#etc
+pull_request_template.md
+
+# 설정 파일
+application.yml
+application.properties
+application-*.yml
+application-*.properties
+
+# 보안 관련
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+
+# 데이터베이스
+*.db
+*.sqlite
+*.sqlite3
+
+# 캐시 파일
+.sass-cache/
+.cache/
+.temp/
+
+# 빌드 결과물
+dist/
+build/
+out/
