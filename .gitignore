@@ -94,6 +94,7 @@ settings.gradle.kts
 
 #etc
 pull_request_template.md
+.idea
 
 # 설정 파일
 **/application.yml
